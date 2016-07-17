@@ -1,6 +1,6 @@
 # npm-base
 
-Boilerplate for creating npm packages with ES2015. Written with Meteor developers in mind but great for anyone. Based on Arunoda's original npm-base boilerplate, initially forked to use the AirBnB style guide for linting.  
+Boilerplate for creating npm packages with ES2015. Written with Meteor developers in mind but great for anyone. Based on Arunoda's original npm-base boilerplate, this was initially forked to add the babel watch command and use the AirBnB style guide for linting.  
 
 ---
 
@@ -13,6 +13,7 @@ If you want to write a **npm module** in ES2015 and publish to npm with backward
 * Simply clone [this](https://github.com/kadirahq/npm-base) project.
 * Change the `package.json` as you want.
 * `lib/index.js` in your entry point.
+* `npm start` will initiate the babel watch command and automatically transpile your code on save.
 * Then publish to npm via `npm publish`.
 
 ## Linting
