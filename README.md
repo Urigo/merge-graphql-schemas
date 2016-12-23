@@ -1,42 +1,77 @@
-# npm-base
+# MergeGraphqlSchemas
 
-Boilerplate for creating npm packages with ES2015. Written with Meteor developers in mind but great for anyone. Based on Arunoda's original npm-base boilerplate, this was initially forked to add the babel watch command and use the AirBnB style guide for linting.  
+## Objectives:
+  * Reduce the complexity of Graphql server implementation
+  * Facilitate the modularization of type and resolver files
 
----
+## Motivation
 
-Writing in ES2015 is an amazing experience. Setting up babel and the development environment in a kind of a pain.
+When using graphql-tools, a package from the ApolloStack Team, to combine our
+types and resolvers, we call the function `makeExecutableSchema` passing the full
+schema as a string, and a resolvers object.
 
-If you want to write a **npm module** in ES2015 and publish to npm with backward compatibility, this is the **easiest** way.
+For the schema file, we can create it as a single string containing all types
+but as the app grows so does the size/complexity of this file. The other way,
+if we put every type in its own file, we would need a way of merging all that
+information back in one string.
 
-## Basic Usage
+Samething for our resolvers, create everything in one big/complex file/object or
+merge multiple files/objects into one.
 
-* Simply clone [this](https://github.com/kadirahq/npm-base) project.
-* Change the `package.json` as you want.
-* `lib/index.js` in your entry point.
-* `npm start` will initiate the babel watch command and automatically transpile your code on save.
-* Then publish to npm via `npm publish`.
+This package will help the user by giving him a function where he can pass in
+the folder(s) that contain the types and resolvers and will return everything
+ready to be passed to `makeExecutableSchema`. We could also go one step ahead
+and return an actual executableSchema, in other words, the package would call
+`makeExecutableSchema`.
 
-## Linting
+## Options
 
-* ESLINT support is added to the project.
-* It's configured for ES2015 and inherited configurations from [graphql/graphql-js](https://github.com/graphql/graphql-js).
-* Use `npm run lint` to lint your code and `npm run lintfix` to fix common issues.
+Our function `mergeGraphqlSchemas` should be able to receive:
+  * only a string indicating the folder where all types and resolvers are;
+  * an array of objects where the package would extract types and resolvers;
+  * an object where the user would have many options to specify folders,
+  specific query and mutation type names, and any other options we see fit.
 
-## Testing
+## API Example
 
-* You can write test under `__test__` directory anywhere inside `lib` including sub-directories.
-* Then run `npm test` to test your code. (It'll lint your code as well).
-* You can also run `npm run testonly` to run tests without linting.
+Only passing a folder directory:
 
-## ES2015 Setup
+```js
+  const executableSchema = mergeGraphqlSchemas('./graphql');
 
-* ES2015 support is added with babel6.
-* After you publish your project to npm, it can be run on older node versions and browsers without the support of Babel.
-* This project uses ES2015 and some of the upcoming features like `async await`.
-* You can change them with adding and removing [presets](http://jamesknelson.com/the-six-things-you-need-to-know-about-babel-6/).
-* All the polyfills you use are taken from the local `babel-runtime` package. So, this package won't add any global polyfills and pollute the global namespace.
+  app.use(
+    '/graphql',
+    bodyParser.json(),
+    apolloExpress({ schema: executableSchema })
+  );
+```
 
-## Kudos
+Passing an array of objects:
 
-* Babel6 and the team behind it.
-* AirBnB style guide
+```js
+  const executableSchema = mergeGraphqlSchemas([ClientType, ProductType, ...]);
+
+  app.use(
+    '/graphql',
+    bodyParser.json(),
+    apolloExpress({ schema: executableSchema })
+  );
+```
+
+Passing a complex object:
+
+```js
+  const executableSchema = mergeGraphqlSchemas({
+    typesFolder: './graphql/types',
+    resolversFolder: './graphql/resolvers',
+    queryTypeName: 'rootQuery',
+    mutationTypeName: 'rootMutation',
+    ...
+  })
+
+  app.use(
+    '/graphql',
+    bodyParser.json(),
+    apolloExpress({ schema: executableSchema })
+  );
+```
