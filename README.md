@@ -2,27 +2,73 @@
 
 ## Objectives:
   * Reduce the complexity of Graphql server implementation
-  * Facilitate the modularization of type and resolver files
+  * Modularize type and resolver files
 
 ## Motivation
 
 When using graphql-tools, a package from the ApolloStack Team, to combine our
-types and resolvers, we call the function `makeExecutableSchema` passing the full
-schema as a string, and a resolvers object.
+types and resolvers, we call the function `makeExecutableSchema()`, passing the full schema as a string, and a resolvers object.
 
-For the schema file, we can create it as a single string containing all types
-but as the app grows so does the size/complexity of this file. The other way,
-if we put every type in its own file, we would need a way of merging all that
-information back in one string.
+For the schema file, we can create it as a single string containing all types.
+But as the app grows, so does the size/complexity of this file. On the other hand, if we put every type in its own file, we need a way of merging all that information back into one string. Apollo lets us pass multiple strings, which lets us separate types, but the root queries for those types still need to be merged with the root query and mutation objects. We would like to be able to specify a types and queries that belong to the same domain together:  
 
-Samething for our resolvers, create everything in one big/complex file/object or
-merge multiple files/objects into one.
+*ClientType*
+```
+type Client {
+  id: ID!
+  name: String
+  age: Int
+  products: [Product]
+}
 
-This package will help the user by giving him a function where he can pass in
-the folder(s) that contain the types and resolvers and will return everything
-ready to be passed to `makeExecutableSchema`. We could also go one step ahead
-and return an actual executableSchema, in other words, the package would call
-`makeExecutableSchema`.
+type Query {
+  clients: [Client]
+  client(id: ID!): Client
+}
+```
+
+*ProductType*
+```
+type Product {
+  id: ID!
+  description: String
+  price: Int
+}
+
+type Query {
+  products: [Product]
+  product(id: ID!): Product
+}
+```
+
+
+*Merged Result*
+```
+type Client {
+  id: ID!
+  name: String
+  age: Int
+  products: [Product]
+}
+
+type Product {
+  id: ID!
+  description: String
+  price: Int
+}
+
+# This part is hard because everything is in unparsed GraphQL language (string):
+type Query {
+  clients: [Client]
+  client(id: ID!): Client
+  products: [Product]
+  product(id: ID!): Product
+}
+```
+
+It's the same for our resolvers: Create everything in one big/complex file/object or merge multiple files/objects into one.
+
+This package will allow you to just specify a folder or a set of imports to merge. `mergeGraphqlSchemas()` will merge not only your types but also root queries in the correct format to be passed to passed to `makeExecutableSchema`. We could also go one step further and actually call `makeExecutableSchema`.
 
 ## Options
 
@@ -46,7 +92,7 @@ Only passing a folder directory:
   );
 ```
 
-Passing an array of objects:
+Passing an array of type definitions:
 
 ```js
   const executableSchema = mergeGraphqlSchemas([ClientType, ProductType, ...]);
@@ -58,14 +104,16 @@ Passing an array of objects:
   );
 ```
 
-Passing a complex object:
+Passing an options object:
 
 ```js
   const executableSchema = mergeGraphqlSchemas({
-    typesFolder: './graphql/types',
+    typesFolder: './graphql/types', // get everything in this folder
     resolversFolder: './graphql/resolvers',
-    queryTypeName: 'rootQuery',
-    mutationTypeName: 'rootMutation',
+    types: [ClientType, ProductType], // or specify objects you import yourself
+    resolvers: [ClientResolvers, ProductResolvers]
+    rootQueryName: 'Query',
+    rootMutationName: 'Mutation',
     ...
   })
 
