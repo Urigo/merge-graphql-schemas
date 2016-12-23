@@ -1,10 +1,9 @@
-import {expect} from 'chai';
-import {sum} from '../';
-const {describe, it} = global;
+import assert from 'assert';
+import mergeGraphqlSchemas from '../index';
 
-describe('sum', () => {
-  it('should add two numbers correctly', async () => {
-    const result = await sum(10, 20);
-    expect(result).to.be.equal(30);
+describe('test', () => {
+  it('should pass', async () => {
+    const options = mergeGraphqlSchemas('options')
+    assert.equal(options, 'options');
   });
 });
