@@ -80,6 +80,18 @@ Our function `mergeGraphqlSchemas` should be able to receive:
 
 ## API Example
 
+We could define some conventions and, for example, consider that the '/graphql' folder contains a '/types' and a '/resolvers' folder. In that case, we could allow the API to be called with no arguments.
+
+```js
+  const executableSchema = mergeGraphqlSchemas();
+
+  app.use(
+    '/graphql',
+    bodyParser.json(),
+    apolloExpress({ schema: executableSchema })
+  );
+```
+
 Only passing a folder directory:
 
 ```js
@@ -92,7 +104,7 @@ Only passing a folder directory:
   );
 ```
 
-Passing an array of type definitions:
+Passing an array of type definitions (we would be fetching resolvers from the same files):
 
 ```js
   const executableSchema = mergeGraphqlSchemas([ClientType, ProductType, ...]);
