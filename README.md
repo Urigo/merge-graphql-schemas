@@ -68,7 +68,7 @@ type Query {
 
 It's the same for our resolvers: Create everything in one big/complex file/object or merge multiple files/objects into one.
 
-This package will allow you to just specify a folder or a set of imports to merge. `mergeGraphqlSchemas()` will merge not only your types but also root queries in the correct format to be passed to passed to `makeExecutableSchema`. We could also go one step further and actually call `makeExecutableSchema`.
+This package will allow you to just specify a folder or a set of imports to merge. `mergeGraphqlSchemas()` will merge not only your types but also root queries in the correct format to be passed to `makeExecutableSchema()`. We could also go one step further and actually call `makeExecutableSchema`.
 
 ## Options
 
