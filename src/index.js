@@ -1,6 +1,7 @@
 const mergeGraphqlSchema = (options) => {
 
-  return options;
+  return 'ok';
+  
 }
 
 export default mergeGraphqlSchema;
