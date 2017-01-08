@@ -3,8 +3,15 @@ const queries = {
   client: () => {},
 };
 
-const subQueries = {};
+const mutations = {
+  create_client: () => {},
+  update_client: () => {},
+};
 
-const mutations = {};
+const subQueries = {
+  Client: {
+    products: () => {},
+  }
+};
 
-export { queries, subQueries, mutations };
+export { queries, mutations, subQueries };

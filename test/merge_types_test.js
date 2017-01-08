@@ -92,6 +92,7 @@ describe('mergeTypes', () => {
           id: ID!
           description: String
           price: Int
+          clients: [Client]
         }
       `.replace(/ |\n/g,'');
 

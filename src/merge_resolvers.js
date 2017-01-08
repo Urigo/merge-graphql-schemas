@@ -5,9 +5,15 @@ const mergeResolvers = (resolvers, options) => {
     ...resolvers.map(({ queries }) => queries)
   );
 
-  const mutationResolvers = {};
+  const mutationResolvers = Object.assign(
+    {},
+    ...resolvers.map(({ mutations }) => mutations)
+  );
 
-  const subQueriesResolvers = {};
+  const subQueriesResolvers = Object.assign(
+    {},
+    ...resolvers.map(({ subQueries }) => subQueries)
+  );
 
   return Object.assign(
     {
