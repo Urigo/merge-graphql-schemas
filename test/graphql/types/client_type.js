@@ -1,6 +1,4 @@
-import { type as productType } from './product_type';
-
-const clientType = `
+const type = `
   type Client {
     id: ID!
     name: String
@@ -18,7 +16,5 @@ const mutations = `
   create_client(name: String!, age: Int!): Client
   update_client(id: ID!, name: String!, age: Int!): Client
 `;
-
-const type = () => [clientType, productType];
 
 export { type, queries, mutations };

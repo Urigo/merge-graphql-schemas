@@ -8,48 +8,96 @@ const assert = chai.assert;
 describe('mergeTypes', () => {
   describe('with default options', () => {
 
-    it('returns merged schema', async () => {
+    it('includes schemaType', async () => {
 
       const types = [clientType, productType];
-      const mergedTypes = mergeTypes(types).replace(/ /g,'');
+      const mergedTypes = mergeTypes(types);
 
-      const clientType = `
-        type Client {
-          id: ID!
-          name: String
-          age: Int
-          products: [Product]
+      const expectedSchemaType = `
+        schema {
+          query: Query,
+          mutation: Mutation
         }
-      `.replace(/ /g,'');
+      `.replace(/ |\n/g,'');
 
-      const productType = `
-        type Product {
-          id: ID!
-          description: String
-          price: Int
-        }
-      `.replace(/ /g,'');
+      const schema = mergedTypes[0].replace(/ |\n/g,'');
 
-      const queryType = `
+      assert.include(schema, expectedSchemaType, 'Merged Schema is missing schemaType');
+    });
+
+
+    it('includes queryType', async () => {
+
+      const types = [clientType, productType];
+      const mergedTypes = mergeTypes(types);
+
+      const expectedQueryType = `
         type Query {
           clients: [Client]
           client(id: ID!): Client
           products: [Product]
           product(id: ID!): Product
         }
-      `.replace(/ /g,'');
+      `.replace(/ |\n/g,'');
 
-      const mutationType = `type Mutation {
+      const schema = mergedTypes[0].replace(/ |\n/g,'');
+
+      assert.include(schema, expectedQueryType, 'Merged Schema is missing queryType');
+    });
+
+    it('includes mutationType', async () => {
+
+      const types = [clientType, productType];
+      const mergedTypes = mergeTypes(types);
+
+      const expectedMutationType = `type Mutation {
           create_client(name: String!, age: Int!): Client
           update_client(id: ID!, name: String!, age: Int!): Client
           create_product(description: String!, price: Int!): Product
           update_product(id: ID!, description: String!, price: Int!): Product
-        }`.replace(/ /g,'');
+        }`.replace(/ |\n/g,'');
 
-      assert.include(mergedTypes, clientType, 'Merged Schema is missing clientType');
-      assert.include(mergedTypes, productType, 'Merged Schema is missing productType');
-      assert.include(mergedTypes, queryType, 'Merged Schema is missing queryType');
-      assert.include(mergedTypes, mutationType, 'Merged Schema is missing mutationType');
+
+      const schema = mergedTypes[0].replace(/ |\n/g,'');
+
+      assert.include(schema, expectedMutationType, 'Merged Schema is missing mutationType');
+    });
+
+    it('includes clientType', async () => {
+
+      const types = [clientType, productType];
+      const mergedTypes = mergeTypes(types);
+
+      const expectedClientType = `
+        type Client {
+          id: ID!
+          name: String
+          age: Int
+          products: [Product]
+        }
+      `.replace(/ |\n/g,'');
+
+      const separateTypes = mergedTypes.slice(1).map((type) => type.replace(/ |\n/g,''));
+
+      assert.include(separateTypes, expectedClientType, 'Merged Schema is missing clientType');
+    });
+
+    it('includes productType', async () => {
+
+      const types = [clientType, productType];
+      const mergedTypes = mergeTypes(types);
+
+      const expectedProductType = `
+        type Product {
+          id: ID!
+          description: String
+          price: Int
+        }
+      `.replace(/ |\n/g,'');
+
+      const separateTypes = mergedTypes.slice(1).map((type) => type.replace(/ |\n/g,''));
+
+      assert.include(separateTypes, expectedProductType, 'Merged Schema is missing productType');
     });
 
   });

@@ -1,35 +1,21 @@
 const mergeTypes = (types, options) => {
 
-  const merged =  `
-    type Client {
-      id: ID!
-      name: String
-      age: Int
-      products: [Product]
-    }
-
-    type Product {
-      id: ID!
-      description: String
-      price: Int
+  const schema = `
+    schema {
+      query: Query,
+      mutation: Mutation
     }
 
     type Query {
-      clients: [Client]
-      client(id: ID!): Client
-      products: [Product]
-      product(id: ID!): Product
+      ${types.map(({ queries }) => queries).join('')}
     }
 
     type Mutation {
-      create_client(name: String!, age: Int!): Client
-      update_client(id: ID!, name: String!, age: Int!): Client
-      create_product(description: String!, price: Int!): Product
-      update_product(id: ID!, description: String!, price: Int!): Product
+      ${types.map(({ mutations }) => mutations).join('')}
     }
   `;
 
-  return merged;
+  return [schema, ...types.map(({ type }) => type)];
   
 }
 

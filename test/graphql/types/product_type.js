@@ -16,4 +16,4 @@ const mutations = `
   update_product(id: ID!, description: String!, price: Int!): Product
 `;
 
-export { type, queries };
+export { type, queries, mutations };
