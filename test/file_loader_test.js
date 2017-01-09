@@ -1,21 +1,17 @@
 import chai from 'chai';
-import loadTypes from '../src/load_types';
+import fileLoader from '../src/file_loader';
 import * as clientType from './graphql/types/client_type';
 import * as productType from './graphql/types/product_type';
 
 const assert = chai.assert;
 
-describe('loadTypes', () => {
+describe('fileLoader', () => {
   describe('with default options', () => {
 
-    it('loads all types', async () => {
-
-      const options = {
-        typesFolder: '../test/graphql/types',
-      }
+    it('loads all files from specified folder', async () => {
 
       const types = [clientType, productType];
-      const loadedTypes = loadTypes(options);
+      const loadedTypes = fileLoader('../test/graphql/types');
 
       assert.deepEqual(loadedTypes, types);
      
