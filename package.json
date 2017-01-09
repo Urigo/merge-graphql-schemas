@@ -36,9 +36,11 @@
     "eslint-plugin-jsx-a11y": "^2.0.1",
     "eslint-plugin-react": "^5.2.2",
     "mocha": "2.x.x",
-    "nodemon": "1.7.x"
+    "nodemon": "1.7.x",
+    "testdouble": "^1.10.2"
   },
   "dependencies": {
-    "babel-runtime": "6.x.x"
+    "babel-runtime": "6.x.x",
+    "graphql-tools": "^0.9.0"
   }
 }
