@@ -1,24 +1,27 @@
 import assert from 'assert';
 import td from 'testdouble';
-import mergeGraphqlSchemas from '../index';
 
 const graphqlToolsMock = td.object(['makeExecutableSchema']);
-let makeExecutableSchema;
+let mergeGraphqlSchemas;
 
 describe('mergeGraphqlSchema', () => {
 
   before(() => {
     td.replace('graphql-tools', graphqlToolsMock);
-    makeExecutableSchema = require('../index').makeExecutableSchema;
+    mergeGraphqlSchemas = require('../src/index').default;
+    console.log(mergeGraphqlSchemas)
   });
 
+  afterEach(() => {
+    td.reset();
+  });
 
   describe('without arguments', () => {
 
     it('should pass', async () => {
-      const schema = mergeGraphqlSchemas()
-      // assert.equal(schema, 'ok');
-      td.verify(graphqlToolsMock.makeExecutableSchema([], []);
+      mergeGraphqlSchemas();
+
+      td.verify(graphqlToolsMock.makeExecutableSchema([], []));
     });
 
   });
@@ -26,8 +29,9 @@ describe('mergeGraphqlSchema', () => {
   describe('passing graphql folder', () => {
 
     it('should pass', async () => {
-      const schema = mergeGraphqlSchemas('./tests/graphql')
-      assert.equal(schema, 'ok');
+      mergeGraphqlSchemas('../test/graphql');
+
+      td.verify(graphqlToolsMock.makeExecutableSchema([], []));
     });
 
   });
@@ -35,8 +39,9 @@ describe('mergeGraphqlSchema', () => {
   describe('passing options object', () => {
 
     it('should pass', async () => {
-      const schema = mergeGraphqlSchemas({ someOption: 'option' })
-      assert.equal(schema, 'ok');
+      mergeGraphqlSchemas({});
+
+      td.verify(graphqlToolsMock.makeExecutableSchema([], []));
     });
 
   });

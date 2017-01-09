@@ -5,8 +5,8 @@ const fileLoader = (folderPath) => {
   
   const dir = path.join(__dirname, folderPath);
   const files = [];
-  fs.readdirSync(dir).forEach((file) => {
-    const filesDir = path.join(dir, file);
+  fs.readdirSync(dir).forEach((f) => {
+    const filesDir = path.join(dir, f);
     const file = require(filesDir);
     files.push(file);
   });
