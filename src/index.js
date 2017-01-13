@@ -1,27 +1,33 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import fileLoader from './file_loader';
+import mergeTypes from './merge_types';
+import mergeResolvers from './merge_resolvers';
 
 const mergeGraphqlSchema = (options) => {
 
-  let typesFolder, resolversFolder;
+  let typesFolder;
+  let resolversFolder;
 
   if (options === undefined) {
     typesFolder = './graphql/types';
     resolversFolder = './graphql/resolvers';
   }
-  else if (options instanceof String) {
+  else if (typeof options === 'string') {
     typesFolder = `${options}/types`;
     resolversFolder = `${options}/resolvers`;
-  } else if ( options instanceof Object) {
+  } else if ( typeof options === 'object') {
     typesFolder = options.typesFolder || './graphql/types';
     resolversFolder = options.resolversFolder || './graphql/resolvers';
   }
 
   const typeFiles = fileLoader(typesFolder);
-  const resolverFiles = fileLoader(resolversFolder);
+  const mergedTypes = mergeTypes(typeFiles);
 
-  return makeExecutableSchema([], []);
-  
+  const resolverFiles = fileLoader(resolversFolder);
+  const mergedResolvers = mergeResolvers(resolverFiles);
+
+  return makeExecutableSchema(mergedTypes, mergedResolvers);
+
 }
 
 export default mergeGraphqlSchema;
