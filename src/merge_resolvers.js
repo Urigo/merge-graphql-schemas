@@ -1,28 +1,5 @@
-const mergeResolvers = (resolvers, options) => {
+import { merge } from 'lodash';
 
-  const queryResolvers = Object.assign(
-    {},
-    ...resolvers.map(({ queries }) => queries)
-  );
-
-  const mutationResolvers = Object.assign(
-    {},
-    ...resolvers.map(({ mutations }) => mutations)
-  );
-
-  const subQueriesResolvers = Object.assign(
-    {},
-    ...resolvers.map(({ subQueries }) => subQueries)
-  );
-
-  return Object.assign(
-    {
-      Query: queryResolvers,
-      Mutation: mutationResolvers,
-    },
-    subQueriesResolvers
-  ); 
-  
-}
+const mergeResolvers = (resolvers) => merge(...resolvers);
 
 export default mergeResolvers;

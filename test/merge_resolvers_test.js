@@ -1,7 +1,7 @@
 import chai from 'chai';
 import mergeResolvers from '../src/merge_resolvers';
-import * as clientResolver from './graphql/resolvers/client_resolver';
-import * as productResolver from './graphql/resolvers/product_resolver';
+import clientResolvers from './graphql/resolvers/client_resolver';
+import productResolvers from './graphql/resolvers/product_resolver';
 
 const assert = chai.assert;
 
@@ -10,7 +10,7 @@ describe('mergeResolvers', () => {
 
     it('merges all query resolvers', async () => {
 
-      const resolvers = [clientResolver, productResolver];
+      const resolvers = [clientResolvers, productResolvers];
       const mergedResolvers = mergeResolvers(resolvers);
 
       assert.isDefined(mergedResolvers.Query.clients, 'Merged resolvers is missing clients resolver');
@@ -22,7 +22,7 @@ describe('mergeResolvers', () => {
 
     it('merges all mutation resolvers', async () => {
 
-      const resolvers = [clientResolver, productResolver];
+      const resolvers = [clientResolvers, productResolvers];
       const mergedResolvers = mergeResolvers(resolvers);
 
       assert.isDefined(mergedResolvers.Mutation.create_client, 'Merged resolvers is missing create_client resolver');
@@ -34,7 +34,7 @@ describe('mergeResolvers', () => {
 
     it('merges all subQuery resolvers', async () => {
 
-      const resolvers = [clientResolver, productResolver];
+      const resolvers = [clientResolvers, productResolvers];
       const mergedResolvers = mergeResolvers(resolvers);
 
       assert.isDefined(mergedResolvers.Client.products, 'Merged resolvers is missing Client.products resolver');
