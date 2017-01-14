@@ -5,7 +5,7 @@ import * as productType from './graphql/types/product_type';
 
 const assert = chai.assert;
 
-const normalizeWhitespace = (str) => str.replace(/\s+/g,' ').trim();
+const normalizeWhitespace = str => str.replace(/\s+/g,' ').trim();
 
 describe('mergeTypes', () => {
   describe('with default options', () => {
