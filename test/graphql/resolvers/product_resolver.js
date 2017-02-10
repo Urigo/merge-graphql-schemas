@@ -7,6 +7,7 @@ export default {
     create_product: () => {},
     update_product: () => {},
   },
+
   Product: {
     clients: () => {},
   }

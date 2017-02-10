@@ -9,7 +9,6 @@ describe('mergeResolvers', () => {
   describe('with default options', () => {
 
     it('merges all query resolvers', async () => {
-
       const resolvers = [clientResolvers, productResolvers];
       const mergedResolvers = mergeResolvers(resolvers);
 
@@ -21,7 +20,6 @@ describe('mergeResolvers', () => {
     });
 
     it('merges all mutation resolvers', async () => {
-
       const resolvers = [clientResolvers, productResolvers];
       const mergedResolvers = mergeResolvers(resolvers);
 
@@ -33,7 +31,6 @@ describe('mergeResolvers', () => {
     });
 
     it('merges all subQuery resolvers', async () => {
-
       const resolvers = [clientResolvers, productResolvers];
       const mergedResolvers = mergeResolvers(resolvers);
 
