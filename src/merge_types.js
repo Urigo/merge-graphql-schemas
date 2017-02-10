@@ -1,4 +1,20 @@
-const mergeTypes = (types, options) => {
+const mergeTypes = (types) => {
+  const sliceDefaultTypes = operation =>
+    types.map((type) => {
+      const startIndex = `type ${operation} {`.length + type.indexOf(`type ${operation} {`);
+      const endIndex = type.indexOf('}', startIndex);
+      return type.slice(startIndex, endIndex - 1);
+    }).join(' ');
+
+  const sliceCustomTypes = () =>
+    types.map((type) => {
+      const extractedType = /type (?!Query)(?!Mutation)([\s\S]*?) {/.exec(type);
+      if (extractedType === null) { return ''; }
+      const startIndex = extractedType.index;
+      const endIndex = type.indexOf('}', startIndex);
+      return type.slice(startIndex, endIndex + 1);
+    });
+
 
   const schema = `
     schema {
@@ -7,16 +23,15 @@ const mergeTypes = (types, options) => {
     }
 
     type Query {
-      ${types.map(({ queries }) => queries).join('')}
+      ${sliceDefaultTypes('Query')}
     }
 
     type Mutation {
-      ${types.map(({ mutations }) => mutations).join('')}
+      ${sliceDefaultTypes('Mutation')}
     }
   `;
 
-  return [schema, ...types.map(({ type }) => type)];
-  
-}
+  return [schema, ...sliceCustomTypes()];
+};
 
 export default mergeTypes;

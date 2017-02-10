@@ -1,17 +1,15 @@
 import chai from 'chai';
 import mergeTypes from '../src/merge_types';
-import * as clientType from './graphql/types/client_type';
-import * as productType from './graphql/types/product_type';
+import clientType from './graphql/types/client_type';
+import productType from './graphql/types/product_type';
 
 const assert = chai.assert;
 
-const normalizeWhitespace = str => str.replace(/\s+/g,' ').trim();
+const normalizeWhitespace = str => str.replace(/\s+/g, ' ').trim();
 
 describe('mergeTypes', () => {
   describe('with default options', () => {
-
     it('includes schemaType', async () => {
-
       const types = [clientType, productType];
       const mergedTypes = mergeTypes(types);
 
@@ -29,7 +27,6 @@ describe('mergeTypes', () => {
 
 
     it('includes queryType', async () => {
-
       const types = [clientType, productType];
       const mergedTypes = mergeTypes(types);
 
@@ -48,7 +45,6 @@ describe('mergeTypes', () => {
     });
 
     it('includes mutationType', async () => {
-
       const types = [clientType, productType];
       const mergedTypes = mergeTypes(types);
 
@@ -66,7 +62,6 @@ describe('mergeTypes', () => {
     });
 
     it('includes clientType', async () => {
-
       const types = [clientType, productType];
       const mergedTypes = mergeTypes(types);
 
@@ -79,13 +74,12 @@ describe('mergeTypes', () => {
         }
       `);
 
-      const separateTypes = mergedTypes.slice(1).map((type) => normalizeWhitespace(type));
+      const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
 
       assert.include(separateTypes, expectedClientType, 'Merged Schema is missing clientType');
     });
 
     it('includes productType', async () => {
-
       const types = [clientType, productType];
       const mergedTypes = mergeTypes(types);
 
@@ -98,11 +92,9 @@ describe('mergeTypes', () => {
         }
       `);
 
-      const separateTypes = mergedTypes.slice(1).map((type) => normalizeWhitespace(type));
+      const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
 
       assert.include(separateTypes, expectedProductType, 'Merged Schema is missing productType');
     });
-
   });
-
 });

@@ -9,6 +9,10 @@
     "max-len": 1, // Sometimes necessary to have long strings and not risk whitespace
     "no-param-reassign": [2, { "props": false }], // Allows assignment of new properties
   },
+  "globals": {
+    "describe": true,
+    "it": true,
+  },
   "settings": {
     "import/resolver": "meteor",
   }
