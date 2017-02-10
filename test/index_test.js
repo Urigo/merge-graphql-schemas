@@ -1,7 +1,7 @@
 import assert from 'assert';
 import mergeGraphqlSchemas from '../index';
 
-describe('test', () => {
+describe('mergeGraphqlSchema', () => {
   describe('without arguments', () => {
 
     it('should pass', async () => {
