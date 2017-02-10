@@ -1,5 +1,4 @@
-const mergeTypes = (types, options) => {
-
+const mergeTypes = (types) => {
   const schema = `
     schema {
       query: Query,
@@ -16,7 +15,6 @@ const mergeTypes = (types, options) => {
   `;
 
   return [schema, ...types.map(({ type }) => type)];
-  
-}
+};
 
 export default mergeTypes;
