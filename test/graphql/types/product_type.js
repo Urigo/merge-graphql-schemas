@@ -3,6 +3,7 @@ const type = `
     id: ID!
     description: String
     price: Int
+    clients: [Client]
   }
 `;
 
