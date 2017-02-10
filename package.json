@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "options": {
-    "mocha": "--require scripts/mocha_runner test/**/*.js --opts test/mocha.opts"
+    "mocha": "--require scripts/mocha_runner test/**/*_test.js --opts test/mocha.opts"
   },
   "scripts": {
     "prepublish": ". ./scripts/prepublish.sh",
