@@ -1,30 +1,56 @@
 import assert from 'assert';
-import mergeGraphqlSchemas from '../index';
+import td from 'testdouble';
+
+const graphqlToolsMock = td.object(['makeExecutableSchema']);
+const mergeTypes = () => 'mergedTypes';
+const mergeResolvers = () => 'mergedResolvers';
+let mergeGraphqlSchemas;
 
 describe('mergeGraphqlSchema', () => {
-  describe('without arguments', () => {
 
-    it('should pass', async () => {
-      const schema = mergeGraphqlSchemas()
-      assert.equal(schema, 'ok');
-    });
-
+  before(() => {
+    td.replace('graphql-tools', graphqlToolsMock);
+    td.replace('../src/merge_types', mergeTypes);
+    td.replace('../src/merge_resolvers', mergeResolvers);
+    mergeGraphqlSchemas = require('../src/index').default;
+    console.log(mergeGraphqlSchemas)
   });
+
+  afterEach(() => {
+    td.reset();
+  });
+
+  // describe('without arguments', () => {
+
+  //   it('should pass', async () => {
+  //     mergeGraphqlSchemas();
+
+  //     td.verify(graphqlToolsMock.makeExecutableSchema('mergedTypes', 'mergedResolvers'));
+  //   });
+
+  // });
 
   describe('passing graphql folder', () => {
 
     it('should pass', async () => {
-      const schema = mergeGraphqlSchemas('./tests/graphql')
-      assert.equal(schema, 'ok');
+      mergeGraphqlSchemas('../test/graphql');
+
+      td.verify(graphqlToolsMock.makeExecutableSchema('mergedTypes', 'mergedResolvers'));
     });
 
   });
-  
+
   describe('passing options object', () => {
 
     it('should pass', async () => {
-      const schema = mergeGraphqlSchemas({ someOption: 'option' })
-      assert.equal(schema, 'ok');
+      const options = {
+        typesFolder: '../test/graphql/types',
+        resolversFolder: '../test/graphql/resolvers'
+      };
+
+      mergeGraphqlSchemas(options);
+
+      td.verify(graphqlToolsMock.makeExecutableSchema('mergedTypes', 'mergedResolvers'));
     });
 
   });

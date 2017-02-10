@@ -50,7 +50,8 @@ describe('mergeTypes', () => {
       const types = [clientType, productType];
       const mergedTypes = mergeTypes(types);
 
-      const expectedMutationType = `type Mutation {
+      const expectedMutationType = `
+        type Mutation {
           create_client(name: String!, age: Int!): Client
           update_client(id: ID!, name: String!, age: Int!): Client
           create_product(description: String!, price: Int!): Product
