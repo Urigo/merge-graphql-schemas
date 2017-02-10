@@ -15,7 +15,6 @@ const mergeTypes = (types) => {
       return type.slice(startIndex, endIndex + 1);
     });
 
-
   const schema = `
     schema {
       query: Query,
