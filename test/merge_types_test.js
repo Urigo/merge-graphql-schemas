@@ -94,6 +94,7 @@ describe('mergeTypes', () => {
           id: ID!
           description: String
           price: Int
+          clients: [Client]
         }
       `);
 
