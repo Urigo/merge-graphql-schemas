@@ -1,7 +1,7 @@
 {
   "name": "merge-graphql-schemas",
   "version": "0.0.1",
-  "description": "A base NPM package for writing a NPM package in ES2015",
+  "description": "Better organize your GraphQL server.",
   "repository": {
     "type": "git",
     "url": "https://github.com/okgrow/merge-graphql-schemas.git"

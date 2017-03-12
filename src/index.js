@@ -12,7 +12,7 @@ const mergeGraphqlSchemas = (folderPath, debug = false) => {
 
   if (debug === true) {
     console.log('===> SCHEMA: ', typeDefs); // eslint-disable-line
-    console.dir('===> RESOLVERS: ', resolvers); // eslint-disable-line
+    console.log('===> RESOLVERS: ', resolvers); // eslint-disable-line
   }
 
   return makeExecutableSchema({ typeDefs, resolvers });
