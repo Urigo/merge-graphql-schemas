@@ -3,28 +3,19 @@ import fileLoader from './file_loader';
 import mergeTypes from './merge_types';
 import mergeResolvers from './merge_resolvers';
 
-const mergeGraphqlSchema = (options) => {
-  let typesFolder;
-  let resolversFolder;
+const mergeGraphqlSchemas = (folderPath, debug = false) => {
+  const typesArray = fileLoader(`${folderPath}/types`);
+  const resolversArray = fileLoader(`${folderPath}/resolvers`);
 
-  if (options === undefined) {
-    typesFolder = './graphql/types';
-    resolversFolder = './graphql/resolvers';
-  } else if (typeof options === 'string') {
-    typesFolder = `${options}/types`;
-    resolversFolder = `${options}/resolvers`;
-  } else if (typeof options === 'object') {
-    typesFolder = options.typesFolder || './graphql/types';
-    resolversFolder = options.resolversFolder || './graphql/resolvers';
+  const typeDefs = mergeTypes(typesArray);
+  const resolvers = mergeResolvers(resolversArray);
+
+  if (debug === true) {
+    console.log('===> SCHEMA: ', typeDefs); // eslint-disable-line
+    console.dir('===> RESOLVERS: ', resolvers); // eslint-disable-line
   }
 
-  const typeFiles = fileLoader(typesFolder);
-  const mergedTypes = mergeTypes(typeFiles);
-
-  const resolverFiles = fileLoader(resolversFolder);
-  const mergedResolvers = mergeResolvers(resolverFiles);
-
-  return makeExecutableSchema(mergedTypes, mergedResolvers);
+  return makeExecutableSchema({ typeDefs, resolvers });
 };
 
-export default mergeGraphqlSchema;
+export { mergeGraphqlSchemas, mergeResolvers, mergeTypes };

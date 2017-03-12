@@ -1,10 +1,10 @@
 {
-  "name": "npm-base",
-  "version": "1.0.0",
+  "name": "merge-graphql-schemas",
+  "version": "0.0.1",
   "description": "A base NPM package for writing a NPM package in ES2015",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kadirahq/npm-base.git"
+    "url": "https://github.com/okgrow/merge-graphql-schemas.git"
   },
   "license": "MIT",
   "options": {
@@ -14,7 +14,7 @@
     "prepublish": ". ./scripts/prepublish.sh",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
-    "testonly": "mocha $npm_package_options_mocha",
+    "testonly": "NODE_ENV=test mocha $npm_package_options_mocha",
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch --watch-extensions js",
     "start": "babel src -d dist --watch"
@@ -42,6 +42,7 @@
   "dependencies": {
     "babel-runtime": "6.x.x",
     "graphql": "^0.8.2",
+    "graphql-tag": "^1.3.1",
     "graphql-tools": "^0.9.0",
     "lodash": "^4.17.4"
   }

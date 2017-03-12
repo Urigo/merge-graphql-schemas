@@ -1,9 +1,16 @@
+import validateSchema from './validate_schema';
+
 const mergeTypes = (types) => {
   const sliceDefaultTypes = operation =>
     types.map((type) => {
-      const startIndex = `type ${operation} {`.length + type.indexOf(`type ${operation} {`);
-      const endIndex = type.indexOf('}', startIndex);
-      return type.slice(startIndex, endIndex - 1);
+      const regexp = new RegExp(`type ${operation} {(.*?)}`, 'gim');
+      const extractedType = type.replace(/(\s)+/gim, ' ').match(regexp);
+      if (extractedType != null && extractedType.length > 0) {
+        const startIndex = extractedType[0].indexOf('{') + 1;
+        const endIndex = extractedType[0].indexOf('}') - 1;
+        return extractedType[0].slice(startIndex, endIndex);
+      }
+      return '';
     }).join(' ');
 
   const sliceCustomTypes = () =>
@@ -30,7 +37,11 @@ const mergeTypes = (types) => {
     }
   `;
 
-  return [schema, ...sliceCustomTypes()];
+  const customTypes = sliceCustomTypes();
+
+  validateSchema(schema, customTypes);
+
+  return [schema, ...customTypes];
 };
 
 export default mergeTypes;
