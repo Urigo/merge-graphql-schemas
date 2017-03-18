@@ -112,7 +112,7 @@ And the same idea for your resolvers:
   import clientResolver from './client_resolver';
   import productResolver from './product_resolver';
 
-  # Passing an array with all resolvers you want merged
+  // Passing an array with all resolvers you want merged
   export default mergeResolvers([clientResolver, productResolver]);
 ```
 
@@ -123,11 +123,11 @@ Here's an example of how you would implement your server:
   import { makeExecutableSchema } from 'graphql-tools';
   import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
 
-  # Import your types and resolvers
+  // Import your types and resolvers
   import resolvers from './graphql/resolvers/index';
   import typeDefs from './graphql/types/index';
 
-  # In this case, you need to call makeExecutableSchema()
+  // In this case, you need to call makeExecutableSchema()
   const schema = makeExecutableSchema({ typeDefs, resolvers });
 
   const app = express();
