@@ -72,7 +72,10 @@ This package will allow you to just specify a folder or a set of imports to merg
 ## Usage
 
 There are two ways you can use this package:
-- 1. Passing the path of your GraphQL folder
+  - 1. Passing the path of your GraphQL folder
+  - 2. Merging `types` and `resolvers` into separate `index` files
+
+## Passing the path of your GraphQL folder
 
 This is the easiest way of getting started.
 
@@ -88,7 +91,7 @@ This is the easiest way of getting started.
 
 For this to work, the package expects that your `/graphql` folder contains `/types` and `/resolvers` folders. Any files you add to those folders will be used to produce the final types and resolvers objects.
 
-- 2. Merging `types` and `resolvers` into separate `index` files
+## Merging `types` and `resolvers` into separate `index` files
 
 If you prefer to have more control over what gets merged, the other way you can use this package is by only calling the `mergeTypes()` and `mergeResolvers()` functions.
 
