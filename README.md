@@ -1,3 +1,6 @@
+[![Build Status](https://semaphoreci.com/api/v1/rodmac98/merge-graphql-schemas/branches/master/shields_badge.svg)](https://semaphoreci.com/rodmac98/merge-graphql-schemas)
+
+
 # MergeGraphqlSchemas
 
 ## Objectives:
