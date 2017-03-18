@@ -89,7 +89,7 @@ This is the easiest way of getting started.
   app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 ```
 
-For this to work, the package expects that your `/graphql` folder contains `/types` and `/resolvers` folders. Any files you add to those folders will be used to produce the final types and resolvers objects.
+For this to work, the package expects that your `/graphql` folder contains `/types` and `/resolvers` folders. Any files you add to those folders will be used to produce the final schema object.
 
 ## Merging `types` and `resolvers` into separate `index` files
 
