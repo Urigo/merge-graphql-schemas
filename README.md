@@ -102,7 +102,7 @@ Take a look at the example below:
   import clientType from './client_type';
   import productType from './product_type';
 
-  # Passing an array with all types you want merged
+  // Passing an array with all types you want merged
   export default mergeTypes([clientType, productType]);
 ```
 
