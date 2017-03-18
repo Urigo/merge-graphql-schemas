@@ -1,5 +1,6 @@
 {
   "name": "merge-graphql-schemas",
+  "author": "OK GROW!",
   "version": "0.0.3",
   "description": "Better organize your GraphQL server.",
   "repository": {
