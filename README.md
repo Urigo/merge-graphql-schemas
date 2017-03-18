@@ -75,8 +75,8 @@ This package will allow you to just specify a folder or a set of imports to merg
 ## Usage
 
 There are two ways you can use this package:
-  - 1. Passing the path of your GraphQL folder
-  - 2. Merging `types` and `resolvers` into separate `index` files
+  * Passing the path of your GraphQL folder
+  * Merging `types` and `resolvers` into separate `index` files
 
 ## Passing the path of your GraphQL folder
 
