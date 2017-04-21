@@ -184,4 +184,4 @@ export default {
 
 MIT licensed
 
-Copyright (C) 2017 OK GROW!, http://www.okgrow.com
+Copyright (C) 2017 OK GROW!, https://www.okgrow.com
