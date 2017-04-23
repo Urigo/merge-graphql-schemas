@@ -13,20 +13,13 @@ const mergeTypes = (types) => {
       return '';
     }).join(' ');
 
-  const sliceCustomTypes = () =>
-    types.map((type) => {
-      const extractedType = /type (?!Query)(?!Mutation)([\s\S]*?) {/.exec(type);
-      if (extractedType === null) { return ''; }
-      const startIndex = extractedType.index;
-      const endIndex = type.indexOf('}', startIndex);
-      return type.slice(startIndex, endIndex + 1);
-    });
-
   const inputTypeRegEx = /input ([\s\S]*?) {/g;
-  const sliceInputTypes = () => {
+  const customTypeRegEx = /type (?!Query)(?!Mutation)([\s\S]*?) {/g;
+
+  const sliceTypes = (regexp) => {
     const inputs = [];
     types.forEach((type) => {
-      const extractedInputs = type.match(inputTypeRegEx);
+      const extractedInputs = type.match(regexp);
       if (extractedInputs !== null) {
         extractedInputs.forEach((input) => {
           const startIndex = type.indexOf(input);
@@ -37,6 +30,9 @@ const mergeTypes = (types) => {
     });
     return inputs;
   };
+
+  const inputTypes = sliceTypes(inputTypeRegEx).filter(Boolean);
+  const customTypes = sliceTypes(customTypeRegEx).filter(Boolean);
 
   const schema = `
     schema {
@@ -53,13 +49,13 @@ const mergeTypes = (types) => {
     }
   `;
 
-  let customTypes = sliceCustomTypes().filter(Boolean);
-  const inputTypes = sliceInputTypes().filter(Boolean);
-  if (inputTypes.length !== 0) { customTypes = customTypes.concat(inputTypes); }
+  let allTypes = [];
+  if (customTypes.length !== 0) { allTypes = allTypes.concat(customTypes); }
+  if (inputTypes.length !== 0) { allTypes = allTypes.concat(inputTypes); }
 
-  validateSchema(schema, customTypes);
+  validateSchema(schema, allTypes);
 
-  return [schema, ...customTypes];
+  return [schema, ...allTypes];
 };
 
 export default mergeTypes;
