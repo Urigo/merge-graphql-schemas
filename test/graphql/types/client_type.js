@@ -15,4 +15,9 @@ export default `
     create_client(name: String!, age: Int!): Client
     update_client(id: ID!, name: String!, age: Int!): Client
   }
+
+  input clientForm {
+    name: String!
+    age: Int!
+  }
 `;

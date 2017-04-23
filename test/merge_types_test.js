@@ -212,4 +212,20 @@ describe('mergeTypes', () => {
 
     assert.include(separateTypes, expectedProductType, 'Merged Schema is missing productType');
   });
+
+  it('includes inputType', async () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedProductType = normalizeWhitespace(`
+      input clientForm {
+        name: String!
+        age: Int!
+      }
+    `);
+
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    assert.include(separateTypes, expectedProductType, 'Merged Schema is missing productType');
+  });
 });

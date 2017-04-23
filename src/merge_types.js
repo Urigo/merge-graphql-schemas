@@ -22,6 +22,15 @@ const mergeTypes = (types) => {
       return type.slice(startIndex, endIndex + 1);
     });
 
+  const sliceInputTypes = () =>
+    types.map((type) => {
+      const extractedType = /input ([\s\S]*?) {/.exec(type);
+      if (extractedType === null) { return ''; }
+      const startIndex = extractedType.index;
+      const endIndex = type.indexOf('}', startIndex);
+      return type.slice(startIndex, endIndex + 1);
+    });
+
   const schema = `
     schema {
       query: Query,
@@ -37,7 +46,9 @@ const mergeTypes = (types) => {
     }
   `;
 
-  const customTypes = sliceCustomTypes();
+  let customTypes = sliceCustomTypes().filter(Boolean);
+  const inputTypes = sliceInputTypes().filter(Boolean);
+  if (inputTypes.length !== 0) { customTypes = customTypes.concat(inputTypes); }
 
   validateSchema(schema, customTypes);
 
