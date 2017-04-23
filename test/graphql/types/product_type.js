@@ -15,4 +15,16 @@ export default `
     create_product(description: String!, price: Int!): Product
     update_product(id: ID!, description: String!, price: Int!): Product
   }
+
+  enum ProductTypes {
+    NEW
+    USED
+    REFURBISHED
+  }
+
+  enum ProductPriceType {
+    REGULAR
+    PROMOTION
+    SALE
+  }
 `;

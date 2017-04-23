@@ -16,12 +16,18 @@ export default `
     update_client(id: ID!, name: String!, age: Int!): Client
   }
 
-  input clientForm {
+  input ClientForm {
     name: String!
     age: Int!
   }
 
-  input clientAgeForm {
+  input ClientAgeForm {
     age: Int!
+  }
+
+  enum ClientStatus {
+    NEW
+    ACTIVE
+    INACTIVE
   }
 `;

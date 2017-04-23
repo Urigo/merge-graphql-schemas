@@ -14,6 +14,7 @@ const mergeTypes = (types) => {
     }).join(' ');
 
   const inputTypeRegEx = /input ([\s\S]*?) {/g;
+  const enumTypeRegEx = /enum ([\s\S]*?) {/g;
   const customTypeRegEx = /type (?!Query)(?!Mutation)([\s\S]*?) {/g;
 
   const sliceTypes = (regexp) => {
@@ -32,6 +33,7 @@ const mergeTypes = (types) => {
   };
 
   const inputTypes = sliceTypes(inputTypeRegEx).filter(Boolean);
+  const enumTypes = sliceTypes(enumTypeRegEx).filter(Boolean);
   const customTypes = sliceTypes(customTypeRegEx).filter(Boolean);
 
   const schema = `
@@ -50,8 +52,9 @@ const mergeTypes = (types) => {
   `;
 
   let allTypes = [];
-  if (customTypes.length !== 0) { allTypes = allTypes.concat(customTypes); }
   if (inputTypes.length !== 0) { allTypes = allTypes.concat(inputTypes); }
+  if (enumTypes.length !== 0) { allTypes = allTypes.concat(enumTypes); }
+  if (customTypes.length !== 0) { allTypes = allTypes.concat(customTypes); }
 
   validateSchema(schema, allTypes);
 
