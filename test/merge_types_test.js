@@ -218,7 +218,7 @@ describe('mergeTypes', () => {
     const mergedTypes = mergeTypes(types);
 
     const expectedProductType = normalizeWhitespace(`
-      input clientForm {
+      input ClientForm {
         name: String!
         age: Int!
       }
@@ -234,7 +234,7 @@ describe('mergeTypes', () => {
     const mergedTypes = mergeTypes(types);
 
     const expectedProductType = normalizeWhitespace(`
-      input clientAgeForm {
+      input ClientAgeForm {
         age: Int!
       }
     `);
@@ -242,5 +242,56 @@ describe('mergeTypes', () => {
     const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
 
     assert.include(separateTypes, expectedProductType, 'Merged Schema is missing second inputType');
+  });
+
+  it('includes first product ENUM type', async () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedEnumType = normalizeWhitespace(`
+      enum ProductTypes {
+        NEW
+        USED
+        REFURBISHED
+      }
+    `);
+
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    assert.include(separateTypes, expectedEnumType, 'Merged Schema is missing first product ENUM type');
+  });
+
+  it('includes second product ENUM type', async () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedEnumType = normalizeWhitespace(`
+      enum ProductPriceType {
+        REGULAR
+        PROMOTION
+        SALE
+      }
+    `);
+
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    assert.include(separateTypes, expectedEnumType, 'Merged Schema is missing second product ENUM type');
+  });
+
+  it('includes first client ENUM type', async () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedEnumType = normalizeWhitespace(`
+      enum ClientStatus {
+        NEW
+        ACTIVE
+        INACTIVE
+      }
+    `);
+
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    assert.include(separateTypes, expectedEnumType, 'Merged Schema is missing first client ENUM type');
   });
 });
