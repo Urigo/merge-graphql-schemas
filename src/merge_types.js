@@ -22,14 +22,21 @@ const mergeTypes = (types) => {
       return type.slice(startIndex, endIndex + 1);
     });
 
-  const sliceInputTypes = () =>
-    types.map((type) => {
-      const extractedType = /input ([\s\S]*?) {/.exec(type);
-      if (extractedType === null) { return ''; }
-      const startIndex = extractedType.index;
-      const endIndex = type.indexOf('}', startIndex);
-      return type.slice(startIndex, endIndex + 1);
+  const inputTypeRegEx = /input ([\s\S]*?) {/g;
+  const sliceInputTypes = () => {
+    const inputs = [];
+    types.forEach((type) => {
+      const extractedInputs = type.match(inputTypeRegEx);
+      if (extractedInputs !== null) {
+        extractedInputs.forEach((input) => {
+          const startIndex = type.indexOf(input);
+          const endIndex = type.indexOf('}', startIndex);
+          inputs.push(type.slice(startIndex, endIndex + 1));
+        });
+      }
     });
+    return inputs;
+  };
 
   const schema = `
     schema {

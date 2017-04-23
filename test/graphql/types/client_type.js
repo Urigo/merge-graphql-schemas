@@ -20,4 +20,8 @@ export default `
     name: String!
     age: Int!
   }
+
+  input clientAgeForm {
+    age: Int!
+  }
 `;
