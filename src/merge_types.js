@@ -57,15 +57,16 @@ const mergeTypes = (types) => {
     }
   `;
 
-  let allTypes = [];
-  if (inputTypes.length !== 0) { allTypes = allTypes.concat(inputTypes); }
-  if (enumTypes.length !== 0) { allTypes = allTypes.concat(enumTypes); }
-  if (scalarTypes.length !== 0) { allTypes = allTypes.concat(scalarTypes); }
-  if (customTypes.length !== 0) { allTypes = allTypes.concat(customTypes); }
+  let mergedTypes = [];
 
-  validateSchema(schema, allTypes);
+  const allTypes = [inputTypes, enumTypes, scalarTypes, customTypes];
+  allTypes.forEach((t) => {
+    if (t.length !== 0) { mergedTypes = mergedTypes.concat(t); }
+  });
 
-  return [schema, ...allTypes];
+  validateSchema(schema, mergedTypes);
+
+  return [schema, ...mergedTypes];
 };
 
 export default mergeTypes;
