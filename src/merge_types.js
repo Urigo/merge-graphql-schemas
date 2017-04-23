@@ -41,20 +41,19 @@ const mergeTypes = (types) => {
   const enumTypes = sliceTypes(enumTypeRegEx).filter(Boolean);
   const scalarTypes = sliceTypes(scalarTypeRegEx, true).filter(Boolean);
   const customTypes = sliceTypes(customTypeRegEx).filter(Boolean);
+  const queryTypes = sliceDefaultTypes('Query');
+  const mutationTypes = sliceDefaultTypes('Mutation');
 
   const schema = `
     schema {
-      query: Query,
-      mutation: Mutation
+      query: Query
+      ${mutationTypes !== '' ? 'mutation: Mutation\n' : ''}
+
     }
 
-    type Query {
-      ${sliceDefaultTypes('Query')}
-    }
+    ${queryTypes !== '' ? 'type Query {\n' + queryTypes + '\n}\n' : ''}
 
-    type Mutation {
-      ${sliceDefaultTypes('Mutation')}
-    }
+    ${mutationTypes !== '' ? 'type Mutation {\n' + mutationTypes + '\n}\n' : ''}
   `;
 
   let mergedTypes = [];
