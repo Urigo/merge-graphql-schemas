@@ -3,6 +3,8 @@ export default `
     id: ID!
     name: String
     age: Int
+    dob: Date
+    settings: JSON
     products: [Product]
   }
 
@@ -30,4 +32,8 @@ export default `
     ACTIVE
     INACTIVE
   }
+
+  scalar Date
+
+  scalar JSON
 `;
