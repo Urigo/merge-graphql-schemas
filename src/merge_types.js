@@ -44,6 +44,14 @@ const mergeTypes = (types) => {
   const queryTypes = sliceDefaultTypes('Query');
   const mutationTypes = sliceDefaultTypes('Mutation');
 
+  const queryInterpolation = `type Query {
+    ${queryTypes}
+  }`;
+
+  const mutationInterpolation = `type Mutation {
+    ${mutationTypes}
+  }`;
+
   const schema = `
     schema {
       query: Query
@@ -51,9 +59,9 @@ const mergeTypes = (types) => {
 
     }
 
-    ${queryTypes !== '' ? 'type Query {\n' + queryTypes + '\n}\n' : ''}
+    ${queryTypes !== '' ? queryInterpolation : ''}
 
-    ${mutationTypes !== '' ? 'type Mutation {\n' + mutationTypes + '\n}\n' : ''}
+    ${mutationTypes !== '' ? mutationInterpolation : ''}
   `;
 
   let mergedTypes = [];
