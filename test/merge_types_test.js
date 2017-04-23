@@ -3,6 +3,7 @@ import mergeTypes from '../src/merge_types';
 import clientType from './graphql/types/client_type';
 import productType from './graphql/types/product_type';
 import customType from './graphql/other/custom_type';
+import simpleQueryType from './graphql/other/simple_query_type';
 
 const assert = chai.assert;
 
@@ -16,15 +17,13 @@ describe('mergeTypes', () => {
 
       const expectedSchemaType = normalizeWhitespace(`
         schema {
-          query: Query,
-          mutation: Mutation
+          query: Query
         }
       `);
 
       const schema = normalizeWhitespace(mergedTypes[0]);
 
       assert.include(schema, expectedSchemaType, 'Merged Schema is missing schemaType');
-
     });
 
     it('returns empty query type', async () => {
@@ -38,8 +37,7 @@ describe('mergeTypes', () => {
 
       const schema = normalizeWhitespace(mergedTypes[0]);
 
-      assert.include(schema, expectedSchemaType, 'Merged Schema is missing empty query type');
-
+      assert.notInclude(schema, expectedSchemaType, 'Merged Schema is including empty query type');
     });
 
     it('returns empty mutation type', async () => {
@@ -53,8 +51,53 @@ describe('mergeTypes', () => {
 
       const schema = normalizeWhitespace(mergedTypes[0]);
 
-      assert.include(schema, expectedSchemaType, 'Merged Schema is missing empty mutation type');
+      assert.notInclude(schema, expectedSchemaType, 'Merged Schema is including empty mutation type');
+    });
+  });
 
+  describe('when only query is specified', () => {
+    it('returns minimal schema', async () => {
+      const types = [simpleQueryType];
+      const mergedTypes = mergeTypes(types);
+
+      const expectedSchemaType = normalizeWhitespace(`
+        schema {
+          query: Query
+        }
+      `);
+
+      const schema = normalizeWhitespace(mergedTypes[0]);
+
+      assert.include(schema, expectedSchemaType, 'Merged Schema is missing schemaType');
+    });
+
+    it('returns simple query type', async () => {
+      const types = [simpleQueryType];
+      const mergedTypes = mergeTypes(types);
+
+      const expectedSchemaType = normalizeWhitespace(`
+        type Query {
+          clients: [Client]
+        }
+      `);
+
+      const schema = normalizeWhitespace(mergedTypes[0]);
+
+      assert.include(schema, expectedSchemaType, 'Merged Schema is missing simple query type');
+    });
+
+    it('returns empty mutation type', async () => {
+      const types = [simpleQueryType];
+      const mergedTypes = mergeTypes(types);
+
+      const expectedSchemaType = normalizeWhitespace(`
+        type Mutation {
+        }
+      `);
+
+      const schema = normalizeWhitespace(mergedTypes[0]);
+
+      assert.notInclude(schema, expectedSchemaType, 'Merged simple Schema is including empty mutation type');
     });
   });
 
@@ -82,15 +125,13 @@ describe('mergeTypes', () => {
 
       const expectedSchemaType = normalizeWhitespace(`
         schema {
-          query: Query,
-          mutation: Mutation
+          query: Query
         }
       `);
 
       const schema = normalizeWhitespace(mergedTypes[0]);
 
       assert.include(schema, expectedSchemaType, 'Merged Schema is missing schemaType');
-
     });
 
     it('returns empty query type', async () => {
@@ -104,8 +145,7 @@ describe('mergeTypes', () => {
 
       const schema = normalizeWhitespace(mergedTypes[0]);
 
-      assert.include(schema, expectedSchemaType, 'Merged Schema is missing empty query type');
-
+      assert.notInclude(schema, expectedSchemaType, 'Merged Schema is missing empty query type');
     });
 
     it('returns empty mutation type', async () => {
@@ -119,8 +159,7 @@ describe('mergeTypes', () => {
 
       const schema = normalizeWhitespace(mergedTypes[0]);
 
-      assert.include(schema, expectedSchemaType, 'Merged Schema is missing empty mutation type');
-
+      assert.notInclude(schema, expectedSchemaType, 'Merged Schema is missing empty mutation type');
     });
   });
 
@@ -131,7 +170,7 @@ describe('mergeTypes', () => {
 
     const expectedSchemaType = normalizeWhitespace(`
       schema {
-        query: Query,
+        query: Query
         mutation: Mutation
       }
     `);
