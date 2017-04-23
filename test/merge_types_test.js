@@ -186,6 +186,8 @@ describe('mergeTypes', () => {
         id: ID!
         name: String
         age: Int
+        dob: Date
+        settings: JSON
         products: [Product]
       }
     `);
@@ -204,6 +206,7 @@ describe('mergeTypes', () => {
         id: ID!
         description: String
         price: Int
+        tag: TAG
         clients: [Client]
       }
     `);
@@ -293,5 +296,44 @@ describe('mergeTypes', () => {
     const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
 
     assert.include(separateTypes, expectedEnumType, 'Merged Schema is missing first client ENUM type');
+  });
+
+  it('includes first client SCALAR type', async () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedScalarType = normalizeWhitespace(`
+      scalar Date
+    `);
+
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing first client Scalar type');
+  });
+
+  it('includes second client SCALAR type', async () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedScalarType = normalizeWhitespace(`
+      scalar JSON
+    `);
+
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing second client Scalar type');
+  });
+
+  it('includes first product SCALAR type', async () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedScalarType = normalizeWhitespace(`
+      scalar TAG
+    `);
+
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing first product Scalar type');
   });
 });

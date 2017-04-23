@@ -3,6 +3,7 @@ export default `
     id: ID!
     description: String
     price: Int
+    tag: TAG
     clients: [Client]
   }
 
@@ -21,6 +22,8 @@ export default `
     USED
     REFURBISHED
   }
+
+  scalar TAG
 
   enum ProductPriceType {
     REGULAR

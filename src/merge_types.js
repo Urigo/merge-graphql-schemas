@@ -15,25 +15,31 @@ const mergeTypes = (types) => {
 
   const inputTypeRegEx = /input ([\s\S]*?) {/g;
   const enumTypeRegEx = /enum ([\s\S]*?) {/g;
+  const scalarTypeRegEx = /scalar ([\s\S]*?).*/gim;
   const customTypeRegEx = /type (?!Query)(?!Mutation)([\s\S]*?) {/g;
 
-  const sliceTypes = (regexp) => {
-    const inputs = [];
+  const sliceTypes = (regexp, scalar = false) => {
+    const extractedMatches = [];
     types.forEach((type) => {
-      const extractedInputs = type.match(regexp);
-      if (extractedInputs !== null) {
-        extractedInputs.forEach((input) => {
-          const startIndex = type.indexOf(input);
-          const endIndex = type.indexOf('}', startIndex);
-          inputs.push(type.slice(startIndex, endIndex + 1));
+      const matches = type.match(regexp);
+      if (matches !== null) {
+        matches.forEach((match) => {
+          if (scalar) {
+            extractedMatches.push(match);
+          } else {
+            const startIndex = type.indexOf(match);
+            const endIndex = type.indexOf('}', startIndex);
+            extractedMatches.push(type.slice(startIndex, endIndex + 1));
+          }
         });
       }
     });
-    return inputs;
+    return extractedMatches;
   };
 
   const inputTypes = sliceTypes(inputTypeRegEx).filter(Boolean);
   const enumTypes = sliceTypes(enumTypeRegEx).filter(Boolean);
+  const scalarTypes = sliceTypes(scalarTypeRegEx, true).filter(Boolean);
   const customTypes = sliceTypes(customTypeRegEx).filter(Boolean);
 
   const schema = `
@@ -54,6 +60,7 @@ const mergeTypes = (types) => {
   let allTypes = [];
   if (inputTypes.length !== 0) { allTypes = allTypes.concat(inputTypes); }
   if (enumTypes.length !== 0) { allTypes = allTypes.concat(enumTypes); }
+  if (scalarTypes.length !== 0) { allTypes = allTypes.concat(scalarTypes); }
   if (customTypes.length !== 0) { allTypes = allTypes.concat(customTypes); }
 
   validateSchema(schema, allTypes);
