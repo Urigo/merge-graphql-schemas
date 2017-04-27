@@ -17,6 +17,10 @@ export default `
     update_product(id: ID!, description: String!, price: Int!): Product
   }
 
+  type Subscription {
+    activeProducts: [Product]
+  }
+
   enum ProductTypes {
     NEW
     USED
