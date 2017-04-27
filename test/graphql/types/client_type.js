@@ -18,6 +18,11 @@ export default `
     update_client(id: ID!, name: String!, age: Int!): Client
   }
 
+  type Subscription {
+    activeClients: [Client]
+    inactiveClients: [Client]
+  }
+
   input ClientForm {
     name: String!
     age: Int!

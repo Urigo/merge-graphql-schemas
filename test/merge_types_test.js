@@ -40,7 +40,7 @@ describe('mergeTypes', () => {
       assert.notInclude(schema, expectedSchemaType, 'Merged Schema is including empty query type');
     });
 
-    it('returns empty mutation type', async () => {
+    it('returns no mutation type', async () => {
       const types = [];
       const mergedTypes = mergeTypes(types);
 
@@ -52,6 +52,20 @@ describe('mergeTypes', () => {
       const schema = normalizeWhitespace(mergedTypes[0]);
 
       assert.notInclude(schema, expectedSchemaType, 'Merged Schema is including empty mutation type');
+    });
+
+    it('returns no subscription type', async () => {
+      const types = [];
+      const mergedTypes = mergeTypes(types);
+
+      const expectedSchemaType = normalizeWhitespace(`
+        type Subscription {
+        }
+      `);
+
+      const schema = normalizeWhitespace(mergedTypes[0]);
+
+      assert.notInclude(schema, expectedSchemaType, 'Merged Schema is including empty subscription type');
     });
   });
 
@@ -86,7 +100,7 @@ describe('mergeTypes', () => {
       assert.include(schema, expectedSchemaType, 'Merged Schema is missing simple query type');
     });
 
-    it('returns empty mutation type', async () => {
+    it('returns no mutation type', async () => {
       const types = [simpleQueryType];
       const mergedTypes = mergeTypes(types);
 
@@ -98,6 +112,20 @@ describe('mergeTypes', () => {
       const schema = normalizeWhitespace(mergedTypes[0]);
 
       assert.notInclude(schema, expectedSchemaType, 'Merged simple Schema is including empty mutation type');
+    });
+
+    it('returns no subscription type', async () => {
+      const types = [simpleQueryType];
+      const mergedTypes = mergeTypes(types);
+
+      const expectedSchemaType = normalizeWhitespace(`
+        type Subscription {
+        }
+      `);
+
+      const schema = normalizeWhitespace(mergedTypes[0]);
+
+      assert.notInclude(schema, expectedSchemaType, 'Merged simple Schema is including empty subscription type');
     });
   });
 
@@ -148,7 +176,7 @@ describe('mergeTypes', () => {
       assert.notInclude(schema, expectedSchemaType, 'Merged Schema is missing empty query type');
     });
 
-    it('returns empty mutation type', async () => {
+    it('returns no mutation type', async () => {
       const types = [customType];
       const mergedTypes = mergeTypes(types);
 
@@ -159,10 +187,23 @@ describe('mergeTypes', () => {
 
       const schema = normalizeWhitespace(mergedTypes[0]);
 
-      assert.notInclude(schema, expectedSchemaType, 'Merged Schema is missing empty mutation type');
+      assert.notInclude(schema, expectedSchemaType, 'Merged Schema is including empty mutation type');
+    });
+
+    it('returns no subscription type', async () => {
+      const types = [customType];
+      const mergedTypes = mergeTypes(types);
+
+      const expectedSchemaType = normalizeWhitespace(`
+        type Subscription {
+        }
+      `);
+
+      const schema = normalizeWhitespace(mergedTypes[0]);
+
+      assert.notInclude(schema, expectedSchemaType, 'Merged Schema is including empty subscription type');
     });
   });
-
 
   it('includes schemaType', async () => {
     const types = [clientType, productType];
@@ -172,6 +213,7 @@ describe('mergeTypes', () => {
       schema {
         query: Query
         mutation: Mutation
+        subscription: Subscription
       }
     `);
 
@@ -179,7 +221,6 @@ describe('mergeTypes', () => {
 
     assert.include(schema, expectedSchemaType, 'Merged Schema is missing schemaType');
   });
-
 
   it('includes queryType', async () => {
     const types = [clientType, productType];
@@ -203,7 +244,8 @@ describe('mergeTypes', () => {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
-    const expectedMutationType = normalizeWhitespace(`type Mutation {
+    const expectedMutationType = normalizeWhitespace(`
+      type Mutation {
         create_client(name: String!, age: Int!): Client
         update_client(id: ID!, name: String!, age: Int!): Client
         create_product(description: String!, price: Int!): Product
@@ -214,6 +256,22 @@ describe('mergeTypes', () => {
     const schema = normalizeWhitespace(mergedTypes[0]);
 
     assert.include(schema, expectedMutationType, 'Merged Schema is missing mutationType');
+  });
+
+  it('includes subscriptionType', async () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedSubscriptionType = normalizeWhitespace(`
+      type Subscription {
+        activeClients: [Client]
+        inactiveClients: [Client]
+        activeProducts: [Product]
+      }`);
+
+    const schema = normalizeWhitespace(mergedTypes[0]);
+
+    assert.include(schema, expectedSubscriptionType, 'Merged Schema is missing subscriptionType');
   });
 
   it('includes clientType', async () => {

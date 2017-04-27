@@ -16,7 +16,7 @@ const mergeTypes = (types) => {
   const inputTypeRegEx = /input ([\s\S]*?) {/g;
   const enumTypeRegEx = /enum ([\s\S]*?) {/g;
   const scalarTypeRegEx = /scalar ([\s\S]*?).*/gim;
-  const customTypeRegEx = /type (?!Query)(?!Mutation)([\s\S]*?) {/g;
+  const customTypeRegEx = /type (?!Query)(?!Mutation)(?!Subscription)([\s\S]*?) {/g;
 
   const sliceTypes = (regexp, scalar = false) => {
     const extractedMatches = [];
@@ -43,6 +43,7 @@ const mergeTypes = (types) => {
   const customTypes = sliceTypes(customTypeRegEx).filter(Boolean);
   const queryTypes = sliceDefaultTypes('Query');
   const mutationTypes = sliceDefaultTypes('Mutation');
+  const subscriptionTypes = sliceDefaultTypes('Subscription');
 
   const queryInterpolation = `type Query {
     ${queryTypes}
@@ -52,16 +53,21 @@ const mergeTypes = (types) => {
     ${mutationTypes}
   }`;
 
+  const subscriptionInterpolation = `type Subscription {
+    ${subscriptionTypes}
+  }`;
   const schema = `
     schema {
       query: Query
       ${mutationTypes !== '' ? 'mutation: Mutation\n' : ''}
-
+      ${subscriptionTypes !== '' ? 'subscription: Subscription\n' : ''}
     }
 
     ${queryTypes !== '' ? queryInterpolation : ''}
 
     ${mutationTypes !== '' ? mutationInterpolation : ''}
+
+    ${subscriptionTypes !== '' ? subscriptionInterpolation : ''}
   `;
 
   let mergedTypes = [];
