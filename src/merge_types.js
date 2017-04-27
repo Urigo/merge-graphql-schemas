@@ -56,6 +56,7 @@ const mergeTypes = (types) => {
   const subscriptionInterpolation = `type Subscription {
     ${subscriptionTypes}
   }`;
+  
   const schema = `
     schema {
       query: Query
