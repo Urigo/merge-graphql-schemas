@@ -56,8 +56,8 @@ const mergeTypes = (types) => {
   const schema = `
     schema {
       query: Query
-      ${mutationTypes !== '' ? 'mutation: Mutation\n' : ''}
-      ${subscriptionTypes !== '' ? 'subscription: Subscription\n' : ''}
+      ${mutationTypes !== '' ? 'mutation: Mutation' : ''}
+      ${subscriptionTypes !== '' ? 'subscription: Subscription' : ''}
     }
 
     ${queryTypes !== '' ? queryInterpolation : ''}
@@ -68,7 +68,6 @@ const mergeTypes = (types) => {
   `;
 
   let mergedTypes = [];
-
   const allTypes = [inputTypes, enumTypes, scalarTypes, customTypes];
   allTypes.forEach((t) => {
     if (t.length !== 0) { mergedTypes = mergedTypes.concat(t); }
