@@ -160,8 +160,6 @@ Here's an example of how you should implement your types:
   `;
 ```
 
-At this moment, you need to use the `Query` and `Mutation` types.
-
 ## Implementing Resolvers
 
 Here's an example of how you should implement your resolvers:

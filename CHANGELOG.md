@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.0.12] - 2017-05-04
+### Fixed
+- Minor bug that was adding Subscription and Mutation types
+
 ## [0.0.11] - 2017-04-28
 ### Added
 - Added a CHANGELOG.md (Yay!!)
