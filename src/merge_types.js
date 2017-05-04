@@ -48,7 +48,7 @@ const mergeTypes = (types) => {
   const enumTypes = sliceTypes(enumTypeRegEx).filter(Boolean);
   const scalarTypes = sliceTypes(scalarTypeRegEx, { scalar: true }).filter(Boolean);
   const interfaceTypes = sliceTypes(interfaceTypeRegEx).filter(Boolean);
-  const unionTypes = sliceTypes(unionTypeRegEx, { closingChar: "\n" }).filter(Boolean);
+  const unionTypes = sliceTypes(unionTypeRegEx, { closingChar: '\n' }).filter(Boolean);
   const customTypes = sliceTypes(customTypeRegEx).filter(Boolean);
   const queryTypes = sliceDefaultTypes('Query');
   const mutationTypes = sliceDefaultTypes('Mutation');
