@@ -2,6 +2,8 @@ import chai from 'chai'; // eslint-disable-line
 import mergeTypes from '../src/merge_types';
 import clientType from './graphql/types/client_type';
 import productType from './graphql/types/product_type';
+import vendorType from './graphql/types/vendor_type';
+import personEntityType from './graphql/types/person_entity_type';
 import customType from './graphql/other/custom_type';
 import simpleQueryType from './graphql/other/simple_query_type';
 
@@ -432,5 +434,40 @@ describe('mergeTypes', () => {
     const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
 
     assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing first product Scalar type');
+  });
+
+  it('includes INTERFACE type', async () => {
+    const types = [clientType, productType, vendorType, personEntityType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedScalarType = normalizeWhitespace(`
+      interface PersonEntity {
+          name: String
+          age: Int
+          dob: Date
+      }
+    `);
+
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing INTERFACE type');
+  });
+
+  it('includes vendor custom type', async () => {
+    const types = [clientType, productType, vendorType, personEntityType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedScalarType = normalizeWhitespace(`
+      type Vendor implements PersonEntity {
+        id: ID!
+        name: String
+        age: Int
+        dob: Date
+      }
+    `);
+
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing vendor custom type');
   });
 });

@@ -16,6 +16,7 @@ const mergeTypes = (types) => {
   const inputTypeRegEx = /input ([\s\S]*?) {/g;
   const enumTypeRegEx = /enum ([\s\S]*?) {/g;
   const scalarTypeRegEx = /scalar ([\s\S]*?).*/gim;
+  const interfaceTypeRegEx = /interface ([\s\S]*?) {/g;
   const customTypeRegEx = /type (?!Query)(?!Mutation)(?!Subscription)([\s\S]*?) {/g;
 
   const sliceTypes = (regexp, scalar = false) => {
@@ -40,6 +41,7 @@ const mergeTypes = (types) => {
   const inputTypes = sliceTypes(inputTypeRegEx).filter(Boolean);
   const enumTypes = sliceTypes(enumTypeRegEx).filter(Boolean);
   const scalarTypes = sliceTypes(scalarTypeRegEx, true).filter(Boolean);
+  const interfaceTypes = sliceTypes(interfaceTypeRegEx).filter(Boolean);
   const customTypes = sliceTypes(customTypeRegEx).filter(Boolean);
   const queryTypes = sliceDefaultTypes('Query');
   const mutationTypes = sliceDefaultTypes('Mutation');
@@ -71,7 +73,7 @@ const mergeTypes = (types) => {
   `;
 
   let mergedTypes = [];
-  const allTypes = [inputTypes, enumTypes, scalarTypes, customTypes];
+  const allTypes = [inputTypes, enumTypes, scalarTypes, interfaceTypes, customTypes];
   allTypes.forEach((t) => {
     if (t.length !== 0) { mergedTypes = mergedTypes.concat(t); }
   });
