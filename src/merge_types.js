@@ -44,6 +44,9 @@ const mergeTypes = (types) => {
   const queryTypes = sliceDefaultTypes('Query');
   const mutationTypes = sliceDefaultTypes('Mutation');
   const subscriptionTypes = sliceDefaultTypes('Subscription');
+
+  const cleanupForComparison = string => string.replace(/(\s)+/gim, '');
+
   const queryInterpolation = `type Query {
     ${queryTypes}
   }`;
@@ -56,15 +59,15 @@ const mergeTypes = (types) => {
   const schema = `
     schema {
       query: Query
-      ${mutationTypes !== '' ? 'mutation: Mutation' : ''}
-      ${subscriptionTypes !== '' ? 'subscription: Subscription' : ''}
+      ${cleanupForComparison(mutationTypes) !== '' ? 'mutation: Mutation' : ''}
+      ${cleanupForComparison(subscriptionTypes) !== '' ? 'subscription: Subscription' : ''}
     }
 
-    ${queryTypes !== '' ? queryInterpolation : ''}
+    ${cleanupForComparison(queryTypes) !== '' ? queryInterpolation : ''}
 
-    ${mutationTypes !== '' ? mutationInterpolation : ''}
+    ${cleanupForComparison(mutationTypes) !== '' ? mutationInterpolation : ''}
 
-    ${subscriptionTypes !== '' ? subscriptionInterpolation : ''}
+    ${cleanupForComparison(subscriptionTypes) !== '' ? subscriptionInterpolation : ''}
   `;
 
   let mergedTypes = [];
