@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import merge from 'deepmerge';
 
 const mergeResolvers = resolvers => merge(...resolvers);
 
