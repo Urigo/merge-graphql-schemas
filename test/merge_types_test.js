@@ -4,6 +4,7 @@ import clientType from './graphql/types/client_type';
 import productType from './graphql/types/product_type';
 import vendorType from './graphql/types/vendor_type';
 import personEntityType from './graphql/types/person_entity_type';
+import personSearchType from './graphql/types/person_search_type';
 import customType from './graphql/other/custom_type';
 import simpleQueryType from './graphql/other/simple_query_type';
 
@@ -469,5 +470,18 @@ describe('mergeTypes', () => {
     const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
 
     assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing vendor custom type');
+  });
+
+  it('includes UNION type', async () => {
+    const types = [clientType, productType, vendorType, personEntityType, personSearchType];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedScalarType = normalizeWhitespace(`
+      union personSearch = Client | Vendor
+    `);
+
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing UNION type');
   });
 });

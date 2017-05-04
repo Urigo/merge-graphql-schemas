@@ -17,19 +17,25 @@ const mergeTypes = (types) => {
   const enumTypeRegEx = /enum ([\s\S]*?) {/g;
   const scalarTypeRegEx = /scalar ([\s\S]*?).*/gim;
   const interfaceTypeRegEx = /interface ([\s\S]*?) {/g;
+  const unionTypeRegEx = /union ([\s\S]*?) =/g;
   const customTypeRegEx = /type (?!Query)(?!Mutation)(?!Subscription)([\s\S]*?) {/g;
 
-  const sliceTypes = (regexp, scalar = false) => {
+  const defaultOptions = {
+    scalar: false,
+    closingChar: '}',
+  };
+
+  const sliceTypes = (regexp, options = defaultOptions) => {
     const extractedMatches = [];
     types.forEach((type) => {
       const matches = type.match(regexp);
       if (matches !== null) {
         matches.forEach((match) => {
-          if (scalar) {
+          if (options.scalar) {
             extractedMatches.push(match);
           } else {
             const startIndex = type.indexOf(match);
-            const endIndex = type.indexOf('}', startIndex);
+            const endIndex = type.indexOf(options.closingChar, startIndex);
             extractedMatches.push(type.slice(startIndex, endIndex + 1));
           }
         });
@@ -40,8 +46,9 @@ const mergeTypes = (types) => {
 
   const inputTypes = sliceTypes(inputTypeRegEx).filter(Boolean);
   const enumTypes = sliceTypes(enumTypeRegEx).filter(Boolean);
-  const scalarTypes = sliceTypes(scalarTypeRegEx, true).filter(Boolean);
+  const scalarTypes = sliceTypes(scalarTypeRegEx, { scalar: true }).filter(Boolean);
   const interfaceTypes = sliceTypes(interfaceTypeRegEx).filter(Boolean);
+  const unionTypes = sliceTypes(unionTypeRegEx, { closingChar: "\n" }).filter(Boolean);
   const customTypes = sliceTypes(customTypeRegEx).filter(Boolean);
   const queryTypes = sliceDefaultTypes('Query');
   const mutationTypes = sliceDefaultTypes('Mutation');
@@ -73,7 +80,7 @@ const mergeTypes = (types) => {
   `;
 
   let mergedTypes = [];
-  const allTypes = [inputTypes, enumTypes, scalarTypes, interfaceTypes, customTypes];
+  const allTypes = [inputTypes, enumTypes, scalarTypes, interfaceTypes, unionTypes, customTypes];
   allTypes.forEach((t) => {
     if (t.length !== 0) { mergedTypes = mergedTypes.concat(t); }
   });
