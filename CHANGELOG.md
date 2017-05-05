@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.0.14] - 2017-05-04
 ### Changed
 - Move `graphql[-tag/tools]` as `peerDependencies` to avoid versions duplicata in projects using this package.
 - Reduce bundle size by using `merge` from `deepmerge` instead of `lodash`.
