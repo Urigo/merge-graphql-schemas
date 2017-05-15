@@ -8,22 +8,22 @@ const mergeTypes = () => 'mergedTypes';
 const mergeResolvers = () => 'mergedResolvers';
 let mergeGraphqlSchemas;
 
-describe('mergeGraphqlSchemas', () => {
+describe('mergeGraphqlSchemas', function () {
 
-  before(() => {
+  before(function () {
     td.replace('graphql-tools', graphqlToolsMock);
     td.replace('../src/merge_types', mergeTypes);
     td.replace('../src/merge_resolvers', mergeResolvers);
     mergeGraphqlSchemas = require('../src/index').mergeGraphqlSchemas;
   });
 
-  afterEach(() => {
+  afterEach(function () {
     td.reset();
   });
 
-  describe('passing graphql folder', () => {
+  describe('passing graphql folder', function () {
 
-    it('should pass', async () => {
+    it('should pass', function () {
       mergeGraphqlSchemas(path.join(__dirname, '/graphql'));
 
       td.verify(graphqlToolsMock.makeExecutableSchema({

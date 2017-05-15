@@ -9,9 +9,9 @@ import personSearchType from './graphql/types/person_search_type';
 
 const assert = chai.assert;
 
-describe('fileLoader', () => {
-  describe('with default options', () => {
-    it('loads all files from specified folder', async () => {
+describe('fileLoader', function () {
+  describe('with default options', function () {
+    it('loads all files from specified folder', function () {
       const types = [clientType, personEntityType, personSearchType, productType, vendorType];
       const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'));
 

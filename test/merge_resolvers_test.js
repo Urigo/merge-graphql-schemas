@@ -5,10 +5,10 @@ import productResolvers from './graphql/resolvers/product_resolver';
 
 const assert = chai.assert;
 
-describe('mergeResolvers', () => {
-  describe('with default options', () => {
+describe('mergeResolvers', function () {
+  describe('with default options', function () {
 
-    it('merges all query resolvers', async () => {
+    it('merges all query resolvers', function () {
       const resolvers = [clientResolvers, productResolvers];
       const mergedResolvers = mergeResolvers(resolvers);
 
@@ -19,7 +19,7 @@ describe('mergeResolvers', () => {
 
     });
 
-    it('merges all mutation resolvers', async () => {
+    it('merges all mutation resolvers', function () {
       const resolvers = [clientResolvers, productResolvers];
       const mergedResolvers = mergeResolvers(resolvers);
 
@@ -30,7 +30,7 @@ describe('mergeResolvers', () => {
 
     });
 
-    it('merges all subQuery resolvers', async () => {
+    it('merges all subQuery resolvers', function () {
       const resolvers = [clientResolvers, productResolvers];
       const mergedResolvers = mergeResolvers(resolvers);
 

@@ -12,9 +12,9 @@ const assert = chai.assert;
 
 const normalizeWhitespace = str => str.replace(/\s+/g, ' ').trim();
 
-describe('mergeTypes', () => {
-  describe('when no types exist', () => {
-    it('returns minimal schema', async () => {
+describe('mergeTypes', function () {
+  describe('when no types exist', function () {
+    it('returns minimal schema', function () {
       const types = [];
       const mergedTypes = mergeTypes(types);
 
@@ -29,7 +29,7 @@ describe('mergeTypes', () => {
       assert.include(schema, expectedSchemaType, 'Merged Schema is missing schemaType');
     });
 
-    it('returns empty query type', async () => {
+    it('returns empty query type', function () {
       const types = [];
       const mergedTypes = mergeTypes(types);
 
@@ -43,7 +43,7 @@ describe('mergeTypes', () => {
       assert.notInclude(schema, expectedSchemaType, 'Merged Schema is including empty query type');
     });
 
-    it('returns no mutation type', async () => {
+    it('returns no mutation type', function () {
       const types = [];
       const mergedTypes = mergeTypes(types);
 
@@ -57,7 +57,7 @@ describe('mergeTypes', () => {
       assert.notInclude(schema, expectedSchemaType, 'Merged Schema is including empty mutation type');
     });
 
-    it('returns no subscription type', async () => {
+    it('returns no subscription type', function () {
       const types = [];
       const mergedTypes = mergeTypes(types);
 
@@ -72,8 +72,8 @@ describe('mergeTypes', () => {
     });
   });
 
-  describe('when only query is specified', () => {
-    it('returns minimal schema', async () => {
+  describe('when only query is specified', function () {
+    it('returns minimal schema', function () {
       const types = [simpleQueryType];
       const mergedTypes = mergeTypes(types);
 
@@ -88,7 +88,7 @@ describe('mergeTypes', () => {
       assert.include(schema, expectedSchemaType, 'Merged Schema is missing schemaType');
     });
 
-    it('returns simple query type', async () => {
+    it('returns simple query type', function () {
       const types = [simpleQueryType];
       const mergedTypes = mergeTypes(types);
 
@@ -103,7 +103,7 @@ describe('mergeTypes', () => {
       assert.include(schema, expectedSchemaType, 'Merged Schema is missing simple query type');
     });
 
-    it('returns no mutation type', async () => {
+    it('returns no mutation type', function () {
       const types = [simpleQueryType];
       const mergedTypes = mergeTypes(types);
 
@@ -117,7 +117,7 @@ describe('mergeTypes', () => {
       assert.notInclude(schema, expectedSchemaType, 'Merged simple Schema is including empty mutation type');
     });
 
-    it('returns no subscription type', async () => {
+    it('returns no subscription type', function () {
       const types = [simpleQueryType];
       const mergedTypes = mergeTypes(types);
 
@@ -132,8 +132,8 @@ describe('mergeTypes', () => {
     });
   });
 
-  describe('when only single custom type is passed', () => {
-    it('includes customType', async () => {
+  describe('when only single custom type is passed', function () {
+    it('includes customType', function () {
       const types = [customType];
       const mergedTypes = mergeTypes(types);
 
@@ -150,7 +150,7 @@ describe('mergeTypes', () => {
       assert.include(separateTypes, expectedCustomType, 'Merged Schema is missing customType');
     });
 
-    it('returns minimal schema', async () => {
+    it('returns minimal schema', function () {
       const types = [customType];
       const mergedTypes = mergeTypes(types);
 
@@ -165,7 +165,7 @@ describe('mergeTypes', () => {
       assert.include(schema, expectedSchemaType, 'Merged Schema is missing schemaType');
     });
 
-    it('returns empty query type', async () => {
+    it('returns empty query type', function () {
       const types = [customType];
       const mergedTypes = mergeTypes(types);
 
@@ -179,7 +179,7 @@ describe('mergeTypes', () => {
       assert.notInclude(schema, expectedSchemaType, 'Merged Schema is missing empty query type');
     });
 
-    it('returns no mutation type', async () => {
+    it('returns no mutation type', function () {
       const types = [customType];
       const mergedTypes = mergeTypes(types);
 
@@ -193,7 +193,7 @@ describe('mergeTypes', () => {
       assert.notInclude(schema, expectedSchemaType, 'Merged Schema is including empty mutation type');
     });
 
-    it('returns no subscription type', async () => {
+    it('returns no subscription type', function () {
       const types = [customType];
       const mergedTypes = mergeTypes(types);
 
@@ -208,7 +208,7 @@ describe('mergeTypes', () => {
     });
   });
 
-  it('includes schemaType', async () => {
+  it('includes schemaType', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -225,7 +225,7 @@ describe('mergeTypes', () => {
     assert.include(schema, expectedSchemaType, 'Merged Schema is missing schemaType');
   });
 
-  it('includes queryType', async () => {
+  it('includes queryType', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -243,7 +243,7 @@ describe('mergeTypes', () => {
     assert.include(schema, expectedQueryType, 'Merged Schema is missing queryType');
   });
 
-  it('includes mutationType', async () => {
+  it('includes mutationType', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -261,7 +261,7 @@ describe('mergeTypes', () => {
     assert.include(schema, expectedMutationType, 'Merged Schema is missing mutationType');
   });
 
-  it('includes subscriptionType', async () => {
+  it('includes subscriptionType', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -277,7 +277,7 @@ describe('mergeTypes', () => {
     assert.include(schema, expectedSubscriptionType, 'Merged Schema is missing subscriptionType');
   });
 
-  it('includes clientType', async () => {
+  it('includes clientType', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -297,7 +297,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedClientType, 'Merged Schema is missing clientType');
   });
 
-  it('includes productType', async () => {
+  it('includes productType', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -316,7 +316,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedProductType, 'Merged Schema is missing productType');
   });
 
-  it('includes first inputType', async () => {
+  it('includes first inputType', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -332,7 +332,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedProductType, 'Merged Schema is missing first inputType');
   });
 
-  it('includes second inputType', async () => {
+  it('includes second inputType', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -347,7 +347,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedProductType, 'Merged Schema is missing second inputType');
   });
 
-  it('includes first product ENUM type', async () => {
+  it('includes first product ENUM type', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -364,7 +364,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedEnumType, 'Merged Schema is missing first product ENUM type');
   });
 
-  it('includes second product ENUM type', async () => {
+  it('includes second product ENUM type', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -381,7 +381,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedEnumType, 'Merged Schema is missing second product ENUM type');
   });
 
-  it('includes first client ENUM type', async () => {
+  it('includes first client ENUM type', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -398,7 +398,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedEnumType, 'Merged Schema is missing first client ENUM type');
   });
 
-  it('includes first client SCALAR type', async () => {
+  it('includes first client SCALAR type', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -411,7 +411,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing first client Scalar type');
   });
 
-  it('includes second client SCALAR type', async () => {
+  it('includes second client SCALAR type', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -424,7 +424,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing second client Scalar type');
   });
 
-  it('includes first product SCALAR type', async () => {
+  it('includes first product SCALAR type', function () {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
 
@@ -437,7 +437,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing first product Scalar type');
   });
 
-  it('includes INTERFACE type', async () => {
+  it('includes INTERFACE type', function () {
     const types = [clientType, productType, vendorType, personEntityType];
     const mergedTypes = mergeTypes(types);
 
@@ -454,7 +454,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing INTERFACE type');
   });
 
-  it('includes vendor custom type', async () => {
+  it('includes vendor custom type', function () {
     const types = [clientType, productType, vendorType, personEntityType];
     const mergedTypes = mergeTypes(types);
 
@@ -472,7 +472,7 @@ describe('mergeTypes', () => {
     assert.include(separateTypes, expectedScalarType, 'Merged Schema is missing vendor custom type');
   });
 
-  it('includes UNION type', async () => {
+  it('includes UNION type', function () {
     const types = [clientType, productType, vendorType, personEntityType, personSearchType];
     const mergedTypes = mergeTypes(types);
 
