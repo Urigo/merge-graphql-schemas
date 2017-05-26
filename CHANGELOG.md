@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.0.16] - 2017-05-26
+### Fixed
+- Fixed mergeResolvers by calling correct deepMerge method
+
 ## [0.0.15] - 2017-05-19
 ### Changed
 - Changed babel preset from es2015 to node6
@@ -16,8 +20,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.0.14] - 2017-05-04
 ### Changed
-- Move `graphql[-tag/tools]` as `peerDependencies` to avoid versions duplicata in projects using this package.
-- Reduce bundle size by using `merge` from `deepmerge` instead of `lodash`.
+- Move `graphql[-tag/tools]` as `peerDependencies` to avoid versions duplicata in projects using this package
+- Reduce bundle size by using `merge` from `deepmerge` instead of `lodash`
 
 ## [0.0.13] - 2017-05-04
 ### Added
