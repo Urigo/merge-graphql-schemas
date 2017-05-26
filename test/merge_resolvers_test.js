@@ -2,6 +2,7 @@ import chai from 'chai';
 import mergeResolvers from '../src/merge_resolvers';
 import clientResolvers from './graphql/resolvers/client_resolver';
 import productResolvers from './graphql/resolvers/product_resolver';
+import vendorResolvers from './graphql/resolvers/vendor_resolver';
 
 const assert = chai.assert;
 
@@ -9,13 +10,14 @@ describe('mergeResolvers', function () {
   describe('with default options', function () {
 
     it('merges all query resolvers', function () {
-      const resolvers = [clientResolvers, productResolvers];
+      const resolvers = [clientResolvers, productResolvers, vendorResolvers];
       const mergedResolvers = mergeResolvers(resolvers);
 
       assert.isDefined(mergedResolvers.Query.clients, 'Merged resolvers is missing clients resolver');
       assert.isDefined(mergedResolvers.Query.client, 'Merged resolvers is missing client resolver');
       assert.isDefined(mergedResolvers.Query.products, 'Merged resolvers is missing products resolver');
       assert.isDefined(mergedResolvers.Query.product, 'Merged resolvers is missing product resolver');
+      assert.isDefined(mergedResolvers.Query.vendors, 'Merged resolvers is missing vendors resolver');
 
     });
 
