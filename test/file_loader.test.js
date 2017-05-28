@@ -1,4 +1,3 @@
-import chai from 'chai';
 import path from 'path';
 import fileLoader from '../src/file_loader';
 import clientType from './graphql/types/client_type';
@@ -7,15 +6,13 @@ import vendorType from './graphql/types/vendor_type';
 import personEntityType from './graphql/types/person_entity_type';
 import personSearchType from './graphql/types/person_search_type';
 
-const assert = chai.assert;
-
-describe('fileLoader', function () {
-  describe('with default options', function () {
-    it('loads all files from specified folder', function () {
+describe('fileLoader', () => {
+  describe('with default options', () => {
+    it('loads all files from specified folder', () => {
       const types = [clientType, personEntityType, personSearchType, productType, vendorType];
       const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'));
 
-      assert.deepEqual(loadedTypes, types);
+      expect(loadedTypes).toEqual(types);
     });
   });
 });

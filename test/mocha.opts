@@ -1,6 +1,0 @@
---reporter spec
---compilers js:babel-core/register
---colors
---inline-diffs
---no-timeouts
---recursive
