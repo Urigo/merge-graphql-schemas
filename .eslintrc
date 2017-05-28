@@ -10,8 +10,11 @@
     "no-param-reassign": [2, { "props": false }], // Allows assignment of new properties
   },
   "globals": {
+    "jest": true,
     "describe": true,
+    "beforeEach": true,
     "it": true,
+    "expect": true,
   },
   "settings": {
     "import/resolver": "meteor",
