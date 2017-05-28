@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.0.17] - 2017-05-28
+### Changed
+- Upgrading graphql package peer dependency to version 0.10.1
+
 ## [0.0.16] - 2017-05-26
 ### Fixed
 - Fixed mergeResolvers by calling correct deepMerge method
