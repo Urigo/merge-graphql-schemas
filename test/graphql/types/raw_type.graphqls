@@ -1,0 +1,7 @@
+type Raw {
+    field: String!
+}
+
+type Query {
+    vendors: [Raw]
+}
