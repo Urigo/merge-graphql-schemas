@@ -5,8 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.0.17] - 2017-06-14
 ### Changed
 - Changed test runner from mocha to jest
+- Adding support for .graphql and .graphqls files
 
 ## [0.0.17] - 2017-05-28
 ### Changed
