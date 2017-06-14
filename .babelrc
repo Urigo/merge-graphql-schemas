@@ -3,6 +3,8 @@
   "plugins": [
     "transform-runtime",
     "transform-regenerator",
+    "transform-es2015-spread",
+    "transform-object-rest-spread",
     "syntax-async-functions"
   ]
 }

@@ -7,6 +7,13 @@ export default `
     settings: JSON
     products: [Product]
   }
+  
+  type ClientWithComment {
+    # ClientID
+    id: ID!
+    # Name
+    name: String
+  }
 
   type Query {
     clients: [Client]
