@@ -5,10 +5,25 @@ const fileLoader = (folderPath) => {
   const dir = folderPath; // path.join(__dirname, folderPath);
   const files = [];
   fs.readdirSync(dir).forEach((f) => {
-    if (f.slice(-3) !== '.js') { return; }
+    const ext = path.extname(f);
     const filesDir = path.join(dir, f);
-    const file = require(filesDir); // eslint-disable-line
-    files.push(file.default);
+
+    switch (ext) {
+      case '.js': {
+        const file = require(filesDir); // eslint-disable-line
+        files.push(file.default);
+        break;
+      }
+
+      case '.graphqls':
+      case '.graphql': {
+        const file = fs.readFileSync(filesDir);
+        files.push(file.toString());
+        break;
+      }
+
+      default:
+    }
   });
   return files;
 };
