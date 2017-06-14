@@ -20,9 +20,9 @@ function makeCommentNode(value) {
   };
 }
 
-function addCommentsToAST(nodes) {
-  return nodes
-    .map((node) => {
+function addCommentsToAST(nodes, flatten = true) {
+  const astWithComments = nodes.map(
+    (node) => {
       const description = getDescription(node);
 
       if (description) {
@@ -30,12 +30,19 @@ function addCommentsToAST(nodes) {
       }
 
       return [node];
-    })
-    .reduce((a, b) => a.concat(b), []);
+    },
+  );
+
+  if (flatten) {
+    return astWithComments.reduce((a, b) => a.concat(b), []);
+  }
+
+  return astWithComments;
 }
 
 function makeRestDefinitions(defs) {
-  return addCommentsToAST(defs.filter(isNonMergableTypeDefinition))
+  return defs
+    .filter(isNonMergableTypeDefinition)
     .map((def) => {
       if (isObjectTypeDefinition(def)) {
         return {
@@ -106,7 +113,7 @@ export default function mergeTypes(types) {
     .reduce((defs, newDef) => [...defs, ...newDef], []);
 
   const mergedDefs = makeMergedMergableDefinitions(allDefs);
-  const rest = makeRestDefinitions(allDefs).map(printDefinitions);
+  const rest = addCommentsToAST(makeRestDefinitions(allDefs), false).map(printDefinitions);
   const schema = printDefinitions([makeSchema(mergedDefs), ...mergedDefs]);
 
   validateSchema(schema, rest);

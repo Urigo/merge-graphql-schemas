@@ -8,6 +8,14 @@ export default `
     products: [Product]
   }
   
+  # Comments on top of type definition
+  type ClientWithCommentOnTop {
+    # ClientID
+    id: ID!
+    # Name
+    name: String
+  }
+  
   type ClientWithComment {
     # ClientID
     id: ID!
