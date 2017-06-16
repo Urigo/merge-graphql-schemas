@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 const fileLoader = (folderPath) => {
-  const dir = folderPath; // path.join(__dirname, folderPath);
+  const dir = folderPath;
   const files = [];
   fs.readdirSync(dir).forEach((f) => {
     const ext = path.extname(f);

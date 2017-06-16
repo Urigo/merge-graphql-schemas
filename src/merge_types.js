@@ -2,31 +2,23 @@ import { parse } from 'graphql';
 import { getDescription } from 'graphql/utilities/buildASTSchema';
 import print from './utilities/astPrinter';
 import { isObjectTypeDefinition } from './utilities/astHelpers';
-import makeSchema, { mergableTypes } from './utilities/makeSchema';
+import { makeSchema, mergeableTypes } from './utilities/makeSchema';
 import validateSchema from './validate_schema';
 
-function isMergableTypeDefinition(def) {
-  return isObjectTypeDefinition(def) && mergableTypes.includes(def.name.value);
-}
+const _isMergeableTypeDefinition = def =>
+  isObjectTypeDefinition(def) && mergeableTypes.includes(def.name.value);
 
-function isNonMergableTypeDefinition(def) {
-  return !isMergableTypeDefinition(def);
-}
+const _isNonMergeableTypeDefinition = def => !_isMergeableTypeDefinition(def);
 
-function makeCommentNode(value) {
-  return {
-    kind: 'Comment',
-    value,
-  };
-}
+const _makeCommentNode = value => ({ kind: 'Comment', value });
 
-function addCommentsToAST(nodes, flatten = true) {
+const _addCommentsToAST = (nodes, flatten = true) => {
   const astWithComments = nodes.map(
     (node) => {
       const description = getDescription(node);
 
       if (description) {
-        return [makeCommentNode(description), node];
+        return [_makeCommentNode(description), node];
       }
 
       return [node];
@@ -38,27 +30,26 @@ function addCommentsToAST(nodes, flatten = true) {
   }
 
   return astWithComments;
-}
+};
 
-function makeRestDefinitions(defs) {
-  return defs
-    .filter(isNonMergableTypeDefinition)
+const _makeRestDefinitions = defs =>
+  defs
+    .filter(_isNonMergeableTypeDefinition)
     .map((def) => {
       if (isObjectTypeDefinition(def)) {
         return {
           ...def,
-          fields: addCommentsToAST(def.fields),
+          fields: _addCommentsToAST(def.fields),
         };
       }
 
       return def;
     });
-}
 
-function makeMergedMergableDefinitions(defs) {
+const _makeMergedDefinitions = (defs) => {
   // TODO: This function can be cleaner!
   const groupedMergableDefinitions = defs
-    .filter(isMergableTypeDefinition)
+    .filter(_isMergeableTypeDefinition)
     .reduce(
       (mergableDefs, def) => {
         const name = def.name.value;
@@ -68,7 +59,7 @@ function makeMergedMergableDefinitions(defs) {
             ...mergableDefs,
             [name]: {
               ...def,
-              fields: addCommentsToAST(def.fields),
+              fields: _addCommentsToAST(def.fields),
             },
           };
         }
@@ -79,7 +70,7 @@ function makeMergedMergableDefinitions(defs) {
             ...mergableDefs[name],
             fields: [
               ...mergableDefs[name].fields,
-              ...addCommentsToAST(def.fields),
+              ..._addCommentsToAST(def.fields),
             ],
           },
         };
@@ -93,30 +84,28 @@ function makeMergedMergableDefinitions(defs) {
   return Object
     .values(groupedMergableDefinitions)
     .reduce((array, def) => (def ? [...array, def] : array), []);
-}
+};
 
-function makeDocumentWithDefinitions(definitions) {
-  return {
-    kind: 'Document',
-    definitions: definitions instanceof Array ? definitions : [definitions],
-  };
-}
+const _makeDocumentWithDefinitions = definitions => ({
+  kind: 'Document',
+  definitions: definitions instanceof Array ? definitions : [definitions],
+});
 
-function printDefinitions(defs) {
-  return print(makeDocumentWithDefinitions(defs));
-}
+const printDefinitions = defs => print(_makeDocumentWithDefinitions(defs));
 
-export default function mergeTypes(types) {
+const mergeTypes = (types) => {
   const allDefs = types
     .map(parse)
     .map(ast => ast.definitions)
     .reduce((defs, newDef) => [...defs, ...newDef], []);
 
-  const mergedDefs = makeMergedMergableDefinitions(allDefs);
-  const rest = addCommentsToAST(makeRestDefinitions(allDefs), false).map(printDefinitions);
+  const mergedDefs = _makeMergedDefinitions(allDefs);
+  const rest = _addCommentsToAST(_makeRestDefinitions(allDefs), false).map(printDefinitions);
   const schema = printDefinitions([makeSchema(mergedDefs), ...mergedDefs]);
 
   validateSchema(schema, rest);
   return [schema, ...rest];
-}
+};
+
+export default mergeTypes;
 

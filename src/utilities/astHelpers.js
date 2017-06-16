@@ -1,9 +1,8 @@
 import { Kind } from 'graphql';
 
-export function hasDefinitionWithName(nodes, name) {
-  return nodes.findIndex(node => node.name.value === name) !== -1;
-}
+const hasDefinitionWithName = (nodes, name) =>
+  nodes.findIndex(node => node.name.value === name) !== -1;
 
-export function isObjectTypeDefinition(def) {
-  return def.kind === Kind.OBJECT_TYPE_DEFINITION;
-}
+const isObjectTypeDefinition = def => def.kind === Kind.OBJECT_TYPE_DEFINITION;
+
+export { hasDefinitionWithName, isObjectTypeDefinition };
