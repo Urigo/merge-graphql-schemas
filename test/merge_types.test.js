@@ -420,4 +420,37 @@ describe('mergeTypes', () => {
 
     expect(separateTypes).toContain(expectedScalarType);
   });
+
+  it('preserves the field comments', () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+    const expectedClientType = normalizeWhitespace(`
+      type ClientWithComment {
+        # ClientID
+        id: ID!
+        # Name
+        name: String
+      }
+    `);
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    expect(separateTypes).toContain(expectedClientType);
+  });
+
+  it('preserves the type comments', () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+    const expectedClientType = normalizeWhitespace(`
+      # Comments on top of type definition
+      type ClientWithCommentOnTop {
+        # ClientID
+        id: ID!
+        # Name
+        name: String
+      }
+    `);
+    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+
+    expect(separateTypes).toContain(expectedClientType);
+  });
 });

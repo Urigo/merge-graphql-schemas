@@ -1,93 +1,122 @@
+import { parse } from 'graphql';
+import { getDescription } from 'graphql/utilities/buildASTSchema';
+import print from './utilities/astPrinter';
+import { isObjectTypeDefinition } from './utilities/astHelpers';
+import makeSchema, { mergableTypes } from './utilities/makeSchema';
 import validateSchema from './validate_schema';
 
-const mergeTypes = (types) => {
-  const sliceDefaultTypes = operation =>
-    types.map((type) => {
-      const regexp = new RegExp(`type ${operation} {(.*?)}`, 'gim');
-      const extractedType = type.replace(/(\s)+/gim, ' ').match(regexp);
-      if (extractedType != null && extractedType.length > 0) {
-        const startIndex = extractedType[0].indexOf('{') + 1;
-        const endIndex = extractedType[0].indexOf('}') - 1;
-        return extractedType[0].slice(startIndex, endIndex);
-      }
-      return '';
-    }).join(' ');
+function isMergableTypeDefinition(def) {
+  return isObjectTypeDefinition(def) && mergableTypes.includes(def.name.value);
+}
 
-  const inputTypeRegEx = /input ([\s\S]*?) {/g;
-  const enumTypeRegEx = /enum ([\s\S]*?) {/g;
-  const scalarTypeRegEx = /scalar ([\s\S]*?).*/gim;
-  const interfaceTypeRegEx = /interface ([\s\S]*?) {/g;
-  const unionTypeRegEx = /union ([\s\S]*?) =/g;
-  const customTypeRegEx = /type (?!Query)(?!Mutation)(?!Subscription)([\s\S]*?) {/g;
+function isNonMergableTypeDefinition(def) {
+  return !isMergableTypeDefinition(def);
+}
 
-  const defaultOptions = {
-    scalar: false,
-    closingChar: '}',
+function makeCommentNode(value) {
+  return {
+    kind: 'Comment',
+    value,
   };
+}
 
-  const sliceTypes = (regexp, options = defaultOptions) => {
-    const extractedMatches = [];
-    types.forEach((type) => {
-      const matches = type.match(regexp);
-      if (matches !== null) {
-        matches.forEach((match) => {
-          if (options.scalar) {
-            extractedMatches.push(match);
-          } else {
-            const startIndex = type.indexOf(match);
-            const endIndex = type.indexOf(options.closingChar, startIndex);
-            extractedMatches.push(type.slice(startIndex, endIndex + 1));
-          }
-        });
+function addCommentsToAST(nodes, flatten = true) {
+  const astWithComments = nodes.map(
+    (node) => {
+      const description = getDescription(node);
+
+      if (description) {
+        return [makeCommentNode(description), node];
       }
+
+      return [node];
+    },
+  );
+
+  if (flatten) {
+    return astWithComments.reduce((a, b) => a.concat(b), []);
+  }
+
+  return astWithComments;
+}
+
+function makeRestDefinitions(defs) {
+  return defs
+    .filter(isNonMergableTypeDefinition)
+    .map((def) => {
+      if (isObjectTypeDefinition(def)) {
+        return {
+          ...def,
+          fields: addCommentsToAST(def.fields),
+        };
+      }
+
+      return def;
     });
-    return extractedMatches;
+}
+
+function makeMergedMergableDefinitions(defs) {
+  // TODO: This function can be cleaner!
+  const groupedMergableDefinitions = defs
+    .filter(isMergableTypeDefinition)
+    .reduce(
+      (mergableDefs, def) => {
+        const name = def.name.value;
+
+        if (!mergableDefs[name]) {
+          return {
+            ...mergableDefs,
+            [name]: {
+              ...def,
+              fields: addCommentsToAST(def.fields),
+            },
+          };
+        }
+
+        return {
+          ...mergableDefs,
+          [name]: {
+            ...mergableDefs[name],
+            fields: [
+              ...mergableDefs[name].fields,
+              ...addCommentsToAST(def.fields),
+            ],
+          },
+        };
+      }, {
+        Query: null,
+        Mutation: null,
+        Subscription: null,
+      },
+    );
+
+  return Object
+    .values(groupedMergableDefinitions)
+    .reduce((array, def) => (def ? [...array, def] : array), []);
+}
+
+function makeDocumentWithDefinitions(definitions) {
+  return {
+    kind: 'Document',
+    definitions: definitions instanceof Array ? definitions : [definitions],
   };
+}
 
-  const inputTypes = sliceTypes(inputTypeRegEx).filter(Boolean);
-  const enumTypes = sliceTypes(enumTypeRegEx).filter(Boolean);
-  const scalarTypes = sliceTypes(scalarTypeRegEx, { scalar: true }).filter(Boolean);
-  const interfaceTypes = sliceTypes(interfaceTypeRegEx).filter(Boolean);
-  const unionTypes = sliceTypes(unionTypeRegEx, { closingChar: '\n' }).filter(Boolean);
-  const customTypes = sliceTypes(customTypeRegEx).filter(Boolean);
-  const queryTypes = sliceDefaultTypes('Query');
-  const mutationTypes = sliceDefaultTypes('Mutation');
-  const subscriptionTypes = sliceDefaultTypes('Subscription');
+function printDefinitions(defs) {
+  return print(makeDocumentWithDefinitions(defs));
+}
 
-  const cleanupForComparison = string => string.replace(/(\s)+/gim, '');
+export default function mergeTypes(types) {
+  const allDefs = types
+    .map(parse)
+    .map(ast => ast.definitions)
+    .reduce((defs, newDef) => [...defs, ...newDef], []);
 
-  const queryInterpolation = `type Query {
-    ${queryTypes}
-  }`;
-  const mutationInterpolation = `type Mutation {
-    ${mutationTypes}
-  }`;
-  const subscriptionInterpolation = `type Subscription {
-    ${subscriptionTypes}
-  }`;
-  const schema = `
-    schema {
-      query: Query
-      ${cleanupForComparison(mutationTypes) !== '' ? 'mutation: Mutation' : ''}
-      ${cleanupForComparison(subscriptionTypes) !== '' ? 'subscription: Subscription' : ''}
-    }
+  const mergedDefs = makeMergedMergableDefinitions(allDefs);
+  const rest = addCommentsToAST(makeRestDefinitions(allDefs), false).map(printDefinitions);
+  const schema = printDefinitions([makeSchema(mergedDefs), ...mergedDefs]);
 
-    ${cleanupForComparison(queryTypes) !== '' ? queryInterpolation : ''}
+  validateSchema(schema, rest);
+  return [schema, ...rest];
+}
 
-    ${cleanupForComparison(mutationTypes) !== '' ? mutationInterpolation : ''}
-
-    ${cleanupForComparison(subscriptionTypes) !== '' ? subscriptionInterpolation : ''}
-  `;
-
-  let mergedTypes = [];
-  const allTypes = [inputTypes, enumTypes, scalarTypes, interfaceTypes, unionTypes, customTypes];
-  allTypes.forEach((t) => {
-    if (t.length !== 0) { mergedTypes = mergedTypes.concat(t); }
-  });
-
-  validateSchema(schema, mergedTypes);
-
-  return [schema, ...mergedTypes];
-};
-
-export default mergeTypes;
