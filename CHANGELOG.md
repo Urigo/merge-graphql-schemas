@@ -6,7 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [0.0.17] - 2017-06-14
+## [0.0.19] - 2017-06-14
+### Changed
+- Changed implementation of mergeTypes
+
+### Fixed
+- mergeTypes now correctly parses comments
+
+## [0.0.18] - 2017-06-14
 ### Changed
 - Changed test runner from mocha to jest
 - Adding support for .graphql and .graphqls files
