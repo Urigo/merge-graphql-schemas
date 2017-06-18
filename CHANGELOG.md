@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.0.20] - 2017-06-18
+### Changed
+- No longer passing schema to gql for validation
+
+### Fixed
+- Fixed multiline comments parsing
+
 ## [0.0.19] - 2017-06-14
 ### Changed
 - Changed implementation of mergeTypes
