@@ -441,7 +441,7 @@ describe('mergeTypes', () => {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
     const expectedClientType = normalizeWhitespace(`
-      # Comments on top of type definition
+      # Comments on top of type definition Second comment line
       type ClientWithCommentOnTop {
         # ClientID
         id: ID!

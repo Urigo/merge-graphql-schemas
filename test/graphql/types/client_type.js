@@ -7,15 +7,16 @@ export default `
     settings: JSON
     products: [Product]
   }
-  
+
   # Comments on top of type definition
+  # Second comment line
   type ClientWithCommentOnTop {
     # ClientID
     id: ID!
     # Name
     name: String
   }
-  
+
   type ClientWithComment {
     # ClientID
     id: ID!
