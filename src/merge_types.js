@@ -3,7 +3,6 @@ import { getDescription } from 'graphql/utilities/buildASTSchema';
 import print from './utilities/astPrinter';
 import { isObjectTypeDefinition } from './utilities/astHelpers';
 import { makeSchema, mergeableTypes } from './utilities/makeSchema';
-import validateSchema from './validate_schema';
 
 const _isMergeableTypeDefinition = def =>
   isObjectTypeDefinition(def) && mergeableTypes.includes(def.name.value);
@@ -103,7 +102,6 @@ const mergeTypes = (types) => {
   const rest = _addCommentsToAST(_makeRestDefinitions(allDefs), false).map(printDefinitions);
   const schema = printDefinitions([makeSchema(mergedDefs), ...mergedDefs]);
 
-  validateSchema(schema, rest);
   return [schema, ...rest];
 };
 
