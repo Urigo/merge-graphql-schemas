@@ -19,7 +19,7 @@ describe('mergeTypes', () => {
           query: Query
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).toContain(expectedSchemaType);
     });
@@ -31,7 +31,7 @@ describe('mergeTypes', () => {
         type Query {
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).not.toContain(expectedSchemaType);
     });
@@ -43,7 +43,7 @@ describe('mergeTypes', () => {
         type Mutation {
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).not.toContain(expectedSchemaType);
     });
@@ -55,7 +55,7 @@ describe('mergeTypes', () => {
         type Subscription {
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).not.toContain(expectedSchemaType);
     });
@@ -70,7 +70,7 @@ describe('mergeTypes', () => {
           query: Query
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).toContain(expectedSchemaType);
     });
@@ -83,7 +83,7 @@ describe('mergeTypes', () => {
           clients: [Client]
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).toContain(expectedSchemaType);
     });
@@ -95,7 +95,7 @@ describe('mergeTypes', () => {
         type Mutation {
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).not.toContain(expectedSchemaType);
     });
@@ -107,7 +107,7 @@ describe('mergeTypes', () => {
         type Subscription {
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).not.toContain(expectedSchemaType);
     });
@@ -124,7 +124,7 @@ describe('mergeTypes', () => {
           age: Int
         }
       `);
-      const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+      const separateTypes = normalizeWhitespace(mergedTypes);
 
       expect(separateTypes).toContain(expectedCustomType);
     });
@@ -137,7 +137,7 @@ describe('mergeTypes', () => {
           query: Query
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).toContain(expectedSchemaType);
     });
@@ -149,7 +149,7 @@ describe('mergeTypes', () => {
         type Query {
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).not.toContain(expectedSchemaType);
     });
@@ -161,7 +161,7 @@ describe('mergeTypes', () => {
         type Mutation {
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).not.toContain(expectedSchemaType);
     });
@@ -173,7 +173,7 @@ describe('mergeTypes', () => {
         type Subscription {
         }
       `);
-      const schema = normalizeWhitespace(mergedTypes[0]);
+      const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).not.toContain(expectedSchemaType);
     });
@@ -189,7 +189,7 @@ describe('mergeTypes', () => {
         subscription: Subscription
       }
     `);
-    const schema = normalizeWhitespace(mergedTypes[0]);
+    const schema = normalizeWhitespace(mergedTypes);
 
     expect(schema).toContain(expectedSchemaType);
   });
@@ -205,7 +205,7 @@ describe('mergeTypes', () => {
         product(id: ID!): Product
       }
     `);
-    const schema = normalizeWhitespace(mergedTypes[0]);
+    const schema = normalizeWhitespace(mergedTypes);
 
     expect(schema).toContain(expectedQueryType);
   });
@@ -220,7 +220,7 @@ describe('mergeTypes', () => {
         create_product(description: String!, price: Int!): Product
         update_product(id: ID!, description: String!, price: Int!): Product
       }`);
-    const schema = normalizeWhitespace(mergedTypes[0]);
+    const schema = normalizeWhitespace(mergedTypes);
 
     expect(schema).toContain(expectedMutationType);
   });
@@ -234,7 +234,7 @@ describe('mergeTypes', () => {
         inactiveClients: [Client]
         activeProducts: [Product]
       }`);
-    const schema = normalizeWhitespace(mergedTypes[0]);
+    const schema = normalizeWhitespace(mergedTypes);
 
     expect(schema).toContain(expectedSubscriptionType);
   });
@@ -252,7 +252,7 @@ describe('mergeTypes', () => {
         products: [Product]
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedClientType);
   });
@@ -269,7 +269,7 @@ describe('mergeTypes', () => {
         clients: [Client]
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedProductType);
   });
@@ -283,7 +283,7 @@ describe('mergeTypes', () => {
         age: Int!
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedProductType);
   });
@@ -296,7 +296,7 @@ describe('mergeTypes', () => {
         age: Int!
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedProductType);
   });
@@ -311,7 +311,7 @@ describe('mergeTypes', () => {
         REFURBISHED
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedEnumType);
   });
@@ -326,7 +326,7 @@ describe('mergeTypes', () => {
         SALE
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedEnumType);
   });
@@ -341,7 +341,7 @@ describe('mergeTypes', () => {
         INACTIVE
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedEnumType);
   });
@@ -352,7 +352,7 @@ describe('mergeTypes', () => {
     const expectedScalarType = normalizeWhitespace(`
       scalar Date
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedScalarType);
   });
@@ -363,7 +363,7 @@ describe('mergeTypes', () => {
     const expectedScalarType = normalizeWhitespace(`
       scalar JSON
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedScalarType);
   });
@@ -374,7 +374,7 @@ describe('mergeTypes', () => {
     const expectedScalarType = normalizeWhitespace(`
       scalar TAG
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedScalarType);
   });
@@ -389,7 +389,7 @@ describe('mergeTypes', () => {
           dob: Date
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedScalarType);
   });
@@ -405,7 +405,7 @@ describe('mergeTypes', () => {
         dob: Date
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedScalarType);
   });
@@ -416,7 +416,7 @@ describe('mergeTypes', () => {
     const expectedScalarType = normalizeWhitespace(`
       union personSearch = Client | Vendor
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedScalarType);
   });
@@ -427,12 +427,13 @@ describe('mergeTypes', () => {
     const expectedClientType = normalizeWhitespace(`
       type ClientWithComment {
         # ClientID
+        # Required
         id: ID!
         # Name
         name: String
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedClientType);
   });
@@ -441,7 +442,8 @@ describe('mergeTypes', () => {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
     const expectedClientType = normalizeWhitespace(`
-      # Comments on top of type definition Second comment line
+      # Comments on top of type definition
+      # Second comment line
       type ClientWithCommentOnTop {
         # ClientID
         id: ID!
@@ -449,7 +451,7 @@ describe('mergeTypes', () => {
         name: String
       }
     `);
-    const separateTypes = mergedTypes.slice(1).map(type => normalizeWhitespace(type));
+    const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedClientType);
   });
