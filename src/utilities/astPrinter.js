@@ -181,7 +181,7 @@ const printDocASTReducer = {
   'directive @' + name + wrap('(', join(args, ', '), ')') +
   ' on ' + join(locations, ' | '),
 
-  Comment: ({ value }) => `# ${value.replace('\n', '\n # ')}`,
+  Comment: ({ value }) => `# ${value.replace(/\n/g, '\n # ')}`,
 };
 
 /**

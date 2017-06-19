@@ -427,7 +427,9 @@ describe('mergeTypes', () => {
     const expectedClientType = normalizeWhitespace(`
       type ClientWithComment {
         # ClientID
-        # Required
+        # Second comment line
+        # Third comment line
+        # Fourth comment line
         id: ID!
         # Name
         name: String
@@ -444,6 +446,8 @@ describe('mergeTypes', () => {
     const expectedClientType = normalizeWhitespace(`
       # Comments on top of type definition
       # Second comment line
+      # Third comment line
+      # Fourth comment line
       type ClientWithCommentOnTop {
         # ClientID
         id: ID!
