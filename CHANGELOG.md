@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.0.21] - 2017-06-18
+### Fixed
+- Ast printer bug fix
+
+### Changed
+- Updated graphql-tools to version 1.0.0
+
 ## [0.0.20] - 2017-06-18
 ### Changed
 - No longer passing schema to gql for validation
