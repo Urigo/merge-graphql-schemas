@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.0.22] - 2017-06-18
+### Fixed
+- Ast printer bug fix (allowing more than 2 lines of comments)
+
 ## [0.0.21] - 2017-06-18
 ### Fixed
 - Ast printer bug fix
