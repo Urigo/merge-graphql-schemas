@@ -19,6 +19,7 @@ export default `
 
   type ClientWithComment {
     # ClientID
+    # Required
     id: ID!
     # Name
     name: String

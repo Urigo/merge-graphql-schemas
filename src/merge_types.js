@@ -1,3 +1,4 @@
+// Test
 import { parse } from 'graphql';
 import { getDescription } from 'graphql/utilities/buildASTSchema';
 import print from './utilities/astPrinter';
@@ -15,7 +16,6 @@ const _addCommentsToAST = (nodes, flatten = true) => {
   const astWithComments = nodes.map(
     (node) => {
       const description = getDescription(node);
-
       if (description) {
         return [_makeCommentNode(description), node];
       }
@@ -102,7 +102,7 @@ const mergeTypes = (types) => {
   const rest = _addCommentsToAST(_makeRestDefinitions(allDefs), false).map(printDefinitions);
   const schema = printDefinitions([makeSchema(mergedDefs), ...mergedDefs]);
 
-  return [schema, ...rest];
+  return [schema, ...rest].join('\n');
 };
 
 export default mergeTypes;
