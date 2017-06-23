@@ -5,13 +5,15 @@ const fileLoader = (folderPath) => {
   const dir = folderPath;
   const files = [];
   fs.readdirSync(dir).forEach((f) => {
-    const ext = path.extname(f);
+    const pathObj = path.parse(f);
     const filesDir = path.join(dir, f);
 
-    switch (ext) {
+    if (pathObj.name.toLowerCase() === 'index') { return; }
+
+    switch (pathObj.ext) {
       case '.js': {
         const file = require(filesDir); // eslint-disable-line
-        files.push(file.default);
+        files.push(file.default || file);
         break;
       }
 

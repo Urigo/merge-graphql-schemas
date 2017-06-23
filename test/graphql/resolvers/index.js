@@ -1,1 +1,3 @@
-export default {};
+export default {
+  should: 'not be imported',
+};
