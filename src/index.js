@@ -7,6 +7,7 @@ const mergeGraphqlSchemas = (folderPath, debug = false) => {
   const typesArray = fileLoader(`${folderPath}/types`);
   const resolversArray = fileLoader(`${folderPath}/resolvers`);
 
+
   const typeDefs = mergeTypes(typesArray);
   const resolvers = mergeResolvers(resolversArray);
 
