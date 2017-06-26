@@ -23,7 +23,7 @@ npm install -S merge-graphql-schemas
 
 Let's say this is your current schema:
 
-```
+```graphql
 type Client {
   id: ID!
   name: String
@@ -121,6 +121,39 @@ import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 const typesArray = fileLoader(path.join(__dirname, './types'));
 
 module.exports = mergeTypes(typesArray);
+```
+When using the `fileLoader` function you can also implement your type definitions using `.graphql` or `.graphqls` files.
+
+```graphql
+# ./graphql/types/clientType.graphql
+type Client {
+  id: ID!
+  name: String
+  age: Int
+  products: [Product]
+}
+
+type Query {
+  clients: [Client]
+  client(id: ID!): Client
+}
+
+type Mutation {
+  addClient(name: String!, age: Int!): Client
+}
+
+# ./graphql/types/productType.graphql
+type Product {
+  id: ID!
+  description: String
+  price: Int
+  client: Client
+}
+
+type Query {
+  products: [Product]
+  product(id: ID!): Product
+}
 ```
 
 ### Merging resolvers
@@ -220,6 +253,8 @@ import typeDefs from './graphql/typeDefs';
 import resolvers from './graphql/resolvers';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+const app = express();
 
 app.use(
   '/graphql',
