@@ -1,5 +1,5 @@
 {
-  "presets": ["node6"],
+  "presets": ["latest-node4"],
   "plugins": [
     "transform-runtime",
     "transform-regenerator",
