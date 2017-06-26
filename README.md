@@ -4,9 +4,18 @@
 
 # MergeGraphqlSchemas
 
+An utility library to facilitate merging of modularized GraphQL schemas and resolver objects.
+
+
 ## Objectives:
   * Reduce the complexity of Graphql server implementation
   * Modularize type and resolver files
+
+## Installation
+
+```
+npm install -S merge-graphql-schemas
+```
 
 ## Usage
 
@@ -42,7 +51,7 @@ type Mutation {
 
 Knowing that your app will grow, you want to move your definitions to separate files that should look like the following.
 
-```
+```js
 // ./graphql/types/clientType.js
 export default `
   type Client {
@@ -117,18 +126,18 @@ module.exports = mergeTypes(typesArray);
 ### Merging resolvers
 
 Resolvers should be implemented as simple JS objects. Following our example, for the types we implemented
-our resolvers should like like the following:
+our resolvers should look like the following:
 
 
 ```js
 // ./graphql/resolvers/clientResolver.js
 export default {
   Query: {
-    clients: () => {}
-    client: () => {}
+    clients: () => {},
+    client: () => {},
   },
   Mutation: {
-    addClient: () => {}
+    addClient: () => {},
   },
   Client: {
     products: () => {},
@@ -138,8 +147,8 @@ export default {
 // ./graphql/resolvers/productResolver.js
 export default {
   Query: {
-    products: () => {}
-    product: () => {}
+    products: () => {},
+    product: () => {},
   },
   Product: {
     client: () => {},
@@ -179,13 +188,14 @@ module.exports = mergeResolvers(resolversArray);
 Here's an example using express-graphql:
 
 ```js
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
-const { buildSchema } = require('graphql');
+import express from 'express';
+import graphqlHTTP from 'express-graphql';
+import { buildSchema } from 'graphql';
 
-const typeDefs = require('./graphql/types/index')
+import typeDefs from './graphql/types/index';
+import rootValue from './graphql/resolvers/index';
+
 const schema = buildSchema(typeDefs);
-const rootValue = require('./graphql/resolvers/index');
 
 const app = express();
 app.use('/graphql', graphqlHTTP({
@@ -200,28 +210,31 @@ app.listen(3000);
 Or using apollo-server:
 
 ```js
-const express = require('express');
-const apolloExpress = require('apollo-server').apolloExpress;
-const makeExecutableSchema = require('graphql-tools').makeExecutableSchema;
-const graphiqlExpress = require('apollo-server').graphiqlExpress;
-const bodyParser = require('body-parser');
+import express from 'express';
+import { apolloExpress } from 'apollo-server';
+import { makeExecutableSchema } from 'graphql-tools';
+import { graphiqlExpress } from 'apollo-server';
+import bodyParser from 'body-parser';
 
-const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers');
-const schema = makeExecutableSchema({typeDefs, resolvers});
+import typeDefs from './graphql/typeDefs';
+import resolvers from './graphql/resolvers';
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 app.use(
   '/graphql',
   bodyParser.json(),
   apolloExpress({ schema })
 );
-app.use('/graphiql', graphiqlExpress({
-  endpointURL: '/graphql',
-}));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 app.listen(3000);
 module.exports = app;
 ```
+
+## Contributing
+Issues and Pull Requests are always welcome.
+Please read our [contribution guidelines](https://github.com/okgrow/guides/blob/master/open-source/contributing.md).
 
 ## License
 
