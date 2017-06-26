@@ -2,7 +2,7 @@
 [![npm version](https://img.shields.io/npm/v/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 [![npm downloads](https://img.shields.io/npm/dm/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 
-# MergeGraphqlSchemas
+# Merge Graphql Schemas
 
 An utility library to facilitate merging of modularized GraphQL schemas and resolver objects.
 

@@ -12,7 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Change fileLoader to load commonJS and ES6 modules
 
 ### Changed
+- Deprecated mergeGraphqlSchemas function
 - FileLoader ignores index.js files
+- Readme example
 
 ## [0.0.22] - 2017-06-18
 ### Fixed
