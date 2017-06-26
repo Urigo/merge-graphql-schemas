@@ -2,185 +2,274 @@
 [![npm version](https://img.shields.io/npm/v/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 [![npm downloads](https://img.shields.io/npm/dm/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 
+# Merge Graphql Schemas
 
+An utility library to facilitate merging of modularized GraphQL schemas and resolver objects.
 
-
-# MergeGraphqlSchemas
 
 ## Objectives:
   * Reduce the complexity of Graphql server implementation
   * Modularize type and resolver files
 
-## Motivation
+## Installation
 
-When using graphql-tools, a package from the ApolloStack Team, to combine our
-types and resolvers, we call the function `makeExecutableSchema()`, passing the full schema as a string, and a resolvers object.
-
-For the schema file, we can create it as a single string containing all types.
-But as the app grows, so does the size/complexity of this file. On the other hand, if we put every type in its own file, we need a way of merging all that information back into one string. Apollo lets us pass multiple strings, which lets us separate types, but the root queries for those types still need to be merged with the root query and mutation objects. We would like to be able to specify a types and queries that belong to the same domain together:
-
-*ClientType*
 ```
-type Client {
-  id: ID!
-  name: String
-  age: Int
-  products: [Product]
-}
-
-type Query {
-  clients: [Client]
-  client(id: ID!): Client
-}
+npm install -S merge-graphql-schemas
 ```
-
-*ProductType*
-```
-type Product {
-  id: ID!
-  description: String
-  price: Int
-}
-
-type Query {
-  products: [Product]
-  product(id: ID!): Product
-}
-```
-
-
-*Merged Result*
-```
-type Client {
-  id: ID!
-  name: String
-  age: Int
-  products: [Product]
-}
-
-type Product {
-  id: ID!
-  description: String
-  price: Int
-}
-
-type Query {
-  clients: [Client]
-  client(id: ID!): Client
-  products: [Product]
-  product(id: ID!): Product
-}
-```
-
-It's the same for our resolvers: Create everything in one big/complex file/object or merge multiple files/objects into one.
-
-This package will allow you to just specify a folder or a set of imports to merge. `mergeGraphqlSchemas()` will merge not only your types but also root queries in the correct format to be passed to your GraphQL server.
 
 ## Usage
 
+### Merging type definitions
+
+Let's say this is your current schema:
+
+```graphql
+type Client {
+  id: ID!
+  name: String
+  age: Int
+  products: [Product]
+}
+
+type Product {
+  id: ID!
+  description: String
+  price: Int
+}
+
+type Query {
+  clients: [Client]
+  client(id: ID!): Client
+  products: [Product]
+  product(id: ID!): Product
+}
+
+type Mutation {
+  addClient(name: String!, age: Int!): Client
+}
+```
+
+Knowing that your app will grow, you want to move your definitions to separate files that should look like the following.
+
+```js
+// ./graphql/types/clientType.js
+export default `
+  type Client {
+    id: ID!
+    name: String
+    age: Int
+    products: [Product]
+  }
+
+  type Query {
+    clients: [Client]
+    client(id: ID!): Client
+  }
+
+  type Mutation {
+    addClient(name: String!, age: Int!): Client
+  }
+`;
+
+// ./graphql/types/productType.js
+export default `
+  type Product {
+    id: ID!
+    description: String
+    price: Int
+    client: Client
+  }
+
+  type Query {
+    products: [Product]
+    product(id: ID!): Product
+  }
+`;
+```
+
 There are two ways you can use this package:
-  * Passing the path of your GraphQL folder
-  * Merging `types` and `resolvers` into separate `index` files
+  * manually import each type
+  * import everything from a specified folder
 
-## Passing the path of your GraphQL folder
+### Manually import each type
 
-This is the easiest way of getting started.
+If you decide to have manual control of each file that gets merged, all you need is the `mergeTypes` function:
 
 ```js
-  import path from 'path';
-  import { mergeGraphqlSchemas } from 'merge-graphql-schemas';
-  import { graphqlExpress } from 'graphql-server-express';
+// ./graphql/types/index.js
+import { mergeTypes } from 'merge-graphql-schemas';
+import clientType from './clientType';
+import productType from './productType';
 
-  const schema = mergeGraphqlSchemas(path.join(__dirname, './graphql'));
+const types = [
+  clientType,
+  productType,
+];
 
-  app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+module.exports = mergeTypes(types);
 ```
 
-For this to work, the package expects that your `/graphql` folder contains `/types` and `/resolvers` folders. Any files you add to those folders will be used to produce the final schema object.
+### Import everything from a specified folder
 
-## Merging `types` and `resolvers` into separate `index` files
-
-If you prefer to have more control over what gets merged, the other way you can use this package is by only calling the `mergeTypes()` and `mergeResolvers()` functions.
-
-Take a look at the example below:
+In this way we use the `fileLoader` function to import all files from the specified folder.
 
 ```js
-  import { mergeTypes } from 'merge-graphql-schemas';
-  import clientType from './client_type';
-  import productType from './product_type';
+// ./graphql/typeDefs.js
+import path from 'path';
+import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 
-  // Passing an array with all types you want merged
-  export default mergeTypes([clientType, productType]);
+const typesArray = fileLoader(path.join(__dirname, './types'));
+
+module.exports = mergeTypes(typesArray);
+```
+When using the `fileLoader` function you can also implement your type definitions using `.graphql` or `.graphqls` files.
+
+```graphql
+# ./graphql/types/clientType.graphql
+type Client {
+  id: ID!
+  name: String
+  age: Int
+  products: [Product]
+}
+
+type Query {
+  clients: [Client]
+  client(id: ID!): Client
+}
+
+type Mutation {
+  addClient(name: String!, age: Int!): Client
+}
+
+# ./graphql/types/productType.graphql
+type Product {
+  id: ID!
+  description: String
+  price: Int
+  client: Client
+}
+
+type Query {
+  products: [Product]
+  product(id: ID!): Product
+}
 ```
 
-And the same idea for your resolvers:
-```js
-  import { mergeResolvers } from 'merge-graphql-schemas';
-  import clientResolver from './client_resolver';
-  import productResolver from './product_resolver';
+### Merging resolvers
 
-  // Passing an array with all resolvers you want merged
-  export default mergeResolvers([clientResolver, productResolver]);
-```
+Resolvers should be implemented as simple JS objects. Following our example, for the types we implemented
+our resolvers should look like the following:
 
-Here's an example of how you would implement your server:
 
 ```js
-  import express from 'express';
-  import { makeExecutableSchema } from 'graphql-tools';
-  import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
-
-  // Import your types and resolvers
-  import resolvers from './graphql/resolvers/index';
-  import typeDefs from './graphql/types/index';
-
-  // In this case, you need to call makeExecutableSchema()
-  const schema = makeExecutableSchema({ typeDefs, resolvers });
-
-  const app = express();
-  app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-```
-
-## Implementing Types
-
-Here's an example of how you should implement your types:
-
-```js
-  export default `
-    type Client {
-      id: ID!
-      name: String
-      age: Int
-      products: [Product]
-    }
-
-    type Query {
-      clients: [Client]
-    }
-
-    type Mutation {
-      create_client(name: String!, age: Int!): Client
-    }
-  `;
-```
-
-## Implementing Resolvers
-
-Here's an example of how you should implement your resolvers:
-
-```js
+// ./graphql/resolvers/clientResolver.js
 export default {
   Query: {
-    clients: () => {}
+    clients: () => {},
+    client: () => {},
   },
   Mutation: {
-    create_client: (_, args) => {}
+    addClient: () => {},
   },
   Client: {
     products: () => {},
   },
 }
+
+// ./graphql/resolvers/productResolver.js
+export default {
+  Query: {
+    products: () => {},
+    product: () => {},
+  },
+  Product: {
+    client: () => {},
+  },
+}
 ```
+
+Just like your type definitions, you can choose to import files manually:
+
+```js
+// ./graphql/resolvers/index.js
+import { mergeResolvers } from 'merge-graphql-schemas';
+import clientResolver from './clientResolver';
+import productResolver from './productResolver';
+
+const resolvers = [
+  clientResolver,
+  productResolver,
+];
+
+module.exports = mergeResolvers(resolvers);
+```
+Or automatically:
+
+```js
+// ./graphql/resolvers.js
+import path from 'path';
+import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
+
+const resolversArray = fileLoader(path.join(__dirname, './resolvers'));
+
+module.exports = mergeResolvers(resolversArray);
+```
+
+### Server setup
+
+Here's an example using express-graphql:
+
+```js
+import express from 'express';
+import graphqlHTTP from 'express-graphql';
+import { buildSchema } from 'graphql';
+
+import typeDefs from './graphql/types/index';
+import rootValue from './graphql/resolvers/index';
+
+const schema = buildSchema(typeDefs);
+
+const app = express();
+app.use('/graphql', graphqlHTTP({
+  schema,
+  rootValue,
+  graphiql: true,
+}));
+
+app.listen(3000);
+```
+
+Or using apollo-server:
+
+```js
+import express from 'express';
+import { apolloExpress } from 'apollo-server';
+import { makeExecutableSchema } from 'graphql-tools';
+import { graphiqlExpress } from 'apollo-server';
+import bodyParser from 'body-parser';
+
+import typeDefs from './graphql/typeDefs';
+import resolvers from './graphql/resolvers';
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+const app = express();
+
+app.use(
+  '/graphql',
+  bodyParser.json(),
+  apolloExpress({ schema })
+);
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+
+app.listen(3000);
+module.exports = app;
+```
+
+## Contributing
+Issues and Pull Requests are always welcome.
+Please read our [contribution guidelines](https://github.com/okgrow/guides/blob/master/open-source/contributing.md).
 
 ## License
 

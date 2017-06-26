@@ -19,7 +19,7 @@ const fileLoader = (folderPath) => {
 
       case '.graphqls':
       case '.graphql': {
-        const file = fs.readFileSync(filesDir);
+        const file = fs.readFileSync(filesDir, 'utf8');
         files.push(file.toString());
         break;
       }
