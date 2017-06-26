@@ -13,8 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Deprecated mergeGraphqlSchemas function
+- Exposed fileLoader function
 - FileLoader ignores index.js files
 - Readme example
+- Using node4 babel preset for Meteor apps
 
 ## [0.0.22] - 2017-06-18
 ### Fixed
