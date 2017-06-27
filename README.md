@@ -106,7 +106,7 @@ const types = [
   productType,
 ];
 
-module.exports = mergeTypes(types);
+export default mergeTypes(types);
 ```
 
 ### Import everything from a specified folder
@@ -120,7 +120,7 @@ import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 
 const typesArray = fileLoader(path.join(__dirname, './types'));
 
-module.exports = mergeTypes(typesArray);
+export default mergeTypes(typesArray);
 ```
 When using the `fileLoader` function you can also implement your type definitions using `.graphql` or `.graphqls` files.
 
@@ -202,7 +202,7 @@ const resolvers = [
   productResolver,
 ];
 
-module.exports = mergeResolvers(resolvers);
+export default mergeResolvers(resolvers);
 ```
 Or automatically:
 
@@ -213,7 +213,7 @@ import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
 
 const resolversArray = fileLoader(path.join(__dirname, './resolvers'));
 
-module.exports = mergeResolvers(resolversArray);
+export default mergeResolvers(resolversArray);
 ```
 
 ### Server setup
@@ -264,7 +264,6 @@ app.use(
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 app.listen(3000);
-module.exports = app;
 ```
 
 ## Contributing
