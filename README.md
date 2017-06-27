@@ -10,14 +10,22 @@ This tool:
   * Reduces the complexity of Graphql server implementation.  
   * Modularize type and resolver files.  
 
+## Table of Contents
 
-## Objectives:
-  * Reduce the complexity of Graphql server implementation
-  * Modularize type and resolver files
+- [Install](#install)
+- [Usage](#usage)
+	- [Merging type definitions](#merging-type-definitions)
+	- [Manually import each type](#manually-import-each-type)
+	- [Import everything from a specified folder](#import-everything-from-a-specified-folder)
+	- [Merging resolvers](#merging-resolvers)
+	- [Server setup](#server-setup)
+- [Maintainer](#maintainer)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Installation
+## Install
 
-```
+```sh
 npm install -S merge-graphql-schemas
 ```
 
