@@ -100,7 +100,7 @@ export default `
 ```
 
 There are two ways you can use this package:
-  * manually import each type
+  * manually import each type  
   * import everything from a specified folder
 
 ### Manually import each type
