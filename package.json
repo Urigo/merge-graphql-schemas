@@ -2,7 +2,7 @@
   "name": "merge-graphql-schemas",
   "author": "OK GROW!",
   "version": "1.0.0",
-  "description": "Better organize your GraphQL server.",
+  "description": "A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.",
   "repository": {
     "type": "git",
     "url": "https://github.com/okgrow/merge-graphql-schemas.git"
@@ -17,6 +17,9 @@
     "test-watch": "npm run testonly -- --watch",
     "start": "babel src -d dist --watch"
   },
+  "bugs": "https://github.com/okgrow/merge-graphql-schemas/issues",
+  "homepage": "https://github.com/okgrow/merge-graphql-schemas",
+  "keywords": ["graphql", "schema"],
   "devDependencies": {
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",
