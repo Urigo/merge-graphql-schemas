@@ -1,10 +1,14 @@
+# Merge Graphql Schemas
+
 [![Build Status](https://semaphoreci.com/api/v1/okgrow/merge-graphql-schemas/branches/master/shields_badge.svg)](https://semaphoreci.com/okgrow/merge-graphql-schemas)
 [![npm version](https://img.shields.io/npm/v/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 [![npm downloads](https://img.shields.io/npm/dm/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 
-# Merge Graphql Schemas
+> A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.
 
-An utility library to facilitate merging of modularized GraphQL schemas and resolver objects.
+This tool:
+  * Reduces the complexity of Graphql server implementation.  
+  * Modularize type and resolver files.  
 
 
 ## Objectives:
