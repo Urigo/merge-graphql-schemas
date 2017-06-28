@@ -1,19 +1,31 @@
+# Merge Graphql Schemas
+
 [![Build Status](https://semaphoreci.com/api/v1/okgrow/merge-graphql-schemas/branches/master/shields_badge.svg)](https://semaphoreci.com/okgrow/merge-graphql-schemas)
 [![npm version](https://img.shields.io/npm/v/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 [![npm downloads](https://img.shields.io/npm/dm/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 
-# Merge Graphql Schemas
+> A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.
 
-An utility library to facilitate merging of modularized GraphQL schemas and resolver objects.
+This tool:
+  * Reduces the complexity of Graphql server implementation.  
+  * Modularize type and resolver files.  
 
+## Table of Contents
 
-## Objectives:
-  * Reduce the complexity of Graphql server implementation
-  * Modularize type and resolver files
+- [Install](#install)
+- [Usage](#usage)
+	- [Merging type definitions](#merging-type-definitions)
+	- [Manually import each type](#manually-import-each-type)
+	- [Import everything from a specified folder](#import-everything-from-a-specified-folder)
+	- [Merging resolvers](#merging-resolvers)
+	- [Server setup](#server-setup)
+- [Maintainer](#maintainer)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Installation
+## Install
 
-```
+```sh
 npm install -S merge-graphql-schemas
 ```
 
@@ -88,7 +100,7 @@ export default `
 ```
 
 There are two ways you can use this package:
-  * manually import each type
+  * manually import each type  
   * import everything from a specified folder
 
 ### Manually import each type
@@ -266,12 +278,24 @@ app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 app.listen(3000);
 ```
 
+## Maintainer
+
+This is an open source package. We hope to deal with contributions in a timely manner, but that's not always the case. The main maintainer is:
+
+[@RodMachado](https://github.com/RodMachado)
+
+Feel free to ping if there are open issues or pull requests which are taking a while to be dealt with!
+
 ## Contributing
+
 Issues and Pull Requests are always welcome.
-Please read our [contribution guidelines](https://github.com/okgrow/guides/blob/master/open-source/contributing.md).
+
+Please read OK Grow's global [contribution guidelines](https://github.com/okgrow/guides/blob/master/open-source/contributing.md).
+
+If you are interested in becoming a maintainer, get in touch with us by sending an email or opening an issue. You should already have code merged into the project. Active contributors are encouraged to get in touch.
+
+Please note that all interactions in @okgrow's repos should follow our [Code of Conduct](https://github.com/okgrow/guides/blob/master/open-source/CODE_OF_CONDUCT.md).
 
 ## License
 
-MIT licensed
-
-Copyright (C) 2017 OK GROW!, https://www.okgrow.com
+[MIT](LICENSE) © 2017 OK GROW!, https://www.okgrow.com.
