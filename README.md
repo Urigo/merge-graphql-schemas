@@ -7,18 +7,19 @@
 > A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.
 
 This tool:
-  * Reduces the complexity of Graphql server implementation.  
-  * Modularize type and resolver files.  
+  * Reduces the complexity of Graphql server implementation.
+  * Modularize type and resolver files.
 
 ## Table of Contents
 
 - [Install](#install)
 - [Usage](#usage)
-	- [Merging type definitions](#merging-type-definitions)
-	- [Manually import each type](#manually-import-each-type)
-	- [Import everything from a specified folder](#import-everything-from-a-specified-folder)
-	- [Merging resolvers](#merging-resolvers)
-	- [Server setup](#server-setup)
+  - [Merging type definitions](#merging-type-definitions)
+  - [Manually import each type](#manually-import-each-type)
+  - [Import everything from a specified folder](#import-everything-from-a-specified-folder)
+  - [Merging nested Types](#merging-nested-types)
+  - [Merging resolvers](#merging-resolvers)
+  - [Server setup](#server-setup)
 - [Maintainer](#maintainer)
 - [Contributing](#contributing)
 - [License](#license)
@@ -100,7 +101,7 @@ export default `
 ```
 
 There are two ways you can use this package:
-  * manually import each type  
+  * manually import each type
   * import everything from a specified folder
 
 ### Manually import each type
@@ -136,6 +137,8 @@ export default mergeTypes(typesArray);
 ```
 When using the `fileLoader` function you can also implement your type definitions using `.graphql` or `.graphqls` files.
 
+> The `fileLoader` function will by default ignore files named `index.js`. This allow you to create your index file inside the actual types folder if desired.
+
 ```graphql
 # ./graphql/types/clientType.graphql
 type Client {
@@ -166,6 +169,25 @@ type Query {
   products: [Product]
   product(id: ID!): Product
 }
+```
+
+### Merging nested Types
+
+The `mergeTypes` function also allows merging multiple schemas. In the situations where you would like to have multiple
+types subfolders, you can merge your types on each subfolder and then everything into one single schema. See the example below:
+
+```
++-- graphql
+|   +-- types
+|   |   +-- subGroupA
+|   |   |   +-- index.js <<< Merges all types in subGroupA
+|   |   |   +-- typeA1.graphql
+|   |   |   +-- typeA2.graphql
+|   |   +-- subGroupB
+|   |   |   +-- index.js <<< Merges all types in subGroupB
+|   |   |   +-- typeB1.graphql
+|   |   |   +-- typeB2.graphql
+|   |   +-- index.js <<< Merges exports from subGroupA and subGroupB
 ```
 
 ### Merging resolvers
@@ -227,6 +249,9 @@ const resolversArray = fileLoader(path.join(__dirname, './resolvers'));
 
 export default mergeResolvers(resolversArray);
 ```
+
+> Beware that `mergeResolvers` is simply merging plain Javascript objects together.
+This means that you should be careful with Queries, Mutations or Subscriptions with naming conflicts.
 
 ### Server setup
 

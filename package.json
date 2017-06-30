@@ -1,7 +1,7 @@
 {
   "name": "merge-graphql-schemas",
   "author": "OK GROW!",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.",
   "repository": {
     "type": "git",
