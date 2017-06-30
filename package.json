@@ -19,7 +19,10 @@
   },
   "bugs": "https://github.com/okgrow/merge-graphql-schemas/issues",
   "homepage": "https://github.com/okgrow/merge-graphql-schemas",
-  "keywords": ["graphql", "schema"],
+  "keywords": [
+    "graphql",
+    "schema"
+  ],
   "devDependencies": {
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",

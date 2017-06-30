@@ -137,7 +137,7 @@ export default mergeTypes(typesArray);
 ```
 When using the `fileLoader` function you can also implement your type definitions using `.graphql` or `.graphqls` files.
 
-> The `fileLoader` function will by default ignore files named `index.js`. This allow you to create your index file inside the actual types folder if desired.
+> The `fileLoader` function will by default ignore files named `index.js`. This allows you to create your index file inside the actual types folder if desired.
 
 ```graphql
 # ./graphql/types/clientType.graphql
