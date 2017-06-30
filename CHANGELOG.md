@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2017-06-30
+### Changed
+- mergeTypes accepts type definitions AND schema definitions
+
 ## [1.0.0] - 2017-06-26
 ### Added
 - Npm labels in README
