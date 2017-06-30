@@ -5,4 +5,6 @@ const hasDefinitionWithName = (nodes, name) =>
 
 const isObjectTypeDefinition = def => def.kind === Kind.OBJECT_TYPE_DEFINITION;
 
-export { hasDefinitionWithName, isObjectTypeDefinition };
+const isObjectSchemaDefinition = def => def.kind === Kind.SCHEMA_DEFINITION;
+
+export { hasDefinitionWithName, isObjectTypeDefinition, isObjectSchemaDefinition };
