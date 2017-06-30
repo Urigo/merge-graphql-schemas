@@ -2,7 +2,7 @@
 import { parse } from 'graphql';
 import { getDescription } from 'graphql/utilities/buildASTSchema';
 import print from './utilities/astPrinter';
-import { isObjectTypeDefinition } from './utilities/astHelpers';
+import { isObjectTypeDefinition, isObjectSchemaDefinition } from './utilities/astHelpers';
 import { makeSchema, mergeableTypes } from './utilities/makeSchema';
 
 const _isMergeableTypeDefinition = def =>
@@ -33,7 +33,7 @@ const _addCommentsToAST = (nodes, flatten = true) => {
 
 const _makeRestDefinitions = defs =>
   defs
-    .filter(_isNonMergeableTypeDefinition)
+    .filter(def => _isNonMergeableTypeDefinition(def) && !isObjectSchemaDefinition(def))
     .map((def) => {
       if (isObjectTypeDefinition(def)) {
         return {
@@ -100,7 +100,8 @@ const mergeTypes = (types) => {
 
   const mergedDefs = _makeMergedDefinitions(allDefs);
   const rest = _addCommentsToAST(_makeRestDefinitions(allDefs), false).map(printDefinitions);
-  const schema = printDefinitions([makeSchema(mergedDefs), ...mergedDefs]);
+  const schemaDefs = allDefs.filter(isObjectSchemaDefinition);
+  const schema = printDefinitions([makeSchema(mergedDefs, schemaDefs), ...mergedDefs]);
 
   return [schema, ...rest].join('\n');
 };

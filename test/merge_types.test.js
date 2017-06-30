@@ -194,6 +194,25 @@ describe('mergeTypes', () => {
     expect(schema).toContain(expectedSchemaType);
   });
 
+  it('includes one schemaType on multiple merges', () => {
+    const matchSchema = /\s*schema\s+\{[^\}]+\}/gm;
+    const types = mergeTypes([clientType, productType]);
+    const multipleMergedTypes = mergeTypes([types, vendorType]);
+    const expectedSchemaType = normalizeWhitespace(`
+      schema {
+        query: Query
+        mutation: Mutation
+        subscription: Subscription
+      }
+    `);
+    const schema = normalizeWhitespace(multipleMergedTypes);
+
+    const matches = schema.match(matchSchema);
+
+    expect(schema).toContain(expectedSchemaType);
+    expect(matches.length).toEqual(1);
+  });
+
   it('includes queryType', () => {
     const types = [clientType, productType];
     const mergedTypes = mergeTypes(types);
