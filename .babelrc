@@ -1,10 +1,13 @@
 {
-  "presets": ["latest-node4"],
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": "4.8.3"
+      },
+      "useBuiltIns": true
+    }]
+  ],
   "plugins": [
-    "transform-runtime",
-    "transform-regenerator",
-    "transform-es2015-spread",
-    "transform-object-rest-spread",
-    "syntax-async-functions"
+    "transform-object-rest-spread"
   ]
 }
