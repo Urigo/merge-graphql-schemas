@@ -11,15 +11,15 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "scripts": {
-    "rollup:build": "rollup -c",
-    "rollup:watch": "rollup -c -w",
+    "rollup:build": "BABEL_ENV=build rollup -c",
+    "rollup:watch": "BABEL_ENV=build rollup -c -w",
     "prepare": "npm run rollup:build",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "testonly": "jest",
-    "test": "npm run lint && npm run testonly",
-    "test-watch": "npm run testonly -- --watch",
-    "start": "babel src -d dist --watch"
+    "test": "BABEL_ENV=test npm run lint && npm run testonly",
+    "test-watch": "BABEL_ENV=test npm run testonly -- --watch",
+    "start": "npm run rollup:watch"
   },
   "bugs": "https://github.com/okgrow/merge-graphql-schemas/issues",
   "homepage": "https://github.com/okgrow/merge-graphql-schemas",
