@@ -107,4 +107,3 @@ const mergeTypes = (types) => {
 };
 
 export default mergeTypes;
-

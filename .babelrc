@@ -4,10 +4,12 @@
       "targets": {
         "node": "4.8.3"
       },
-      "useBuiltIns": true
+      "useBuiltIns": true,
+      "modules": false
     }]
   ],
   "plugins": [
+    "external-helpers",
     "transform-object-rest-spread"
   ]
 }
