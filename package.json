@@ -27,6 +27,15 @@
     "graphql",
     "schema"
   ],
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "deepmerge": "^1.3.2"
+  },
+  "peerDependencies": {
+    "graphql": "^0.10.3"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-jest": "^20.0.3",
@@ -49,11 +58,5 @@
     "rollup-plugin-filesize": "^1.4.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-watch": "^4.3.1"
-  },
-  "dependencies": {
-    "deepmerge": "^1.3.2"
-  },
-  "peerDependencies": {
-    "graphql": "^0.10.3"
   }
 }
