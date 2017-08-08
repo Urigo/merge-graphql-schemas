@@ -11,7 +11,6 @@ export default [
     external: [
       'fs',
       'path',
-      'deepmerge',
       'graphql',
       'graphql/language/visitor',
       'graphql/utilities/buildASTSchema',
