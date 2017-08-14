@@ -53,6 +53,14 @@ export default `
     age: Int!
   }
 
+
+  input ClientFormInputWithComment {
+    # Name
+    name: String!
+    # Age
+    age: Int!
+  }
+
   enum ClientStatus {
     NEW
     ACTIVE
