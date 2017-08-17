@@ -478,4 +478,20 @@ describe('mergeTypes', () => {
 
     expect(separateTypes).toContain(expectedClientType);
   });
+
+  it('preserves the input field comments', () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+    const expectedClientType = normalizeWhitespace(`
+      input ClientFormInputWithComment {
+        # Name
+        name: String!
+        # Age
+        age: Int!
+      }
+    `);
+    const separateTypes = normalizeWhitespace(mergedTypes);
+
+    expect(separateTypes).toContain(expectedClientType);
+  });
 });
