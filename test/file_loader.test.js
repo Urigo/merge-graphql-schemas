@@ -29,4 +29,16 @@ describe('fileLoader', () => {
 
     expect(loadedResolvers).toEqual(resolvers);
   });
+
+  it('loads all files recursively from specified folder', () => {
+    const rawType = fs.readFileSync(`${__dirname}/graphql/types/raw_type.graphqls`).toString();
+
+    const types = [
+      productType, clientType, personEntityType, personSearchType, rawType, vendorType,
+    ];
+
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/nested_types'), {recursive: true});
+
+    expect(loadedTypes).toEqual(types);
+  })
 });
