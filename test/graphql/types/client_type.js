@@ -53,7 +53,6 @@ export default `
     age: Int!
   }
 
-
   input ClientFormInputWithComment {
     # Name
     name: String!
