@@ -252,6 +252,38 @@ export default {
 }
 ```
 
+#### Warning
+
+If you are using `graphqlHTTP` you don't need to separate the resolver into `Query/Mutation/Subscrition`, otherwise it won't work. The resolvers should look like the following:
+
+
+```js
+// ./graphql/resolvers/clientResolver.js
+export default {
+  // Query
+  clients: () => {},
+  client: () => {},
+
+  // Mutation
+  addClient: () => {},
+
+  Product: {
+    products: () => {},
+  },
+}
+
+// ./graphql/resolvers/productResolver.js
+export default {
+  // Query
+  products: () => {},
+  product: () => {},
+
+  Product: {
+    client: () => {},
+  },
+}
+```
+
 Just like your type definitions, you can choose to import files manually:
 
 ```js
