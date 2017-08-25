@@ -3,5 +3,5 @@ type Raw {
 }
 
 type Query {
-  vendors: [Raw]
+  rawQuery: [Raw]
 }

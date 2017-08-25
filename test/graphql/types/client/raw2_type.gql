@@ -1,7 +1,7 @@
-type Raw {
+type Raw2 {
   field: String!
 }
 
 type Query {
-  vendors: [Raw]
+  raw2Query: [Raw2]
 }
