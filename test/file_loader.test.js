@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import fileLoader from '../src/file_loader';
 import clientType from './graphql/types/client_type';
-import productType from './graphql/types/client/product_type';
+import contactType from './graphql/types/client/contact_type';
+import productType from './graphql/types/product_type';
 import vendorType from './graphql/types/vendor_type';
 import personEntityType from './graphql/types/person_entity_type';
 import personSearchType from './graphql/types/person_search_type';
@@ -16,7 +17,7 @@ const raw2Type = fs.readFileSync(`${__dirname}/graphql/types/client/raw2_type.gq
 describe('fileLoader', () => {
   it('loads all files from specified folder', () => {
     const types = [
-      clientType, personEntityType, personSearchType, rawType, vendorType,
+      clientType, personEntityType, personSearchType, productType, rawType, vendorType,
     ];
 
     const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'));
@@ -34,7 +35,7 @@ describe('fileLoader', () => {
   it('loads all files recursively from specified folder', () => {
 
     const types = [
-      productType, raw2Type, clientType, personEntityType, personSearchType, rawType, vendorType,
+      contactType, raw2Type, clientType, personEntityType, personSearchType, productType, rawType, vendorType,
     ];
 
     const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { recursive: true });
