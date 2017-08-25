@@ -254,7 +254,7 @@ export default {
 
 #### Warning
 
-If you are using `graphqlHTTP` you don't need to separate the resolver into `Query/Mutation/Subscrition`, otherwise it won't work. The resolvers should like like the following:
+If you are using `graphqlHTTP` you don't need to separate the resolver into `Query/Mutation/Subscrition`, otherwise it won't work. The resolvers should look like the following:
 
 
 ```js
