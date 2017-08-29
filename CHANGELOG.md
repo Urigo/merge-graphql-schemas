@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - FileLoader function also loads gql extension files
+- Supports already parsed documents when merging types
 
 ## [1.1.2] - 2017-08-18
 ### Added

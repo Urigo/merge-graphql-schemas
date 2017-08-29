@@ -94,7 +94,12 @@ const printDefinitions = defs => print(_makeDocumentWithDefinitions(defs));
 
 const mergeTypes = (types) => {
   const allDefs = types
-    .map(parse)
+    .map((type) => {
+      if (typeof type === 'string') {
+        return parse(type);
+      }
+      return type;
+    })
     .map(ast => ast.definitions)
     .reduce((defs, newDef) => [...defs, ...newDef], []);
 
