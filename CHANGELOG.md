@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.1.3] - 2017-09-01
 ### Changed
 - FileLoader function also loads gql extension files
 - Supports already parsed documents when merging types
