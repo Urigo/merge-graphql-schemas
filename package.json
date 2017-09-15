@@ -17,8 +17,8 @@
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "testonly": "jest",
-    "test": "BABEL_ENV=test npm run lint && npm run testonly",
-    "test-watch": "BABEL_ENV=test npm run testonly -- --watch",
+    "test": "npm run lint && npm run testonly",
+    "test-watch": "npm run testonly -- --watch",
     "start": "npm run rollup:watch"
   },
   "bugs": "https://github.com/okgrow/merge-graphql-schemas/issues",
@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-jest": "^20.0.3",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.6.0",
