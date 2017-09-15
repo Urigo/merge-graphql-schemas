@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.1.4] - 2017-09-15
 ### Added
-- Rollup.js is now used for our build process. We now publish a `cjs` & `esm` bundle, to learn more about the changes please review the PR.[PR #72](https://github.com/okgrow/merge-graphql-schemas/pull/72)
+- Rollup.js is now used for our build process. We now publish a `cjs` & `esm` bundle [PR #72](https://github.com/okgrow/merge-graphql-schemas/pull/72)
 
 ### Changed
 - Updated deepmerge to v1.5.1 which fixes this deepmerge [issue](https://github.com/KyleAMathews/deepmerge/issues/65).[PR #89](https://github.com/okgrow/merge-graphql-schemas/pull/89)
