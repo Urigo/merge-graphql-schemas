@@ -31,7 +31,7 @@
     "dist"
   ],
   "dependencies": {
-    "deepmerge": "^1.3.2"
+    "deepmerge": "^1.5.1"
   },
   "peerDependencies": {
     "graphql": "^0.10.3"
