@@ -8,14 +8,18 @@
     "url": "https://github.com/okgrow/merge-graphql-schemas.git"
   },
   "license": "MIT",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "scripts": {
-    "prepare": ". ./scripts/prepare.sh",
+    "rollup:build": "BABEL_ENV=build rollup -c",
+    "rollup:watch": "BABEL_ENV=build rollup -c -w",
+    "prepare": "npm run rollup:build",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "testonly": "jest",
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch",
-    "start": "babel src -d dist --watch"
+    "start": "npm run rollup:watch"
   },
   "bugs": "https://github.com/okgrow/merge-graphql-schemas/issues",
   "homepage": "https://github.com/okgrow/merge-graphql-schemas",
@@ -23,11 +27,21 @@
     "graphql",
     "schema"
   ],
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "deepmerge": "^1.3.2"
+  },
+  "peerDependencies": {
+    "graphql": "^0.10.3"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-jest": "^20.0.3",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.6.0",
+    "core-js": "^2.5.0",
     "eslint": "^3.15.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-import-resolver-meteor": "^0.2.4",
@@ -36,13 +50,12 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
     "graphql": "^0.10.3",
-    "jest": "^20.0.4"
-  },
-  "dependencies": {
-    "babel-polyfill": "^6.23.0",
-    "deepmerge": "^1.3.2"
-  },
-  "peerDependencies": {
-    "graphql": "^0.10.3"
+    "jest": "^20.0.4",
+    "rollup": "^0.49.3",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-commonjs": "^8.2.1",
+    "rollup-plugin-filesize": "^1.4.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-watch": "^4.3.1"
   }
 }

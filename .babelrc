@@ -1,13 +1,32 @@
 {
-  "presets": [
-    ["env", {
-      "targets": {
-        "node": "4.8.3"
-      },
-      "useBuiltIns": true
-    }]
-  ],
-  "plugins": [
-    "transform-object-rest-spread"
-  ]
+  "env": {
+    "build": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "node": "4.8.3"
+          },
+          "useBuiltIns": true,
+          "modules": false
+        }]
+      ],
+      "plugins": [
+        "external-helpers",
+        "transform-object-rest-spread"
+      ]
+    },
+    "test": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "node": "4.8.3"
+          },
+          "useBuiltIns": true,
+        }]
+      ],
+      "plugins": [
+        "transform-object-rest-spread"
+      ]
+    }
+  }
 }
