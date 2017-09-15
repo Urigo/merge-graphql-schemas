@@ -1,3 +1,5 @@
+import { parse } from 'graphql';
+
 import mergeTypes from '../src/merge_types';
 import clientType from './graphql/types/client_type';
 import productType from './graphql/types/product_type';
@@ -472,6 +474,39 @@ describe('mergeTypes', () => {
         id: ID!
         # Name
         name: String
+      }
+    `);
+    const separateTypes = normalizeWhitespace(mergedTypes);
+
+    expect(separateTypes).toContain(expectedClientType);
+  });
+
+  it('preserves the input field comments', () => {
+    const types = [clientType, productType];
+    const mergedTypes = mergeTypes(types);
+    const expectedClientType = normalizeWhitespace(`
+      input ClientFormInputWithComment {
+        # Name
+        name: String!
+        # Age
+        age: Int!
+      }
+    `);
+    const separateTypes = normalizeWhitespace(mergedTypes);
+
+    expect(separateTypes).toContain(expectedClientType);
+  });
+
+  it('supports already parsed documents', () => {
+    const parsedClientType = parse(clientType);
+    const types = [parsedClientType, productType];
+    const mergedTypes = mergeTypes(types);
+    const expectedClientType = normalizeWhitespace(`
+      input ClientFormInputWithComment {
+        # Name
+        name: String!
+        # Age
+        age: Int!
       }
     `);
     const separateTypes = normalizeWhitespace(mergedTypes);

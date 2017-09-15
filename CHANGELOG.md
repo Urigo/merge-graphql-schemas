@@ -6,6 +6,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.3] - 2017-09-01
+### Changed
+- FileLoader function also loads gql extension files
+- Supports already parsed documents when merging types
+
+## [1.1.2] - 2017-08-18
+### Added
+- Recursive option to fileLoader function
+
+### Fixed
+- Preserving comments of input object type fields
+
+## [1.1.1] - 2017-07-28
+# Changed
+ - .babelrc to target node version 4.8.3 (for meteor)
+ - .npmignore to ignore folders that should not be included in the published package
+ - babel to use env preset
+ - renamed prepublish to prepare. For more details see here
+
+#Added
+ - babel-polyfill to the dependencies
+
 ## [1.1.0] - 2017-06-30
 ### Changed
 - mergeTypes accepts type definitions AND schema definitions

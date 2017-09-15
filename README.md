@@ -171,6 +171,35 @@ type Query {
 }
 ```
 
+You can also load files in nested folders by setting the `recursive` option.
+
+Given the file structure below:
+
+```
++-- graphql
+|   +-- types
+|   |   +-- subGroupA
+|   |   |   +-- typeA1.graphql
+|   |   |   +-- typeA2.graphql
+|   |   +-- subGroupB
+|   |   |   +-- typeB1.graphql
+|   |   |   +-- typeB2.graphql
+|   |   +-- index.js
+```
+
+Here's how your `index` file could look like:
+
+```js
+const path = require('path')
+const mergeGraphqlSchemas = require('merge-graphql-schemas')
+const fileLoader = mergeGraphqlSchemas.fileLoader
+const mergeTypes = mergeGraphqlSchemas.mergeTypes
+
+const typesArray = fileLoader(path.join(__dirname, '.'), { recursive: true })
+
+module.exports = mergeTypes(typesArray)
+```
+
 ### Merging nested Types
 
 The `mergeTypes` function also allows merging multiple schemas. In the situations where you would like to have multiple
@@ -217,6 +246,38 @@ export default {
     products: () => {},
     product: () => {},
   },
+  Product: {
+    client: () => {},
+  },
+}
+```
+
+#### Warning
+
+If you are using `graphqlHTTP` you don't need to separate the resolver into `Query/Mutation/Subscrition`, otherwise it won't work. The resolvers should look like the following:
+
+
+```js
+// ./graphql/resolvers/clientResolver.js
+export default {
+  // Query
+  clients: () => {},
+  client: () => {},
+
+  // Mutation
+  addClient: () => {},
+
+  Product: {
+    products: () => {},
+  },
+}
+
+// ./graphql/resolvers/productResolver.js
+export default {
+  // Query
+  products: () => {},
+  product: () => {},
+
   Product: {
     client: () => {},
   },
