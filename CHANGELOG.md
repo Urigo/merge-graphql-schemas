@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.4] - 2017-09-15
+### Added
+- Rollup.js is now used for our build process. We now publish a `cjs` & `esm` bundle, to learn more about the changes please review the PR.[PR #72](https://github.com/okgrow/merge-graphql-schemas/pull/72)
+
+### Changed
+- Updated deepmerge to v1.5.1 which fixes this deepmerge [issue](https://github.com/KyleAMathews/deepmerge/issues/65).[PR #89](https://github.com/okgrow/merge-graphql-schemas/pull/89)
+- Babel Polyfill has been removed as a dependency, we now directly bundle `object.values` & `array.includes` from `core-js` [PR #72](https://github.com/okgrow/merge-graphql-schemas/pull/72)
+
 ## [1.1.3] - 2017-09-01
 ### Changed
 - FileLoader function also loads gql extension files
