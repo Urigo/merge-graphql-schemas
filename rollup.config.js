@@ -7,7 +7,7 @@ import pkg from './package.json';
 
 export default [
   {
-    entry: 'src/index.js',
+    input: 'src/index.js',
     external: [
       'fs',
       'path',
@@ -23,9 +23,9 @@ export default [
       commonjs(), // so Rollup can convert commonjs to an ES module
       filesize(),
     ],
-    targets: [
-      { dest: pkg.main, format: 'cjs' },
-      { dest: pkg.module, format: 'es' },
+    output: [
+      { file: pkg.main, format: 'cjs' },
+      { file: pkg.module, format: 'es' },
     ],
   },
 ];
