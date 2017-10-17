@@ -32,6 +32,7 @@ const fileLoader = (folderPath, options = { recursive: false }) => {
     if (pathObj.name.toLowerCase() === 'index') { return; }
 
     switch (pathObj.ext) {
+      case '.ts':
       case '.js': {
         const file = require(f); // eslint-disable-line
         files.push(file.default || file);
