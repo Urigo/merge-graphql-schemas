@@ -31,23 +31,16 @@ const fileLoader = (folderPath, options = { recursive: false }) => {
 
     if (pathObj.name.toLowerCase() === 'index') { return; }
 
-    switch (pathObj.ext) {
-      case '.ts':
-      case '.js': {
-        const file = require(f); // eslint-disable-line
-        files.push(file.default || file);
-        break;
-      }
+    const extForScript = options.extForScript ? options.extForScript : ['.ts', 'js'];
+    const extForGraphql = options.extForGraphql ? options.extForGraphql : ['.graphqls', '.gql', '.graphql'];
 
-      case '.graphqls':
-      case '.gql':
-      case '.graphql': {
-        const file = fs.readFileSync(f, 'utf8');
-        files.push(file.toString());
-        break;
-      }
-
-      default:
+    if (extForScript.findIndex(v => v === pathObj.ext) !== -1) {
+      const file = require(f); // eslint-disable-line
+      files.push(file.default || file);
+    }
+    else if (extForGraphql.findIndex((v => v === pathObj.ext) !== -1)) {
+      const file = fs.readFileSync(f, 'utf8');
+      files.push(file.toString());
     }
   });
   return files;
