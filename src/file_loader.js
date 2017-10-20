@@ -19,15 +19,16 @@ const readDirSync = dir =>
       ),
       []);
 
-const fileLoader = (folderPath, options = { recursive: false }) => {
-  const dir = folderPath;
-  const files = [];
-  const schemafiles = options.recursive === true ?
-                  recursiveReadDirSync(dir) :
-                  readDirSync(dir);
-
+const fileLoader = (folderPath, options = {}) => {
+  const recursive = options.recursive ? options.recursive : false;
   const extForScript = options.extForScript ? options.extForScript : ['.ts', '.js'];
   const extForGraphql = options.extForGraphql ? options.extForGraphql : ['.graphqls', '.gql', '.graphql'];
+
+  const dir = folderPath;
+  const files = [];
+  const schemafiles = recursive === true ?
+                  recursiveReadDirSync(dir) :
+                  readDirSync(dir);
 
   schemafiles.forEach((f) => {
     const pathObj = path.parse(f);
