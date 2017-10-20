@@ -1,10 +1,5 @@
 import merge from 'deepmerge';
 
-const mergeResolvers = (resolvers) => {
-  if (resolvers.length === 1) {
-    return resolvers[0];
-  }
-  return merge.all(resolvers);
-};
+const mergeResolvers = resolvers => (resolvers.length === 1 ? resolvers[0] : merge.all(resolvers));
 
 export default mergeResolvers;
