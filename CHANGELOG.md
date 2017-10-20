@@ -5,10 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- mergeResolvers now accepts single resolver array [PR #100](https://github.com/okgrow/merge-graphql-schemas/pull/100)
 
 ## [1.2.0] - 2017-10-17
 ### Added
-- Added TypeScript support to fileLoader. Thanks to [@dotansimha](https://github.com/dotansimha) [PR #95](https://github.com/okgrow/merge-graphql-schemas/pull/95
+- Added TypeScript support to fileLoader. Thanks to [@dotansimha](https://github.com/dotansimha) [PR #95](https://github.com/okgrow/merge-graphql-schemas/pull/95)
 
 ## [1.1.4] - 2017-09-15
 ### Added
