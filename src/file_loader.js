@@ -26,19 +26,18 @@ const fileLoader = (folderPath, options = { recursive: false }) => {
                   recursiveReadDirSync(dir) :
                   readDirSync(dir);
 
+  const extForScript = options.extForScript ? options.extForScript : ['.ts', '.js'];
+  const extForGraphql = options.extForGraphql ? options.extForGraphql : ['.graphqls', '.gql', '.graphql'];
+
   schemafiles.forEach((f) => {
     const pathObj = path.parse(f);
 
     if (pathObj.name.toLowerCase() === 'index') { return; }
 
-    const extForScript = options.extForScript ? options.extForScript : ['.ts', 'js'];
-    const extForGraphql = options.extForGraphql ? options.extForGraphql : ['.graphqls', '.gql', '.graphql'];
-
-    if (extForScript.findIndex(v => v === pathObj.ext) !== -1) {
+    if (extForScript.includes(pathObj.ext)) {
       const file = require(f); // eslint-disable-line
       files.push(file.default || file);
-    }
-    else if (extForGraphql.findIndex((v => v === pathObj.ext) !== -1)) {
+    } else if (extForGraphql.includes(pathObj.ext)) {
       const file = fs.readFileSync(f, 'utf8');
       files.push(file.toString());
     }

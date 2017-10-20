@@ -33,12 +33,31 @@ describe('fileLoader', () => {
   });
 
   it('loads all files recursively from specified folder', () => {
-
     const types = [
       contactType, raw2Type, clientType, personEntityType, personSearchType, productType, rawType, vendorType,
     ];
 
     const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { recursive: true });
+
+    expect(loadedTypes).toEqual(types);
+  });
+
+  it('loads all files from specified folder with ext .js', () => {
+    const types = [
+      clientType, personEntityType, personSearchType, productType, vendorType,
+    ];
+
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { extForScript: ['.js'], extForGraphql: [] });
+
+    expect(loadedTypes).toEqual(types);
+  });
+
+  it('loads all files from specified folder with ext .graphqls', () => {
+    const types = [
+      rawType,
+    ];
+
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { extForScript: [], extForGraphql: ['.graphqls'] });
 
     expect(loadedTypes).toEqual(types);
   });
