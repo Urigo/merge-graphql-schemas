@@ -47,7 +47,7 @@ describe('fileLoader', () => {
       clientType, personEntityType, personSearchType, productType, vendorType,
     ];
 
-    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { extForScript: ['.js'], extForGraphql: [] });
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { extensions: ['.js'] });
 
     expect(loadedTypes).toEqual(types);
   });
@@ -57,7 +57,17 @@ describe('fileLoader', () => {
       rawType,
     ];
 
-    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { extForScript: [], extForGraphql: ['.graphqls'] });
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { extensions: ['.graphqls'] });
+
+    expect(loadedTypes).toEqual(types);
+  });
+
+  it('unexpected extension should be ignored', () => {
+    const types = [
+      rawType,
+    ];
+
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { extensions: ['.graphqls', '.txt'] });
 
     expect(loadedTypes).toEqual(types);
   });

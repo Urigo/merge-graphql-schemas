@@ -19,30 +19,45 @@ const readDirSync = dir =>
       ),
       []);
 
-const fileLoader = (folderPath, options = {}) => {
-  const recursive = options.recursive ? options.recursive : false;
-  const extForScript = options.extForScript ? options.extForScript : ['.ts', '.js'];
-  const extForGraphql = options.extForGraphql ? options.extForGraphql : ['.graphqls', '.gql', '.graphql'];
+const DEFAULT_EXTENSIONS = ['.ts', '.js', '.gql', '.graphql', '.graphqls'];
 
+const fileLoader = (folderPath, { recursive = false, extensions = DEFAULT_EXTENSIONS } = {}) => {
   const dir = folderPath;
-  const files = [];
   const schemafiles = recursive === true ?
                   recursiveReadDirSync(dir) :
                   readDirSync(dir);
 
-  schemafiles.forEach((f) => {
-    const pathObj = path.parse(f);
+  const files = schemafiles
+          .map(f => ({ f, pathObj: path.parse(f) }))
+          .filter(({ pathObj }) => pathObj.name.toLowerCase() !== 'index')
+          .filter(({ pathObj }) => extensions.includes(pathObj.ext))
+          .map(({ f, pathObj }) => {
+            let returnVal;
 
-    if (pathObj.name.toLowerCase() === 'index') { return; }
+            switch (pathObj.ext) {
+              case '.ts':
+              case '.js': {
+                const file = require(f); // eslint-disable-line
+                returnVal = file.default || file;
+                break;
+              }
 
-    if (extForScript.includes(pathObj.ext)) {
-      const file = require(f); // eslint-disable-line
-      files.push(file.default || file);
-    } else if (extForGraphql.includes(pathObj.ext)) {
-      const file = fs.readFileSync(f, 'utf8');
-      files.push(file.toString());
-    }
-  });
+              case '.graphqls':
+              case '.gql':
+              case '.graphql': {
+                const file = fs.readFileSync(f, 'utf8');
+                returnVal = file;
+                break;
+              }
+
+              default:
+                  // we don't know how to handle other extensions
+            }
+
+            return returnVal;
+          })
+          .filter(v => !!v);    // filter files that we don't know how to handle
+
   return files;
 };
 
