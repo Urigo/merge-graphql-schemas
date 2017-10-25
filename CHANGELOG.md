@@ -6,11 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Add fileLoader option to allow specify file extension explicitly.
+- Add `extensions` field to fileLoader options to allow specifying file extension explicitly. Thanks to [@Vincent-Pang](https://github.com/Vincent-Pang)[PR #99](https://github.com/okgrow/merge-graphql-schemas/pull/99)
+
+### Fixed
+- mergeResolvers now accepts single resolver array [PR #100](https://github.com/okgrow/merge-graphql-schemas/pull/100)
+
 
 ## [1.2.0] - 2017-10-17
 ### Added
-- Added TypeScript support to fileLoader. Thanks to [@dotansimha](https://github.com/dotansimha) [PR #95](https://github.com/okgrow/merge-graphql-schemas/pull/95
+- Added TypeScript support to fileLoader. Thanks to [@dotansimha](https://github.com/dotansimha) [PR #95](https://github.com/okgrow/merge-graphql-schemas/pull/95)
 
 ## [1.1.4] - 2017-09-15
 ### Added
