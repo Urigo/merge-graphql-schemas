@@ -314,6 +314,18 @@ export default mergeResolvers(resolversArray);
 > Beware that `mergeResolvers` is simply merging plain Javascript objects together.
 This means that you should be careful with Queries, Mutations or Subscriptions with naming conflicts.
 
+You can also load files with specified extensions by setting the extensions option.  
+Only these values are supported now. `'.ts', '.js', '.gql', '.graphql', '.graphqls'`
+```js
+// ./graphql/resolvers.js
+import path from 'path';
+import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
+
+const resolversArray = fileLoader(path.join(__dirname, './resolvers'), { extensions: ['.js'] });
+
+export default mergeResolvers(resolversArray);
+```
+
 ### Server setup
 
 Here's an example using express-graphql:

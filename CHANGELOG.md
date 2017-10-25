@@ -5,8 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Add `extensions` field to fileLoader options to allow specifying file extension explicitly. Thanks to [@Vincent-Pang](https://github.com/Vincent-Pang)[PR #99](https://github.com/okgrow/merge-graphql-schemas/pull/99)
+
 ### Fixed
 - mergeResolvers now accepts single resolver array [PR #100](https://github.com/okgrow/merge-graphql-schemas/pull/100)
+
 
 ## [1.2.0] - 2017-10-17
 ### Added
