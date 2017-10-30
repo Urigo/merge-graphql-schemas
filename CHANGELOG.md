@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.3.0] - 2017-10-30
 ### Added
 - Add `extensions` field to fileLoader options to allow specifying file extension explicitly. Thanks to [@Vincent-Pang](https://github.com/Vincent-Pang)[PR #99](https://github.com/okgrow/merge-graphql-schemas/pull/99)
 
