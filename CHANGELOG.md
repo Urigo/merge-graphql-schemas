@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Bumped  `graphql` peer dependency to version `^0.11.7`. [PR #103](https://github.com/okgrow/merge-graphql-schemas/pull/103)
 
 ## [1.3.0] - 2017-10-30
 ### Added
