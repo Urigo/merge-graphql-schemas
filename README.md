@@ -200,6 +200,33 @@ const typesArray = fileLoader(path.join(__dirname, '.'), { recursive: true })
 module.exports = mergeTypes(typesArray)
 ```
 
+You can also load files in different folders by passing a glob pattern in `fileLoader`.
+
+Given the file structure below:
+```
++-- graphql
+|   +-- subGroupA
+|   |   +-- typeA1.graphql
+|   |   +-- typeA2.graphql
+|   +-- subGroupB
+|   |   +-- typeB1.graphql
+|   |   +-- typeB2.graphql
+|   +-- index.js
+```
+
+Here's how your `index` file could look like:
+
+```js
+const path = require('path')
+const mergeGraphqlSchemas = require('merge-graphql-schemas')
+const fileLoader = mergeGraphqlSchemas.fileLoader
+const mergeTypes = mergeGraphqlSchemas.mergeTypes
+
+const typesArray = fileLoader(path.join(__dirname, 'graphql/**/*.graphql'))
+
+module.exports = mergeTypes(typesArray)
+```
+
 ### Merging nested Types
 
 The `mergeTypes` function also allows merging multiple schemas. In the situations where you would like to have multiple
