@@ -71,4 +71,15 @@ describe('fileLoader', () => {
 
     expect(loadedTypes).toEqual(types);
   });
+
+  it('loads all files from glob pattern of ext .graphqls or .gql', () => {
+    const types = [
+      raw2Type,
+      rawType,
+    ];
+
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/**/*.+(graphqls|gql)'));
+
+    expect(loadedTypes).toEqual(types);
+  });
 });
