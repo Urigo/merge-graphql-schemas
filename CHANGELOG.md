@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Bumped  `graphql` peer dependency to version `^0.11.7`. [PR #103](https://github.com/okgrow/merge-graphql-schemas/pull/103)
 - FileLoader now accepts simple glob patterns. Thanks to [@thebergamo](https://github.com/thebergamo) [PR #106](https://github.com/okgrow/merge-graphql-schemas/pull/106)
+- bumped deepMerge to v2.0.1
+- bumped npm devDependencies
 
 ## [1.3.0] - 2017-10-30
 ### Added
