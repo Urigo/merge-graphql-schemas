@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.4.0] - 2017-12-04
 ### Changed
 - Bumped  `graphql` peer dependency to version `^0.11.7`. [PR #103](https://github.com/okgrow/merge-graphql-schemas/pull/103)
 - FileLoader now accepts simple glob patterns. Thanks to [@thebergamo](https://github.com/thebergamo) [PR #106](https://github.com/okgrow/merge-graphql-schemas/pull/106)
