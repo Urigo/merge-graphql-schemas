@@ -7,6 +7,7 @@ import vendorType from './graphql/types/vendor_type';
 import personEntityType from './graphql/types/person_entity_type';
 import personSearchType from './graphql/types/person_search_type';
 import customType from './graphql/other/custom_type';
+import mergeableCustomType from './graphql/other/mergeable_custom_type';
 import simpleQueryType from './graphql/other/simple_query_type';
 
 const normalizeWhitespace = str => str.replace(/\s+/g, ' ').trim();
@@ -119,6 +120,21 @@ describe('mergeTypes', () => {
     it('includes customType', () => {
       const types = [customType];
       const mergedTypes = mergeTypes(types);
+      const expectedCustomType = normalizeWhitespace(`
+        type Custom {
+          id: ID!
+          name: String
+          age: Int
+        }
+      `);
+      const separateTypes = normalizeWhitespace(mergedTypes);
+
+      expect(separateTypes).toContain(expectedCustomType);
+    });
+
+    it('includes merged customType', () => {
+      const types = [mergeableCustomType];
+      const mergedTypes = mergeTypes(types, { all: true });
       const expectedCustomType = normalizeWhitespace(`
         type Custom {
           id: ID!

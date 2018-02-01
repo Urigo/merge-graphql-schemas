@@ -31,9 +31,9 @@ const _addCommentsToAST = (nodes, flatten = true) => {
   return astWithComments;
 };
 
-const _makeRestDefinitions = defs =>
+const _makeRestDefinitions = (defs, all = false) =>
   defs
-    .filter(def => _isNonMergeableTypeDefinition(def) && !isObjectSchemaDefinition(def))
+    .filter(def => (_isNonMergeableTypeDefinition(def) && !all) && !isObjectSchemaDefinition(def))
     .map((def) => {
       if (isObjectTypeDefinition(def)) {
         return {
@@ -45,10 +45,10 @@ const _makeRestDefinitions = defs =>
       return def;
     });
 
-const _makeMergedDefinitions = (defs) => {
+const _makeMergedDefinitions = (defs, all = false) => {
   // TODO: This function can be cleaner!
   const groupedMergableDefinitions = defs
-    .filter(_isMergeableTypeDefinition)
+    .filter(def => _isMergeableTypeDefinition(def) || all)
     .reduce(
       (mergableDefs, def) => {
         const name = def.name.value;
@@ -92,7 +92,7 @@ const _makeDocumentWithDefinitions = definitions => ({
 
 const printDefinitions = defs => print(_makeDocumentWithDefinitions(defs));
 
-const mergeTypes = (types) => {
+const mergeTypes = (types, options = { all: false }) => {
   const allDefs = types
     .map((type) => {
       if (typeof type === 'string') {
@@ -103,8 +103,9 @@ const mergeTypes = (types) => {
     .map(ast => ast.definitions)
     .reduce((defs, newDef) => [...defs, ...newDef], []);
 
-  const mergedDefs = _makeMergedDefinitions(allDefs);
-  const rest = _addCommentsToAST(_makeRestDefinitions(allDefs), false).map(printDefinitions);
+  const mergedDefs = _makeMergedDefinitions(allDefs, options.all);
+  const rest = _addCommentsToAST(_makeRestDefinitions(allDefs, options.all), false)
+    .map(printDefinitions);
   const schemaDefs = allDefs.filter(isObjectSchemaDefinition);
   const schema = printDefinitions([makeSchema(mergedDefs, schemaDefs), ...mergedDefs]);
 
