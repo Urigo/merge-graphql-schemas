@@ -47,7 +47,9 @@ const _makeRestDefinitions = (defs, all = false) =>
 
 const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(candidate.fields)
   .reduce((fields, field) => {
-    const original = merged.fields.find(base => base.name.value === field.name.value);
+    const original = merged.fields.find(base => base.name && typeof base.name.value !== 'undefined' &&
+      field.name && typeof field.name.value !== 'undefined' &&
+      base.name.value === field.name.value);
     if (!original) {
       fields.push(field);
     } else if (field.type.name.value !== original.type.name.value) {
