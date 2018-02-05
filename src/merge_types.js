@@ -54,7 +54,7 @@ const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(can
       throw new Error(
         `Conflicting types for ${merged.name.value}.${field.name.value}: ` +
         `${field.type.name.value} != ${original.type.name.value}`,
-      ); // TODO:
+      );
     }
     return fields;
   }, merged.fields);

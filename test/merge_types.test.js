@@ -11,8 +11,10 @@ import disjointCustomTypes from './graphql/other/custom_type/disjoint';
 import matchingCustomTypes from './graphql/other/custom_type/matching';
 import conflictingCustomTypes from './graphql/other/custom_type/conflicting';
 
-
 import simpleQueryType from './graphql/other/simple_query_type';
+import disjointQueryTypes from './graphql/other/query_type/disjoint';
+import matchingQueryTypes from './graphql/other/query_type/matching';
+import conflictingQueryTypes from './graphql/other/query_type/conflicting';
 
 const normalizeWhitespace = str => str.replace(/\s+/g, ' ').trim();
 
@@ -117,6 +119,41 @@ describe('mergeTypes', () => {
       const schema = normalizeWhitespace(mergedTypes);
 
       expect(schema).not.toContain(expectedSchemaType);
+    });
+  });
+
+  describe('when query type is present twice', () => {
+    it('merges disjoint query types', () => {
+      const types = [disjointQueryTypes];
+      const mergedTypes = mergeTypes(types);
+      const expectedSchemaType = normalizeWhitespace(`
+        type Query {
+          getClient(id: ID!): Client
+          deleteClient(id: ID!): Client
+        }
+      `);
+      const separateTypes = normalizeWhitespace(mergedTypes);
+      expect(separateTypes).toContain(expectedSchemaType);
+    });
+
+    it('merges query types with matching definitions', () => {
+      const types = [matchingQueryTypes];
+      const mergedTypes = mergeTypes(types);
+      const expectedSchemaType = normalizeWhitespace(`
+        type Query {
+          getClient(id: ID!): Client
+          deleteClient(id: ID!): Client
+        }
+      `);
+      const separateTypes = normalizeWhitespace(mergedTypes);
+      expect(separateTypes).toContain(expectedSchemaType);
+    });
+
+    it('throws on query types with conflicting definitions', () => {
+      const types = [conflictingQueryTypes];
+      expect(() => {
+        mergeTypes(types);
+      }).toThrow(expect.any(Error));
     });
   });
 
