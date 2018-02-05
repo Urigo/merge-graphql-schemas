@@ -207,8 +207,8 @@ describe('mergeTypes', () => {
       const expectedCustomType = normalizeWhitespace(`
         type Custom {
           id: ID!
-          name: String
           age: Int
+          name: String
         }
       `);
       const separateTypes = normalizeWhitespace(mergedTypes);
@@ -217,16 +217,9 @@ describe('mergeTypes', () => {
 
     it('throws on custom types with conflicting definitions', () => {
       const types = [conflictingCustomTypes];
-      const mergedTypes = mergeTypes(types, { all: true });
-      const expectedCustomType = normalizeWhitespace(`
-        type Custom {
-          id: ID!
-          name: String
-          age: Int
-        }
-      `);
-      const separateTypes = normalizeWhitespace(mergedTypes);
-      expect(separateTypes).toContain(expectedCustomType);
+      expect(() => {
+        mergeTypes(types, { all: true });
+      }).toThrow(expect.any(Error));
     });
   });
 

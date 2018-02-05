@@ -6,10 +6,4 @@ export default `
     name: String
     age: Int
   }
-  type Query {
-    foo: Int
-  }
-  type Query {
-    foo: Int
-  }
 `;

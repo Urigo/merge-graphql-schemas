@@ -45,6 +45,20 @@ const _makeRestDefinitions = (defs, all = false) =>
       return def;
     });
 
+const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(candidate.fields)
+  .reduce((fields, field) => {
+    const original = merged.fields.find(base => base.name.value === field.name.value);
+    if (!original) {
+      fields.push(field);
+    } else if (field.type.name.value !== original.type.name.value) {
+      throw new Error(
+        `Conflicting types for ${merged.name.value}.${field.name.value}: ` +
+        `${field.type.name.value} != ${original.type.name.value}`,
+      ); // TODO:
+    }
+    return fields;
+  }, merged.fields);
+
 const _makeMergedDefinitions = (defs, all = false) => {
   // TODO: This function can be cleaner!
   const groupedMergableDefinitions = defs
@@ -67,10 +81,7 @@ const _makeMergedDefinitions = (defs, all = false) => {
           ...mergableDefs,
           [name]: {
             ...mergableDefs[name],
-            fields: [
-              ...mergableDefs[name].fields,
-              ..._addCommentsToAST(def.fields),
-            ],
+            fields: _makeMergedFieldDefinitions(mergableDefs[name], def),
           },
         };
       }, {
