@@ -5,10 +5,10 @@ import print from './utilities/astPrinter';
 import { isObjectTypeDefinition, isObjectSchemaDefinition } from './utilities/astHelpers';
 import { makeSchema, mergeableTypes } from './utilities/makeSchema';
 
-const _isMergeableTypeDefinition = def =>
-  isObjectTypeDefinition(def) && mergeableTypes.includes(def.name.value);
+const _isMergeableTypeDefinition = (def, all) =>
+  isObjectTypeDefinition(def) && (mergeableTypes.includes(def.name.value) || all);
 
-const _isNonMergeableTypeDefinition = def => !_isMergeableTypeDefinition(def);
+const _isNonMergeableTypeDefinition = (def, all) => !_isMergeableTypeDefinition(def, all);
 
 const _makeCommentNode = value => ({ kind: 'Comment', value });
 
@@ -31,9 +31,9 @@ const _addCommentsToAST = (nodes, flatten = true) => {
   return astWithComments;
 };
 
-const _makeRestDefinitions = defs =>
+const _makeRestDefinitions = (defs, all = false) =>
   defs
-    .filter(def => _isNonMergeableTypeDefinition(def) && !isObjectSchemaDefinition(def))
+    .filter(def => _isNonMergeableTypeDefinition(def, all) && !isObjectSchemaDefinition(def))
     .map((def) => {
       if (isObjectTypeDefinition(def)) {
         return {
@@ -45,10 +45,26 @@ const _makeRestDefinitions = defs =>
       return def;
     });
 
-const _makeMergedDefinitions = (defs) => {
+const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(candidate.fields)
+  .reduce((fields, field) => {
+    const original = merged.fields.find(base => base.name && typeof base.name.value !== 'undefined' &&
+      field.name && typeof field.name.value !== 'undefined' &&
+      base.name.value === field.name.value);
+    if (!original) {
+      fields.push(field);
+    } else if (field.type.name.value !== original.type.name.value) {
+      throw new Error(
+        `Conflicting types for ${merged.name.value}.${field.name.value}: ` +
+        `${field.type.name.value} != ${original.type.name.value}`,
+      );
+    }
+    return fields;
+  }, merged.fields);
+
+const _makeMergedDefinitions = (defs, all = false) => {
   // TODO: This function can be cleaner!
   const groupedMergableDefinitions = defs
-    .filter(_isMergeableTypeDefinition)
+    .filter(def => _isMergeableTypeDefinition(def, all))
     .reduce(
       (mergableDefs, def) => {
         const name = def.name.value;
@@ -67,10 +83,7 @@ const _makeMergedDefinitions = (defs) => {
           ...mergableDefs,
           [name]: {
             ...mergableDefs[name],
-            fields: [
-              ...mergableDefs[name].fields,
-              ..._addCommentsToAST(def.fields),
-            ],
+            fields: _makeMergedFieldDefinitions(mergableDefs[name], def),
           },
         };
       }, {
@@ -92,7 +105,7 @@ const _makeDocumentWithDefinitions = definitions => ({
 
 const printDefinitions = defs => print(_makeDocumentWithDefinitions(defs));
 
-const mergeTypes = (types) => {
+const mergeTypes = (types, options = { all: false }) => {
   const allDefs = types
     .map((type) => {
       if (typeof type === 'string') {
@@ -103,8 +116,9 @@ const mergeTypes = (types) => {
     .map(ast => ast.definitions)
     .reduce((defs, newDef) => [...defs, ...newDef], []);
 
-  const mergedDefs = _makeMergedDefinitions(allDefs);
-  const rest = _addCommentsToAST(_makeRestDefinitions(allDefs), false).map(printDefinitions);
+  const mergedDefs = _makeMergedDefinitions(allDefs, options.all);
+  const rest = _addCommentsToAST(_makeRestDefinitions(allDefs, options.all), false)
+    .map(printDefinitions);
   const schemaDefs = allDefs.filter(isObjectSchemaDefinition);
   const schema = printDefinitions([makeSchema(mergedDefs, schemaDefs), ...mergedDefs]);
 
