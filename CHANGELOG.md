@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Ability to merge a GQL Type defined multiple times in seperate files. Will throw an error when fieldDefintitons have conflicting values defined. Usage `mergeTypes(types, { all: true })`. Many thanks to [@squidfunk](https://github.com/squidfunk) work in [PR #118](https://github.com/okgrow/merge-graphql-schemas/pull/118).
+
+### Changed
+- Function signature of `mergeTypes(types)` has changed to include a 2nd optional param (an options object) -> `mergeTypes(types, { all: true })`. See Added note & [PR #118](https://github.com/okgrow/merge-graphql-schemas/pull/118) for details.
 
 ## [1.4.0] - 2017-12-04
 ### Changed
