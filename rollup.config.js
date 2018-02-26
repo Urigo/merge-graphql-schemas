@@ -11,6 +11,9 @@ export default [
     external: [
       'fs',
       'path',
+      'util',
+      'events',
+      'assert',
       'graphql',
       'graphql/language/visitor',
       'graphql/utilities/buildASTSchema',
