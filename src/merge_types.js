@@ -15,7 +15,7 @@ const _makeCommentNode = value => ({ kind: 'Comment', value });
 const _addCommentsToAST = (nodes, flatten = true) => {
   const astWithComments = nodes.map(
     (node) => {
-      const description = getDescription(node);
+      const description = getDescription(node, { commentDescriptions: true });
       if (description) {
         return [_makeCommentNode(description), node];
       }
