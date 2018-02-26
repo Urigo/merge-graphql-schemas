@@ -106,8 +106,9 @@ There are two ways you can use this package:
 
 ### Manually import each type
 
-If you decide to have manual control of each file that gets merged, all you need is the `mergeTypes` function:
+If you decide to have manual control of each file that gets merged, all you need is the `mergeTypes(types)` function.
 
+Ability to merge a GQL Type defined multiple times in separate files. Will throw an error when fieldDefintitons have conflicting values defined. See [PR #118](https://github.com/okgrow/merge-graphql-schemas/pull/118) for more details.
 ```js
 // ./graphql/types/index.js
 import { mergeTypes } from 'merge-graphql-schemas';
@@ -119,7 +120,10 @@ const types = [
   productType,
 ];
 
-export default mergeTypes(types);
+// NOTE: 2nd param is optional, and defaults to false
+// Only use if you have defined the same type multiple times in
+// different files and wish to attempt merging them together.
+export default mergeTypes(types, { all: true });
 ```
 
 ### Import everything from a specified folder
@@ -133,7 +137,7 @@ import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 
 const typesArray = fileLoader(path.join(__dirname, './types'));
 
-export default mergeTypes(typesArray);
+export default mergeTypes(typesArray, { all: true });
 ```
 When using the `fileLoader` function you can also implement your type definitions using `.graphql` or `.graphqls` files.
 
@@ -197,7 +201,7 @@ const mergeTypes = mergeGraphqlSchemas.mergeTypes
 
 const typesArray = fileLoader(path.join(__dirname, '.'), { recursive: true })
 
-module.exports = mergeTypes(typesArray)
+module.exports = mergeTypes(typesArray, { all: true })
 ```
 
 You can also load files in different folders by passing a glob pattern in `fileLoader`.
@@ -224,7 +228,7 @@ const mergeTypes = mergeGraphqlSchemas.mergeTypes
 
 const typesArray = fileLoader(path.join(__dirname, 'graphql/**/*.graphql'))
 
-module.exports = mergeTypes(typesArray)
+module.exports = mergeTypes(typesArray, { all: true })
 ```
 
 ### Merging nested Types
