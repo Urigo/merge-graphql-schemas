@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Function signature of `mergeTypes(types)` has changed to include a 2nd optional param (an options object) -> `mergeTypes(types, { all: true })`. See Added note & [PR #118](https://github.com/okgrow/merge-graphql-schemas/pull/118) for details.
-- GraphQL 0.13.x is now supported. Thanks to [@jbblanchet](https://github.com/jbblanchet) [PR 120](https://github.com/okgrow/merge-graphql-schemas/pull/120)
+- GraphQL 0.13.x is now supported. Thanks to [@jbblanchet](https://github.com/jbblanchet) [PR #120](https://github.com/okgrow/merge-graphql-schemas/pull/120)
 
 ## [1.4.0] - 2017-12-04
 ### Changed
