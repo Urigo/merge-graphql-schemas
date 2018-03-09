@@ -141,7 +141,7 @@ describe('mergeTypes', () => {
       const mergedTypes = mergeTypes(types);
       const expectedSchemaType = normalizeWhitespace(`
         type Query {
-          getClient(id: ID!): Client
+          getClient(id: ID!): Client!
           deleteClient(id: ID!): Client
         }
       `);

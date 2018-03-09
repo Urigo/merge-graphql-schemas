@@ -4,6 +4,7 @@ export default `
     age: Int
   }
   type Custom {
+    id: ID!
     name: String
     age: Int
   }
