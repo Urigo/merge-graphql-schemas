@@ -276,7 +276,7 @@ describe('mergeTypes', () => {
   });
 
   it('includes one schemaType on multiple merges', () => {
-    const matchSchema = /\s*schema\s+\{[^\}]+\}/gm;
+    const matchSchema = /\s*schema\s+\{[^}]+\}/gm;
     const types = mergeTypes([clientType, productType]);
     const multipleMergedTypes = mergeTypes([types, vendorType]);
     const expectedSchemaType = normalizeWhitespace(`
@@ -315,8 +315,10 @@ describe('mergeTypes', () => {
     const mergedTypes = mergeTypes(types);
     const expectedMutationType = normalizeWhitespace(`
       type Mutation {
+        # Creates a new client with their name & age
         create_client(name: String!, age: Int!): Client
         update_client(id: ID!, name: String!, age: Int!): Client
+        # Creates a new product with it's description & price
         create_product(description: String!, price: Int!): Product
         update_product(id: ID!, description: String!, price: Int!): Product
       }`);

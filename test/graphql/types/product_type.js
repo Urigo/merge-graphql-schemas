@@ -13,6 +13,7 @@ export default `
   }
 
   type Mutation {
+    # Creates a new product with it's description & price
     create_product(description: String!, price: Int!): Product
     update_product(id: ID!, description: String!, price: Int!): Product
   }

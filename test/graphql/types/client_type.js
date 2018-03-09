@@ -35,6 +35,7 @@ export default `
   }
 
   type Mutation {
+    # Creates a new client with their name & age
     create_client(name: String!, age: Int!): Client
     update_client(id: ID!, name: String!, age: Int!): Client
   }
