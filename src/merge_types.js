@@ -1,9 +1,11 @@
-// Test
-import { parse } from 'graphql';
+// NOTE: Currently using a slightly modified print instead of the exported graphql version.
+import { parse /* ,print */ } from 'graphql';
 import { getDescription } from 'graphql/utilities/buildASTSchema';
+
+// TODO: Refactor code and switch to using print from graphql directly.
 import print from './utilities/astPrinter';
-import { isObjectTypeDefinition, isObjectSchemaDefinition } from './utilities/astHelpers';
 import { makeSchema, mergeableTypes } from './utilities/makeSchema';
+import { isObjectTypeDefinition, isObjectSchemaDefinition } from './utilities/astHelpers';
 
 const _isMergeableTypeDefinition = (def, all) =>
   isObjectTypeDefinition(def) && (mergeableTypes.includes(def.name.value) || all);
