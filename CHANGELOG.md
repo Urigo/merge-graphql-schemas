@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Updated the astPrinter with the latest print.js code from graphql-js. [PR #123](https://github.com/okgrow/merge-graphql-schemas/pull/123)
 - Updated the mutation test to include some comments. [PR #123](https://github.com/okgrow/merge-graphql-schemas/pull/123)
+- Updated tests to check NonNullTypes merge scenario when using `mergeTypes(types, { all: true})` Thanks to [PR #125](https://github.com/okgrow/merge-graphql-schemas/pull/125) by [@lastmjs](https://github.com/lastmjs)
+
+### Fixed
+- Correctly handle NonNullTypes when using `mergeTypes(types, { all: true})` Thanks to [PR #125](https://github.com/okgrow/merge-graphql-schemas/pull/125) by [@lastmjs](https://github.com/lastmjs)
 
 ## [1.5.0] - 2018-02-26
 ### Added
