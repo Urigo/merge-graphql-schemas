@@ -5,10 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.5.1] - 2018-03-16
 ### Changed
 - Updated the astPrinter with the latest print.js code from graphql-js. [PR #123](https://github.com/okgrow/merge-graphql-schemas/pull/123)
 - Updated the mutation test to include some comments. [PR #123](https://github.com/okgrow/merge-graphql-schemas/pull/123)
 - Updated tests to check NonNullTypes merge scenario when using `mergeTypes(types, { all: true})` Thanks to [PR #125](https://github.com/okgrow/merge-graphql-schemas/pull/125) by [@lastmjs](https://github.com/lastmjs)
+- Upgraded dependencies to:
+  - `"deepmerge": "^2.1.0"`
+- Upgraded devDependencies to:
+  - `"jest": "^22.4.2"`
+  - `"core-js": "^2.5.3"`
+  - `"rollup": "^0.57.0"`
+  - `"graphql": "^0.13.2"`
+  - `"rollup-plugin-babel": "^3.0.3"`
+  - `"eslint-plugin-import": "^2.9.0"`
+  - `"rollup-plugin-commonjs": "^8.4.1"`
+  - `"rollup-plugin-node-resolve": "^3.2.0"`
 
 ### Fixed
 - Correctly handle NonNullTypes when using `mergeTypes(types, { all: true})` Thanks to [PR #125](https://github.com/okgrow/merge-graphql-schemas/pull/125) by [@lastmjs](https://github.com/lastmjs)
