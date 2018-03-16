@@ -16,7 +16,7 @@
     "prepare": "npm run rollup:build",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
-    "testonly": "jest",
+    "testonly": "jest --verbose",
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch",
     "start": "npm run rollup:watch"
