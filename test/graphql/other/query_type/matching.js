@@ -5,11 +5,11 @@ export default `
     age: Int
   }
   type Query {
-    getClient(id: ID!): Client
+    getClient(id: ID!): Client!
     deleteClient(id: ID!): Client
   }
   type Query {
-    getClient(id: ID!): Client
+    getClient(id: ID!): Client!
     deleteClient(id: ID!): Client
   }
 `;
