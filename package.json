@@ -1,7 +1,7 @@
 {
   "name": "merge-graphql-schemas",
   "author": "OK GROW!",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.",
   "repository": {
     "type": "git",
@@ -31,7 +31,7 @@
     "dist"
   ],
   "dependencies": {
-    "deepmerge": "^2.0.1",
+    "deepmerge": "^2.1.0",
     "glob": "^7.1.2",
     "is-glob": "^4.0.0"
   },
@@ -43,21 +43,21 @@
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "core-js": "^2.5.1",
+    "core-js": "^2.5.3",
     "eslint": "^3.15.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-import-resolver-meteor": "^0.2.4",
     "eslint-plugin-babel": "2.x.x",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
-    "graphql": "^0.13.1",
-    "jest": "^20.0.4",
-    "rollup": "^0.52.0",
-    "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-commonjs": "^8.2.6",
+    "graphql": "^0.13.2",
+    "jest": "^22.4.2",
+    "rollup": "^0.57.0",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-filesize": "^1.5.0",
-    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-node-resolve": "^3.2.0",
     "rollup-watch": "^4.3.1"
   }
 }
