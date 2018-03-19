@@ -357,12 +357,13 @@ const resolversArray = fileLoader(path.join(__dirname, './resolvers'), { extensi
 export default mergeResolvers(resolversArray);
 ```
 
-*Optionally: Automatic with Resolver Naming Convention*
+**Optional: Automatic with Resolver Naming Convention**
+
 If you would like to use the automated `fileLoader` approach _but_ would like complete 
-freedom of structuring your resolver files, then simply use a naming convention 
+freedom over the structure of your resolver files, then simply use a naming convention 
 like, `[file].resolvers.js/ts`. 
 
-Then setup your `ileLoader` like so, and you're in business:
+Then setup your `fileLoader` like so, and you're in business:
 
 ```js
 const resolversArray = fileLoader(path.join(__dirname, "./**/*.resolvers.*"));
@@ -371,7 +372,7 @@ export default mergeResolvers(resolversArray);
 With this approach, you're free to structure resolver files as you see fit. Of course,
 unique naming of Queries, Mutations and Subscriptions still applies! 
 
-Now you can structure by *function*...
+Now you can structure by **function**...
 ```
 +-- graphql
 |   +-- resolvers
@@ -380,7 +381,7 @@ Now you can structure by *function*...
 |   |   +-- index.ts  <<< Merges all `*.resolvers.*` files
 ```
 
-Or by *type*...
+Or by **type**...
 ```
 +-- graphql
 |   +-- entity
