@@ -360,12 +360,16 @@ export default mergeResolvers(resolversArray);
 **Optional: Automatic with Resolver Naming Convention**
 
 If you would like to use the automated `fileLoader` approach _but_ would like complete 
-freedom over the structure of your resolver files, then simply use a naming convention 
-like, `[file].resolvers.js/ts`. 
+freedom over the structure of your resolver files, then simply use a resolver file naming 
+convention like, `[file].resolvers.js/ts`. 
 
 Then setup your `fileLoader` like so, and you're in business:
 
 ```js
+// ./graphql/resolvers/index.js/ts
+import path from 'path';
+import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
+
 const resolversArray = fileLoader(path.join(__dirname, "./**/*.resolvers.*"));
 export default mergeResolvers(resolversArray);
 ```
@@ -376,8 +380,8 @@ Now you can structure by **function**...
 ```
 +-- graphql
 |   +-- resolvers
-|   |   +-- author.resolvers.ts
-|   |   +-- book.resolvers.ts
+|   |   +-- author.resolvers.js/ts
+|   |   +-- book.resolvers.js/ts
 |   |   +-- index.ts  <<< Merges all `*.resolvers.*` files
 ```
 
@@ -386,10 +390,10 @@ Or by **type**...
 +-- graphql
 |   +-- entity
 |   |   +-- author
-|   |   |   +-- author.resolvers.ts
+|   |   |   +-- author.resolvers.js/ts
 |   |   |   +-- ...
 |   |   +-- book
-|   |   |   +-- book.resolvers.ts
+|   |   |   +-- book.resolvers.js/ts
 |   |   |   +-- ...
 |   |   +-- index.ts <<< Merges all `*.resolvers.*` files
 ```
