@@ -141,7 +141,7 @@ export default mergeTypes(typesArray, { all: true });
 ```
 When using the `fileLoader` function you can also implement your type definitions using `.graphql` or `.graphqls` files.
 
-> The `fileLoader` function will by default ignore files named `index.js`. This allows you to create your index file inside the actual types folder if desired.
+> The `fileLoader` function will by default ignore files named `index.js` or `index.ts`. This allows you to create your index file inside the actual types folder if desired.
 
 ```graphql
 # ./graphql/types/clientType.graphql
@@ -355,6 +355,47 @@ import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
 const resolversArray = fileLoader(path.join(__dirname, './resolvers'), { extensions: ['.js'] });
 
 export default mergeResolvers(resolversArray);
+```
+
+**Optional: Automatic with Resolver Naming Convention**
+
+If you would like to use the automated `fileLoader` approach _but_ would like complete 
+freedom over the structure of your resolver files, then simply use a resolver file naming 
+convention like, `[file].resolvers.js/ts`. 
+
+Then setup your `fileLoader` like so, and you're in business:
+
+```js
+// ./graphql/resolvers/index.js/ts
+import path from 'path';
+import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
+
+const resolversArray = fileLoader(path.join(__dirname, "./**/*.resolvers.*"));
+export default mergeResolvers(resolversArray);
+```
+With this approach, you're free to structure resolver files as you see fit. Of course,
+unique naming of Queries, Mutations and Subscriptions still applies! 
+
+Now you can structure by **function**...
+```
++-- graphql
+|   +-- resolvers
+|   |   +-- author.resolvers.js/ts
+|   |   +-- book.resolvers.js/ts
+|   |   +-- index.ts  <<< Merges all `*.resolvers.*` files
+```
+
+Or by **type**...
+```
++-- graphql
+|   +-- entity
+|   |   +-- author
+|   |   |   +-- author.resolvers.js/ts
+|   |   |   +-- ...
+|   |   +-- book
+|   |   |   +-- book.resolvers.js/ts
+|   |   |   +-- ...
+|   |   +-- index.ts <<< Merges all `*.resolvers.*` files
 ```
 
 ### Server setup
