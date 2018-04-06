@@ -448,11 +448,17 @@ app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 app.listen(3000);
 ```
 
-## Maintainer
+## Maintainers
 
-This is an open source package. We hope to deal with contributions in a timely manner, but that's not always the case. The main maintainer is:
+This is an open source package. We hope to deal with contributions in a timely manner, but that's not always the case. The main maintainers are:
 
 [@RodMachado](https://github.com/RodMachado)
+
+[@cfnelson](https://github.com/cfnelson)
+
+[@RichardLitt](https://github.com/RichardLitt) (triage and basic support)
+
+Along with the team at [@okgrow](https://github.com/okgrow).
 
 Feel free to ping if there are open issues or pull requests which are taking a while to be dealt with!
 
