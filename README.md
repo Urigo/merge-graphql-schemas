@@ -234,7 +234,7 @@ module.exports = mergeTypes(typesArray, { all: true })
 
 ### Output the string of typeDefs
 
-Since the output is just a string, after you merge your types, you can save it to a file to be passed around to other systems. Here is an exmaple using ES6 modules:
+Since the output is just a string, after you merge your types, you can save it to a file to be passed around to other systems. Here is an example using ES6 modules:
 
 ```js
 import { fileLoader, mergeTypes } from 'merge-graphql-schemas'
