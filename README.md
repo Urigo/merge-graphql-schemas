@@ -17,7 +17,7 @@ This tool:
   - [Merging type definitions](#merging-type-definitions)
   - [Manually import each type](#manually-import-each-type)
   - [Import everything from a specified folder](#import-everything-from-a-specified-folder)
-  - [Output the string of typeDefs][#output-the-string-of-typedefs]
+  - [Output the string of typeDefs](#output-the-string-of-typedefs)
   - [Merging nested Types](#merging-nested-types)
   - [Merging resolvers](#merging-resolvers)
   - [Server setup](#server-setup)
