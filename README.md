@@ -17,6 +17,7 @@ This tool:
   - [Merging type definitions](#merging-type-definitions)
   - [Manually import each type](#manually-import-each-type)
   - [Import everything from a specified folder](#import-everything-from-a-specified-folder)
+  - [Output the string of typeDefs](#output-the-string-of-typedefs)
   - [Merging nested Types](#merging-nested-types)
   - [Merging resolvers](#merging-resolvers)
   - [Server setup](#server-setup)
@@ -229,6 +230,18 @@ const mergeTypes = mergeGraphqlSchemas.mergeTypes
 const typesArray = fileLoader(path.join(__dirname, 'graphql/**/*.graphql'))
 
 module.exports = mergeTypes(typesArray, { all: true })
+```
+
+### Output the string of typeDefs
+
+Since the output of `mergeTypes` is just a string, after you merge your types, you can save it to a file to be passed around to other systems. Here is an example using ES6 modules:
+
+```js
+import { fileLoader, mergeTypes } from 'merge-graphql-schemas'
+import { writeFileSync } from 'fs'
+
+const typeDefs = mergeTypes(fileLoader(`${__dirname}/schema/**/*.graphql`), { all: true })
+writeFileSync('joined.graphql', typeDefs)
 ```
 
 ### Merging nested Types
