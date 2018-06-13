@@ -15,6 +15,9 @@ import simpleQueryType from './graphql/other/simple_query_type';
 import disjointQueryTypes from './graphql/other/query_type/disjoint';
 import matchingQueryTypes from './graphql/other/query_type/matching';
 import conflictingQueryTypes from './graphql/other/query_type/conflicting';
+import directiveTypes from './graphql/other/query_type/directives';
+import inverseDirectiveTypes from './graphql/other/query_type/inverse_directives';
+import stackDirectiveTypes from './graphql/other/query_type/stack_directives';
 
 const normalizeWhitespace = str => str.replace(/\s+/g, ' ').trim();
 
@@ -590,6 +593,31 @@ describe('mergeTypes', () => {
         age: Int!
       }
     `);
+    const separateTypes = normalizeWhitespace(mergedTypes);
+
+    expect(separateTypes).toContain(expectedClientType);
+  });
+
+  it('Retains all directives on fields', () => {
+    const types = [directiveTypes];
+    const mergedTypes = mergeTypes(types);
+
+    const inverseTypes = [inverseDirectiveTypes];
+    const inverseMergedTypes = mergeTypes(inverseTypes);
+
+    expect(mergedTypes).toEqual(inverseMergedTypes);
+  });
+
+  it('Stacks all directives on fields', () => {
+    const types = [stackDirectiveTypes];
+    const mergedTypes = mergeTypes(types);
+
+    const expectedClientType = normalizeWhitespace(`
+      type Query {
+        client: Client @foo @bar
+      }
+      `);
+
     const separateTypes = normalizeWhitespace(mergedTypes);
 
     expect(separateTypes).toContain(expectedClientType);
