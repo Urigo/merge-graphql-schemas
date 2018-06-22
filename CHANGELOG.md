@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.5.2]
+### Fixed
+- Correctly merge directives when using `mergeTypes` in [PR #144](https://github.com/okgrow/merge-graphql-schemas/pull/144) by [@JulianKnodt](https://github.com/julianknodt)
+
 ## [1.5.1] - 2018-03-16
 ### Changed
 - Updated the astPrinter with the latest print.js code from graphql-js. [PR #123](https://github.com/okgrow/merge-graphql-schemas/pull/123)
@@ -25,7 +29,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Correctly handle NonNullTypes when using `mergeTypes(types, { all: true})` Thanks to [PR #125](https://github.com/okgrow/merge-graphql-schemas/pull/125) by [@lastmjs](https://github.com/lastmjs)
-- Correctly merge directives when using `mergeTypes` in [PR #144](https://github.com/okgrow/merge-graphql-schemas/pull/144) by [@JulianKnodt](https://github.com/julianknodt)
 
 ## [1.5.0] - 2018-02-26
 ### Added
