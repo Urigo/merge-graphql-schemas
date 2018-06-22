@@ -296,6 +296,27 @@ export default {
 }
 ```
 
+#### Merging Directives
+
+Directives will be stacked on top of each other, in the order of declaration.
+
+```js
+type Query {
+  client: Client @foo
+}
+type Query {
+  client: Client @bar
+}
+```
+
+Becomes
+
+```
+type Query {
+  client: Client @foo @bar
+}
+```
+
 #### Warning
 
 If you are using `graphqlHTTP` you don't need to separate the resolver into `Query/Mutation/Subscription`, otherwise it won't work. The resolvers should look like the following:

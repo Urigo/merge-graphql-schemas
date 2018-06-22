@@ -69,6 +69,11 @@ const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(can
         );
       }
     }
+
+    // retain directives of both fields.
+    if (original) {
+      original.directives = original.directives.concat(field.directives);
+    }
     return fields;
   }, merged.fields);
 
