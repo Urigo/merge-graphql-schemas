@@ -411,8 +411,11 @@ describe('mergeTypes', () => {
     const mergedTypes = mergeTypes(types);
     const expectedEnumType = normalizeWhitespace(`
       enum ProductTypes {
+        # New
         NEW
+        # Used
         USED
+        # Refurbished
         REFURBISHED
       }
     `);
