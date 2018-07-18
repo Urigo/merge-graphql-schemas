@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.5.3]
+### Fixed
+- Support comments for enum values in [PR #147](https://github.com/okgrow/merge-graphql-schemas/pull/147) by [@lacolaco](https://github.com/lacolaco)
+
 ## [1.5.2]
 ### Fixed
 - Correctly merge directives when using `mergeTypes` in [PR #144](https://github.com/okgrow/merge-graphql-schemas/pull/144) by [@JulianKnodt](https://github.com/julianknodt)
