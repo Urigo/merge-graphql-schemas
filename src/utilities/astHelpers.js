@@ -8,6 +8,15 @@ const isObjectTypeDefinition = def => (
   def.kind === Kind.INPUT_OBJECT_TYPE_DEFINITION
 );
 
+const isEnumTypeDefinition = def => (
+  def.kind === Kind.ENUM_TYPE_DEFINITION
+);
+
 const isObjectSchemaDefinition = def => def.kind === Kind.SCHEMA_DEFINITION;
 
-export { hasDefinitionWithName, isObjectTypeDefinition, isObjectSchemaDefinition };
+export {
+  hasDefinitionWithName,
+  isObjectTypeDefinition,
+  isObjectSchemaDefinition,
+  isEnumTypeDefinition,
+};

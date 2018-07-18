@@ -23,8 +23,11 @@ export default `
   }
 
   enum ProductTypes {
+    # New
     NEW
+    # Used
     USED
+    # Refurbished
     REFURBISHED
   }
 

@@ -5,7 +5,7 @@ import { getDescription } from 'graphql/utilities/buildASTSchema';
 // TODO: Refactor code and switch to using print from graphql directly.
 import print from './utilities/astPrinter';
 import { makeSchema, mergeableTypes } from './utilities/makeSchema';
-import { isObjectTypeDefinition, isObjectSchemaDefinition } from './utilities/astHelpers';
+import { isObjectTypeDefinition, isObjectSchemaDefinition, isEnumTypeDefinition } from './utilities/astHelpers';
 
 const _isMergeableTypeDefinition = (def, all) =>
   isObjectTypeDefinition(def) && (mergeableTypes.includes(def.name.value) || all);
@@ -37,10 +37,11 @@ const _makeRestDefinitions = (defs, all = false) =>
   defs
     .filter(def => _isNonMergeableTypeDefinition(def, all) && !isObjectSchemaDefinition(def))
     .map((def) => {
-      if (isObjectTypeDefinition(def)) {
+      if (isObjectTypeDefinition(def) || isEnumTypeDefinition(def)) {
         return {
           ...def,
-          fields: _addCommentsToAST(def.fields),
+          fields: def.fields ? _addCommentsToAST(def.fields) : undefined,
+          values: def.values ? _addCommentsToAST(def.values) : undefined,
         };
       }
 
@@ -90,7 +91,8 @@ const _makeMergedDefinitions = (defs, all = false) => {
             ...mergableDefs,
             [name]: {
               ...def,
-              fields: _addCommentsToAST(def.fields),
+              fields: def.fields ? _addCommentsToAST(def.fields) : undefined,
+              values: def.values ? _addCommentsToAST(def.values) : undefined,
             },
           };
         }
