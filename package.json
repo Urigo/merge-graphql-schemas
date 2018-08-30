@@ -11,7 +11,7 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "scripts": {
-    "rollup:build": "BABEL_ENV=build rollup -c",
+    "rollup:build": "cross-env BABEL_ENV=build rollup -c",
     "rollup:watch": "BABEL_ENV=build rollup -c -w",
     "prepare": "npm run rollup:build",
     "lint": "eslint ./src",
@@ -44,6 +44,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "core-js": "^2.5.3",
+    "cross-env": "^5.2.0",
     "eslint": "^3.15.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-import-resolver-meteor": "^0.2.4",
