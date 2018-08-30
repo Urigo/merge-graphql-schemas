@@ -6,7 +6,7 @@ const hasDefinitionWithName = (nodes, name) =>
 const isObjectTypeDefinition = def => (
   def.kind === Kind.OBJECT_TYPE_DEFINITION ||
   def.kind === Kind.INPUT_OBJECT_TYPE_DEFINITION ||
-  def.kind === Kind.SCALAR_TYPE_DEFINITION  ||
+  def.kind === Kind.SCALAR_TYPE_DEFINITION ||
   def.kind === Kind.INTERFACE_TYPE_DEFINITION
 
 );
