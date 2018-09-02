@@ -63,11 +63,20 @@ const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(can
         );
       }
     } else if (field.type.kind === 'NonNullType') {
-      if (field.type.type.name.value !== original.type.type.name.value) {
-        throw new Error(
-          `Conflicting types for ${merged.name.value}.${field.name.value}: ` +
-          `${field.type.type.name.value} != ${original.type.type.name.value}`,
-        );
+      if (field.type.type.name) {
+        if (field.type.type.name.value !== original.type.type.name.value) {
+          throw new Error(
+            `Conflicting types for ${merged.name.value}.${field.name.value}: ` +
+            `${field.type.type.name.value} != ${original.type.type.name.value}`,
+          );
+        }
+      } else if (field.type.type.type.name) {
+        if (field.type.type.type.name.value !== original.type.type.type.name.value) {
+          throw new Error(
+            `Conflicting types for ${merged.name.value}.${field.name.value}: ` +
+            `${field.type.type.type.name.value} != ${original.type.type.type.name.value}`,
+          );
+        }
       }
     }
 
