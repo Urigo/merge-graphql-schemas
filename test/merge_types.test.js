@@ -378,10 +378,7 @@ describe('mergeTypes', () => {
 
       expect(count)
         .toBe(1);
-    });
-
   });
-
 
   it('includes schemaType', () => {
     const types = [clientType, productType];
