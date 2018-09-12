@@ -1,7 +1,7 @@
 {
   "name": "merge-graphql-schemas",
   "author": "OK GROW!",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
   "module": "dist/index.esm.js",
   "scripts": {
     "rollup:build": "cross-env BABEL_ENV=build rollup -c",
-    "rollup:watch": "BABEL_ENV=build rollup -c -w",
+    "rollup:watch": "cross-env BABEL_ENV=build rollup -c -w",
     "prepare": "npm run rollup:build",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
