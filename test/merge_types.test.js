@@ -261,6 +261,95 @@ describe('mergeTypes', () => {
         mergeTypes(types, { all: true });
       }).toThrow(expect.any(Error));
     });
+
+    it('merges scalar types', () => {
+      const scalarTypes1 = `
+       scalar Date
+     `;
+      const scalarTypes2 = `
+       scalar Date
+       `;
+      // clientType contains Date and JSON scalar
+      const types = [clientType, scalarTypes1, scalarTypes2];
+      const mergedTypes = mergeTypes(types, { all: true });
+      const expectedType = normalizeWhitespace(`
+         scalar Date
+      `);
+      const separateTypes = normalizeWhitespace(mergedTypes);
+
+      // then count how many occurrence of that expected type
+      const count = (separateTypes.split(expectedType) || []).length - 1;
+
+      expect(count).toBe(1);
+    });
+
+    it('merges enum equal types into one', () => {
+      const enumType1 = `
+        enum ClientStatus {
+          NEW
+          ACTIVE
+          INACTIVE
+        }
+        `;
+      const enumType2 = `
+        enum ClientStatus {
+          NEW
+          ACTIVE
+          INACTIVE
+        }
+      `;
+      // clientType contains Date and JSON scalar
+      const types = [clientType, enumType1, enumType2];
+      const mergedTypes = mergeTypes(types, { all: true });
+      const expectedType = normalizeWhitespace(`
+        enum ClientStatus {
+          NEW
+          ACTIVE
+          INACTIVE
+        }
+      `);
+
+      const schema = normalizeWhitespace(mergedTypes);
+      expect(schema).toContain(expectedType);
+
+
+      const count = schema.split('enum ClientStatus').length;
+
+      expect(count).toBe(2);
+    });
+  });
+
+  it('merges enum types with different options into one', () => {
+    const enumType1 = `
+      enum ClientStatus {
+        ACTIVE
+        INACTIVE
+      }
+    `;
+    const enumType2 = `
+      enum ClientStatus {
+        NEW
+        INACTIVE
+      }
+    `;
+
+    // clientType contains Date and JSON scalar
+    const types = [clientType, enumType1, enumType2];
+    const mergedTypes = mergeTypes(types, { all: true });
+
+    const expectedType = normalizeWhitespace(`
+      enum ClientStatus {
+        NEW
+        ACTIVE
+        INACTIVE
+      }
+    `);
+
+    const schema = normalizeWhitespace(mergedTypes);
+    expect(schema).toContain(expectedType);
+
+    const count = schema.split('enum ClientStatus').length;
+    expect(count).toBe(2);
   });
 
   it('includes schemaType', () => {

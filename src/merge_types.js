@@ -14,7 +14,7 @@ const _isNonMergeableTypeDefinition = (def, all) => !_isMergeableTypeDefinition(
 
 const _makeCommentNode = value => ({ kind: 'Comment', value });
 
-const _addCommentsToAST = (nodes, flatten = true) => {
+const _addCommentsToAST = (nodes = [], flatten = true) => {
   const astWithComments = nodes.map(
     (node) => {
       const description = getDescription(node, { commentDescriptions: true });
