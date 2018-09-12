@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.5.4]
+### Fixed
+- added fix for merging interface and scalar [PR #157](https://github.com/okgrow/merge-graphql-schemas/pull/157) by [@iamrommel](https://github.com/iamrommel)
+
+### Changed
+- Package updates [PR #162](https://github.com/okgrow/merge-graphql-schemas/pull/162) by [@cfnelson](https://github.com/cfnelson)
+  - Upgraded dependencies to:
+    - "deepmerge": "^2.1.1",
+    - "glob": "^7.1.3",
+  - Upgraded devDependencies - Refer to PR
+
 ## [1.5.3]
 ### Fixed
 - Support comments for enum values in [PR #147](https://github.com/okgrow/merge-graphql-schemas/pull/147) by [@lacolaco](https://github.com/lacolaco)
