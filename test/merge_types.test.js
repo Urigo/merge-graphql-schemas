@@ -312,7 +312,7 @@ describe('mergeTypes', () => {
         .toBe(1);
     });
 
-    it('merges enum types', () => {
+    it('merges enum equal types into one', () => {
       const enumType1 = `
        enum ClientStatus {
     NEW
@@ -347,6 +347,41 @@ describe('mergeTypes', () => {
     });
 
   });
+  
+  it('merges enum types with different options into one', () => {
+      const enumType1 = `
+       enum ClientStatus {
+    ACTIVE
+    INACTIVE
+  }
+     `;
+      const enumType2 = `
+       enum ClientStatus {
+    NEW
+    INACTIVE
+  }
+       `;
+      // clientType contains Date and JSON scalar
+      const types = [clientType, enumType1, enumType2];
+      const mergedTypes = mergeTypes(types, { all: true });
+      const expectedType = normalizeWhitespace(`
+         enum ClientStatus {
+    NEW
+    ACTIVE
+    INACTIVE
+  }      
+      `);
+      const separateTypes = normalizeWhitespace(mergedTypes);
+
+      // then count how many occurrence of that expected type
+      const count = (separateTypes.split(expectedType) || []).length - 1;
+
+      expect(count)
+        .toBe(1);
+    });
+
+  });
+
 
   it('includes schemaType', () => {
     const types = [clientType, productType];
