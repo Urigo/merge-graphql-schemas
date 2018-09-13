@@ -272,7 +272,7 @@ describe('mergeTypes', () => {
     it("throws on conflicting NonNullType-ListType definitions", () => {
       const types = [conflictingNonNullListQueryTypes];
       expect(() => {
-        mergeTypes(types, { all: true });
+        mergeTypes(types);
       }).toThrow(expect.any(Error));
     });
 
