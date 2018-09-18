@@ -36,7 +36,7 @@
     "is-glob": "^4.0.0"
   },
   "peerDependencies": {
-    "graphql": "^0.11.7 || ^0.13.0"
+    "graphql": "^0.11.7 || ^0.13.0 || ^14.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -52,7 +52,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
-    "graphql": "^0.13.2",
+    "graphql": "^14.0.2",
     "jest": "^23.6.0",
     "rollup": "^0.65.2",
     "rollup-plugin-babel": "^3.0.7",
