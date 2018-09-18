@@ -11,6 +11,7 @@ import disjointCustomTypes from './graphql/other/custom_type/disjoint';
 import matchingCustomTypes from './graphql/other/custom_type/matching';
 import matchingNonNullListQueryTypes from "./graphql/other/query_type/matching_non_null_list_type";
 import conflictingNonNullListQueryTypes from "./graphql/other/query_type/conflicting_non_null_list_type";
+import inverseConflictingNonNullListQueryTypes from "./graphql/other/query_type/inverse_conflicting_non_null_list_type";
 import conflictingCustomTypes from './graphql/other/custom_type/conflicting';
 
 import simpleQueryType from './graphql/other/simple_query_type';
@@ -273,6 +274,27 @@ describe('mergeTypes', () => {
       const types = [conflictingNonNullListQueryTypes];
       expect(() => {
         mergeTypes(types);
+      }).toThrow(expect.any(Error));
+    });
+
+    it("throws on conflicting NonNullType-ListType definitions with merge attempt", () => {
+      const types = [conflictingNonNullListQueryTypes];
+      expect(() => {
+        mergeTypes(types, { all: true });
+      }).toThrow(expect.any(Error));
+    });
+
+    it("throws on inverse conflicting NonNullType-ListType definitions", () => {
+      const types = [inverseConflictingNonNullListQueryTypes];
+      expect(() => {
+        mergeTypes(types);
+      }).toThrow(expect.any(Error));
+    });
+
+    it("throws on inverse conflicting NonNullType-ListType definitions with merge attempt", () => {
+      const types = [inverseConflictingNonNullListQueryTypes];
+      expect(() => {
+        mergeTypes(types, { all: true });
       }).toThrow(expect.any(Error));
     });
 
