@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.5.5]
+### Added
+- Typescript typings [PR #167](https://github.com/okgrow/merge-graphql-schemas/pull/167) by [@onehorsetown](https://github.com/onehorsetown)
+
+### Changed
+- Updated to graphql@14.0.2 and added it to the peer dependencies [PR #166](https://github.com/okgrow/merge-graphql-schemas/pull/166) by [@polco](https://github.com/polco)
+
+### Fixed
+- Query merge issue when combining NonNull & ListType modifiers [PR #161](https://github.com/okgrow/merge-graphql-schemas/pull/161) by [@tdharris](https://github.com/tdharris)
+
 ## [1.5.4]
 ### Fixed
 - added fix for merging interface and scalar [PR #157](https://github.com/okgrow/merge-graphql-schemas/pull/157) by [@iamrommel](https://github.com/iamrommel)
