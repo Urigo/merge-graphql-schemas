@@ -10,6 +10,7 @@
   "license": "MIT",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
+  "typings": "typings/index.d.ts",
   "scripts": {
     "rollup:build": "cross-env BABEL_ENV=build rollup -c",
     "rollup:watch": "cross-env BABEL_ENV=build rollup -c -w",
@@ -28,7 +29,8 @@
     "schema"
   ],
   "files": [
-    "dist"
+    "dist",
+    "typings"
   ],
   "dependencies": {
     "deepmerge": "^2.1.1",
