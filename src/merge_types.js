@@ -48,6 +48,27 @@ const _makeRestDefinitions = (defs, all = false) =>
       return def;
     });
 
+// Gracefully handle nested pathing of GraphQL types
+// skips any attributes that can't be found in path (i.e. type.type.type.value => type.type.value)
+// returns chained-property value path of tracker attribute later used for comparison
+// (i.e. 'ListType.NamedType.SomeValue' !== 'NonNullType.ListType.NamedType.SomeValue')
+const _getGraphQLPath = (path, theObj, tracker) => {
+  let result;
+  path
+    .split('.')
+    .reduce((o, x) => {
+      if (o && o[x]) {
+        const v = o[x].hasOwnProperty.call(tracker) ?
+          o[x][tracker] : o[x];
+        if (!result) result = v;
+        else result += `.${v}`;
+        return o[x];
+      }
+      return o;
+    }, theObj);
+  return result;
+};
+
 const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(candidate.fields)
   .reduce((fields, field) => {
     const original = merged.fields.find(base => base.name && typeof base.name.value !== 'undefined' &&
@@ -62,11 +83,14 @@ const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(can
           `${field.type.name.value} != ${original.type.name.value}`,
         );
       }
-    } else if (field.type.kind === 'NonNullType') {
-      if (field.type.type.name.value !== original.type.type.name.value) {
+    } else if (field.type.kind === 'NonNullType' || field.type.kind === 'ListType') {
+      const path = _getGraphQLPath('type.type.type.value', field, 'kind');
+      const originalPath = _getGraphQLPath('type.type.type.value', original, 'kind');
+
+      if (path !== originalPath) {
         throw new Error(
           `Conflicting types for ${merged.name.value}.${field.name.value}: ` +
-          `${field.type.type.name.value} != ${original.type.type.name.value}`,
+          `${path} != ${originalPath}`,
         );
       }
     }

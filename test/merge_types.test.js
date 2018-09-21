@@ -9,6 +9,9 @@ import personSearchType from './graphql/types/person_search_type';
 import customType from './graphql/other/custom_type';
 import disjointCustomTypes from './graphql/other/custom_type/disjoint';
 import matchingCustomTypes from './graphql/other/custom_type/matching';
+import matchingNonNullListQueryTypes from "./graphql/other/query_type/matching_non_null_list_type";
+import conflictingNonNullListQueryTypes from "./graphql/other/query_type/conflicting_non_null_list_type";
+import inverseConflictingNonNullListQueryTypes from "./graphql/other/query_type/inverse_conflicting_non_null_list_type";
 import conflictingCustomTypes from './graphql/other/custom_type/conflicting';
 
 import simpleQueryType from './graphql/other/simple_query_type';
@@ -253,6 +256,46 @@ describe('mergeTypes', () => {
       `);
       const separateTypes = normalizeWhitespace(mergedTypes);
       expect(separateTypes).toContain(expectedCustomType);
+    });
+
+    it("merges query types with matching NonNullType-ListType definitions", () => {
+      const types = [matchingNonNullListQueryTypes];
+      const mergedTypes = mergeTypes(types);
+      const expectedSchemaType = normalizeWhitespace(`
+        type Query {
+          clients: [Client]!
+        }
+      `);
+      const separateTypes = normalizeWhitespace(mergedTypes);
+      expect(separateTypes).toContain(expectedSchemaType);
+    });
+
+    it("throws on conflicting NonNullType-ListType definitions", () => {
+      const types = [conflictingNonNullListQueryTypes];
+      expect(() => {
+        mergeTypes(types);
+      }).toThrow(expect.any(Error));
+    });
+
+    it("throws on conflicting NonNullType-ListType definitions with merge attempt", () => {
+      const types = [conflictingNonNullListQueryTypes];
+      expect(() => {
+        mergeTypes(types, { all: true });
+      }).toThrow(expect.any(Error));
+    });
+
+    it("throws on inverse conflicting NonNullType-ListType definitions", () => {
+      const types = [inverseConflictingNonNullListQueryTypes];
+      expect(() => {
+        mergeTypes(types);
+      }).toThrow(expect.any(Error));
+    });
+
+    it("throws on inverse conflicting NonNullType-ListType definitions with merge attempt", () => {
+      const types = [inverseConflictingNonNullListQueryTypes];
+      expect(() => {
+        mergeTypes(types, { all: true });
+      }).toThrow(expect.any(Error));
     });
 
     it('throws on custom types with conflicting definitions', () => {
