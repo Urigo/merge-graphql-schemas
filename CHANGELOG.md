@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+## [1.5.7]
+### Fixed
+- Typescript issue introduced in previous PR. [PR #168](https://github.com/okgrow/merge-graphql-schemas/pull/172) by [@koenpunt](https://github.com/koenpunt).
+
 ## [1.5.6]
 ### Fixed
 - Support Node.js prior to v10.10, by removing the Dirent Typescript type [PR #168](https://github.com/okgrow/merge-graphql-schemas/pull/170) by [@koenpunt](https://github.com/koenpunt).
