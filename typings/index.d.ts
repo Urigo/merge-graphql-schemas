@@ -1,5 +1,4 @@
 import { DocumentNode, Source } from 'graphql';
-import { Dirent } from 'fs';
 
 export function mergeTypes(
   types: Array<string | Source | DocumentNode>,
@@ -15,4 +14,4 @@ export function fileLoader(
     extensions?: string[];
     globOptions?: object;
   }
-): Array<string | Buffer | Dirent>;
+): Array<string | Buffer>;
