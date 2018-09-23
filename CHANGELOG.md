@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+
+## [1.5.6]
+### Fixed
+- Support Node.js prior to v10.10, by removing the Dirent Typescript type [PR #168](https://github.com/okgrow/merge-graphql-schemas/pull/170) by [@koenpunt](https://github.com/koenpunt).
+
+### Changed
+- Upgraded devDependencies to:
+  - "rollup": "0.66.2",
+  - "rollup-plugin-commonjs": "9.1.8"
+
 ## [1.5.5]
 ### Added
 - Typescript typings [PR #167](https://github.com/okgrow/merge-graphql-schemas/pull/167) by [@onehorsetown](https://github.com/onehorsetown)

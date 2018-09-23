@@ -1,7 +1,7 @@
 {
   "name": "merge-graphql-schemas",
   "author": "OK GROW!",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.",
   "repository": {
     "type": "git",
@@ -56,9 +56,9 @@
     "eslint-plugin-react": "^6.9.0",
     "graphql": "^14.0.2",
     "jest": "^23.6.0",
-    "rollup": "^0.65.2",
+    "rollup": "^0.66.2",
     "rollup-plugin-babel": "^3.0.7",
-    "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-commonjs": "^9.1.8",
     "rollup-plugin-filesize": "^4.0.1",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-watch": "^4.3.1"
