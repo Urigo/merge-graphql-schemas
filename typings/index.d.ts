@@ -14,4 +14,4 @@ export function fileLoader(
     extensions?: string[];
     globOptions?: object;
   }
-): Array<string | Buffer>;
+): Array<string | any>;
