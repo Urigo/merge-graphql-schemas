@@ -77,11 +77,10 @@ const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(can
     if (!original) {
       fields.push(field);
     } else if (field.type.kind === 'NamedType') {
-      if (field.type.name.value !== original.type.name.value) {
-        throw new Error(
-          `Conflicting types for ${merged.name.value}.${field.name.value}: ` +
-          `${field.type.name.value} != ${original.type.name.value}`,
-        );
+      const fieldName = field.type.name && field.type.name.value  || null;
+      const originalName = original.type.name && original.type.name.value || null;
+      if (!fieldName || !originalName || (fieldName !== originalName)) {
+        throw new Error(`Conflicting types for ${merged.name.value}.${fieldName}: ` + `${fieldName || "undefined"} != ${originalName}`);
       }
     } else if (field.type.kind === 'NonNullType' || field.type.kind === 'ListType') {
       const path = _getGraphQLPath('type.type.type.value', field, 'kind');
