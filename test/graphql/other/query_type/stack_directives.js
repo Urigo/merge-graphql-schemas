@@ -5,9 +5,12 @@ export default `
     age: Int
   }
   type Query {
-    client: Client @foo
+    client: Client @foo @foo
   }
   type Query {
     client: Client @bar
+  }
+  type Query {
+    client: Client @foo @bar
   }
 `;

@@ -97,6 +97,12 @@ const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(can
     // retain directives of both fields.
     if (original) {
       original.directives = original.directives.concat(field.directives);
+      original.directives = original.directives.reduce((current, next) => {
+        if (current.findIndex(n => n.name.value === next.name.value) === -1) {
+          current.push(next);
+        }
+        return current;
+      }, []);
     }
     return fields;
   }, merged.fields);
