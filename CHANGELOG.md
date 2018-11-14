@@ -5,8 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.5.8]
 ### Fixed
 - Fix exception message when checking NamedType. [PR #178](https://github.com/okgrow/merge-graphql-schemas/pull/178) by [Fi1osof](https://github.com/Fi1osof).
+
+- Fix directives not being merged correctly. Closes [#156](https://github.com/okgrow/merge-graphql-schemas/issues/156), [#182](https://github.com/okgrow/merge-graphql-schemas/issues/182) [PR #183](https://github.com/okgrow/merge-graphql-schemas/pull/183) by [Fi1osof](https://github.com/Fi1osof).
 
 ## [1.5.7]
 ### Fixed

@@ -5,26 +5,27 @@ import { getDescription } from 'graphql/utilities/buildASTSchema';
 // TODO: Refactor code and switch to using print from graphql directly.
 import print from './utilities/astPrinter';
 import { makeSchema, mergeableTypes } from './utilities/makeSchema';
-import { isObjectTypeDefinition, isObjectSchemaDefinition, isEnumTypeDefinition } from './utilities/astHelpers';
+import {
+  isObjectTypeDefinition,
+  isObjectSchemaDefinition,
+  isEnumTypeDefinition,
+} from './utilities/astHelpers';
 
-const _isMergeableTypeDefinition = (def, all) =>
-  isObjectTypeDefinition(def) && (mergeableTypes.includes(def.name.value) || all);
+const _isMergeableTypeDefinition = (def, all) => isObjectTypeDefinition(def) && (mergeableTypes.includes(def.name.value) || all);
 
 const _isNonMergeableTypeDefinition = (def, all) => !_isMergeableTypeDefinition(def, all);
 
 const _makeCommentNode = value => ({ kind: 'Comment', value });
 
 const _addCommentsToAST = (nodes = [], flatten = true) => {
-  const astWithComments = nodes.map(
-    (node) => {
-      const description = getDescription(node, { commentDescriptions: true });
-      if (description) {
-        return [_makeCommentNode(description), node];
-      }
+  const astWithComments = nodes.map((node) => {
+    const description = getDescription(node, { commentDescriptions: true });
+    if (description) {
+      return [_makeCommentNode(description), node];
+    }
 
-      return [node];
-    },
-  );
+    return [node];
+  });
 
   if (flatten) {
     return astWithComments.reduce((a, b) => a.concat(b), []);
@@ -33,20 +34,19 @@ const _addCommentsToAST = (nodes = [], flatten = true) => {
   return astWithComments;
 };
 
-const _makeRestDefinitions = (defs, all = false) =>
-  defs
-    .filter(def => _isNonMergeableTypeDefinition(def, all) && !isObjectSchemaDefinition(def))
-    .map((def) => {
-      if (isObjectTypeDefinition(def) || isEnumTypeDefinition(def)) {
-        return {
-          ...def,
-          fields: def.fields ? _addCommentsToAST(def.fields) : undefined,
-          values: def.values ? _addCommentsToAST(def.values) : undefined,
-        };
-      }
+const _makeRestDefinitions = (defs, all = false) => defs
+  .filter(def => _isNonMergeableTypeDefinition(def, all) && !isObjectSchemaDefinition(def))
+  .map((def) => {
+    if (isObjectTypeDefinition(def) || isEnumTypeDefinition(def)) {
+      return {
+        ...def,
+        fields: def.fields ? _addCommentsToAST(def.fields) : undefined,
+        values: def.values ? _addCommentsToAST(def.values) : undefined,
+      };
+    }
 
-      return def;
-    });
+    return def;
+  });
 
 // Gracefully handle nested pathing of GraphQL types
 // skips any attributes that can't be found in path (i.e. type.type.type.value => type.type.value)
@@ -54,58 +54,61 @@ const _makeRestDefinitions = (defs, all = false) =>
 // (i.e. 'ListType.NamedType.SomeValue' !== 'NonNullType.ListType.NamedType.SomeValue')
 const _getGraphQLPath = (path, theObj, tracker) => {
   let result;
-  path
-    .split('.')
-    .reduce((o, x) => {
-      if (o && o[x]) {
-        const v = o[x].hasOwnProperty.call(tracker) ?
-          o[x][tracker] : o[x];
-        if (!result) result = v;
-        else result += `.${v}`;
-        return o[x];
-      }
-      return o;
-    }, theObj);
+  path.split('.').reduce((o, x) => {
+    if (o && o[x]) {
+      const v = o[x].hasOwnProperty.call(tracker) ? o[x][tracker] : o[x];
+      if (!result) result = v;
+      else result += `.${v}`;
+      return o[x];
+    }
+    return o;
+  }, theObj);
   return result;
 };
 
-const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(candidate.fields)
-  .reduce((fields, field) => {
-    const original = merged.fields.find(base => base.name && typeof base.name.value !== 'undefined' &&
-      field.name && typeof field.name.value !== 'undefined' &&
-      base.name.value === field.name.value);
-    if (!original) {
-      fields.push(field);
-    } else if (field.type.kind === 'NamedType') {
-      const fieldName = (field.type.name && field.type.name.value) || null;
-      const originalName = (original.type.name && original.type.name.value) || null;
-      if (!fieldName || !originalName || (fieldName !== originalName)) {
-        throw new Error(`Conflicting types for ${merged.name.value}.${fieldName}: ${fieldName || 'undefined'} != ${originalName}`);
-      }
-    } else if (field.type.kind === 'NonNullType' || field.type.kind === 'ListType') {
-      const path = _getGraphQLPath('type.type.type.value', field, 'kind');
-      const originalPath = _getGraphQLPath('type.type.type.value', original, 'kind');
-
-      if (path !== originalPath) {
-        throw new Error(
-          `Conflicting types for ${merged.name.value}.${field.name.value}: ` +
-          `${path} != ${originalPath}`,
-        );
-      }
+const _makeMergedFieldDefinitions = (merged, candidate) => _addCommentsToAST(candidate.fields).reduce((fields, field) => {
+  const original = merged.fields.find(
+    base => base.name
+        && typeof base.name.value !== 'undefined'
+        && field.name
+        && typeof field.name.value !== 'undefined'
+        && base.name.value === field.name.value,
+  );
+  if (!original) {
+    fields.push(field);
+  } else if (field.type.kind === 'NamedType') {
+    const fieldName = (field.type.name && field.type.name.value) || null;
+    const originalName = (original.type.name && original.type.name.value) || null;
+    if (!fieldName || !originalName || fieldName !== originalName) {
+      throw new Error(
+        `Conflicting types for ${merged.name.value}.${fieldName}: ${fieldName
+            || 'undefined'} != ${originalName}`,
+      );
     }
+  } else if (field.type.kind === 'NonNullType' || field.type.kind === 'ListType') {
+    const path = _getGraphQLPath('type.type.type.value', field, 'kind');
+    const originalPath = _getGraphQLPath('type.type.type.value', original, 'kind');
 
-    // retain directives of both fields.
-    if (original) {
-      original.directives = original.directives.concat(field.directives);
-      original.directives = original.directives.reduce((current, next) => {
-        if (current.findIndex(n => n.name.value === next.name.value) === -1) {
-          current.push(next);
-        }
-        return current;
-      }, []);
+    if (path !== originalPath) {
+      throw new Error(
+        `Conflicting types for ${merged.name.value}.${field.name.value}: `
+            + `${path} != ${originalPath}`,
+      );
     }
-    return fields;
-  }, merged.fields);
+  }
+
+  // retain directives of both fields.
+  if (original) {
+    original.directives = original.directives.concat(field.directives);
+    original.directives = original.directives.reduce((current, next) => {
+      if (current.findIndex(n => n.name.value === next.name.value) === -1) {
+        current.push(next);
+      }
+      return current;
+    }, []);
+  }
+  return fields;
+}, merged.fields);
 
 const _makeMergedDefinitions = (defs, all = false) => {
   // TODO: This function can be cleaner!
@@ -133,16 +136,18 @@ const _makeMergedDefinitions = (defs, all = false) => {
             fields: _makeMergedFieldDefinitions(mergableDefs[name], def),
           },
         };
-      }, {
+      },
+      {
         Query: null,
         Mutation: null,
         Subscription: null,
       },
     );
 
-  return Object
-    .values(groupedMergableDefinitions)
-    .reduce((array, def) => (def ? [...array, def] : array), []);
+  return Object.values(groupedMergableDefinitions).reduce(
+    (array, def) => (def ? [...array, def] : array),
+    [],
+  );
 };
 
 const _makeDocumentWithDefinitions = definitions => ({
@@ -164,8 +169,9 @@ const mergeTypes = (types, options = { all: false }) => {
     .reduce((defs, newDef) => [...defs, ...newDef], []);
 
   const mergedDefs = _makeMergedDefinitions(allDefs, options.all);
-  const rest = _addCommentsToAST(_makeRestDefinitions(allDefs, options.all), false)
-    .map(printDefinitions);
+  const rest = _addCommentsToAST(_makeRestDefinitions(allDefs, options.all), false).map(
+    printDefinitions,
+  );
   const schemaDefs = allDefs.filter(isObjectSchemaDefinition);
   const schema = printDefinitions([makeSchema(mergedDefs, schemaDefs), ...mergedDefs]);
 
