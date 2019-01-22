@@ -6,9 +6,12 @@
 
 > A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.
 
+
 This tool:
   * Reduces the complexity of Graphql server implementation.
   * Modularize type and resolver files.
+
+**NOTE:** This pkg is **no longer being actively maintained**, if you'd like to maintain this pkg please express interest by opening an issue.
 
 ## Table of Contents
 
@@ -485,12 +488,6 @@ app.listen(3000);
 ## Maintainers
 
 This is an open source package. We hope to deal with contributions in a timely manner, but that's not always the case. The main maintainers are:
-
-[@RodMachado](https://github.com/RodMachado)
-
-[@cfnelson](https://github.com/cfnelson)
-
-[@RichardLitt](https://github.com/RichardLitt) (triage and basic support)
 
 Along with the team at [@okgrow](https://github.com/okgrow).
 
