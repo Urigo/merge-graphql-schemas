@@ -11,8 +11,6 @@ This tool:
   * Reduces the complexity of Graphql server implementation.
   * Modularize type and resolver files.
 
-**NOTE:** This pkg is **no longer being actively maintained**, if you'd like to maintain this pkg please express interest by opening an issue.
-
 ## Table of Contents
 
 - [Install](#install)
