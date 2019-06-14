@@ -5,7 +5,7 @@
   "description": "A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/okgrow/merge-graphql-schemas.git"
+    "url": "https://github.com/Urigo/merge-graphql-schemas.git"
   },
   "license": "MIT",
   "main": "dist/index.cjs.js",
@@ -14,16 +14,16 @@
   "scripts": {
     "rollup:build": "cross-env BABEL_ENV=build rollup -c",
     "rollup:watch": "cross-env BABEL_ENV=build rollup -c -w",
-    "prepare": "npm run rollup:build",
+    "build": "yarn rollup:build",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "testonly": "jest --verbose",
-    "test": "npm run lint && npm run testonly",
-    "test-watch": "npm run testonly -- --watch",
-    "start": "npm run rollup:watch"
+    "test": "yarn lint && yarn testonly",
+    "test-watch": "yarn testonly --watch",
+    "start": "yarn rollup:watch"
   },
-  "bugs": "https://github.com/okgrow/merge-graphql-schemas/issues",
-  "homepage": "https://github.com/okgrow/merge-graphql-schemas",
+  "bugs": "https://github.com/Urigo/merge-graphql-schemas/issues",
+  "homepage": "https://github.com/Urigo/merge-graphql-schemas",
   "keywords": [
     "graphql",
     "schema"
