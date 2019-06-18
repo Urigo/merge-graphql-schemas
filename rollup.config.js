@@ -17,6 +17,7 @@ export default [
       'graphql',
       'graphql/language/visitor',
       'graphql/utilities/buildASTSchema',
+      'graphql-toolkit',
     ],
     plugins: [
       resolve(), // so Rollup can find any commonjs packages

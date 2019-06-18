@@ -26,6 +26,7 @@ const normalizeWhitespace = str => str.replace(/\s+/g, ' ').trim();
 
 describe('mergeTypes', () => {
   describe('when no types exist', () => {
+    // KAMIL: I don't think we should produce it
     it('returns minimal schema', () => {
       const types = [];
       const mergedTypes = mergeTypes(types);
@@ -39,6 +40,7 @@ describe('mergeTypes', () => {
       expect(schema).toContain(expectedSchemaType);
     });
 
+    // KAMIL: I don't think we should produce it
     it('returns empty query type', () => {
       const types = [];
       const mergedTypes = mergeTypes(types);
@@ -77,6 +79,7 @@ describe('mergeTypes', () => {
   });
 
   describe('when only query is specified', () => {
+    // KAMIL: I don't think we should produce it
     it('returns minimal schema', () => {
       const types = [simpleQueryType];
       const mergedTypes = mergeTypes(types);
