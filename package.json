@@ -18,9 +18,10 @@
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "testonly": "jest --verbose",
-    "test": "yarn lint && yarn testonly",
+    "test": "yarn lint && yarn testonly && yarn bundlesize",
     "test-watch": "yarn testonly --watch",
-    "start": "yarn rollup:watch"
+    "start": "yarn rollup:watch",
+    "bundlesize": "cd bundle-test/ && yarn && yarn test"
   },
   "bugs": "https://github.com/Urigo/merge-graphql-schemas/issues",
   "homepage": "https://github.com/Urigo/merge-graphql-schemas",
