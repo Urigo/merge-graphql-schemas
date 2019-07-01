@@ -7,3 +7,4 @@ test
 CONTRIBUTING.md
 jest.config.js
 rollup.config.js
+bundle-test
