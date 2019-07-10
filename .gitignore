@@ -7,5 +7,6 @@
 npm-debug.log
 node_modules
 dist
+test-results
 .env
 .vscode

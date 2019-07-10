@@ -19,6 +19,8 @@ jobs:
       - run:
           name: Test
           command: yarn test
+      - store_test_results:
+          path: test-results
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:

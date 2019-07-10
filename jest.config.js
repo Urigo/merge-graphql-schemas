@@ -3,4 +3,15 @@ module.exports = {
   setupFiles: [
     '<rootDir>/test/polyfills.js',
   ],
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        classNameTemplate: '{classname}',
+        titleTemplate: '{title}',
+        addFileAttribute: 'true',
+      },
+    ],
+  ],
 };

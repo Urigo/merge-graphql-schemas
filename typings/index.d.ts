@@ -2,7 +2,7 @@ import { DocumentNode, Source } from 'graphql';
 
 export function mergeTypes(
   types: Array<string | Source | DocumentNode>,
-  options?: { all: boolean }
+  options?: { all: boolean, schemaDefinition?: boolean }
 ): string;
 
 export function mergeResolvers<T>(args: T[]): T;
