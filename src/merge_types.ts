@@ -1,6 +1,7 @@
 import { mergeTypeDefs } from 'graphql-toolkit';
+import { Config } from 'graphql-toolkit/dist/esnext/epoxy/typedefs-mergers/merge-typedefs';
 
-const mergeTypes = (types, options) => {
+const mergeTypes = (types: any[], options?: { schemaDefinition?: boolean, all?: boolean } & Partial<Config>) => {
   const schemaDefinition = options && typeof options.schemaDefinition === 'boolean'
     ? options.schemaDefinition
     : true;
@@ -11,6 +12,7 @@ const mergeTypes = (types, options) => {
     throwOnConflict: true,
     commentDescriptions: true,
     reverseDirectives: true,
+    ...options,
   });
 };
 

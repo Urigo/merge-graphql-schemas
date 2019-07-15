@@ -1,17 +1,15 @@
 module.exports = {
-  verbose: true,
-  setupFiles: [
-    '<rootDir>/test/polyfills.js',
-  ],
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        classNameTemplate: '{classname}',
-        titleTemplate: '{title}',
-        addFileAttribute: 'true',
-      },
-    ],
-  ],
+  preset: 'ts-jest/presets/js-with-ts',
+  testEnvironment: 'node',
+  globals: {
+    'ts-jest': {
+      diagnostics: false,
+      tsConfig: {
+        allowJs: true,
+        allowSyntheticDefaultImports: true,
+        esModuleInterop: true,
+        module: 'commonjs'
+      }
+    }
+  }
 };

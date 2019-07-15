@@ -838,7 +838,7 @@ describe('mergeTypes', () => {
     ];
     const mergedTypes = mergeTypes(types);
 
-    expect(mergedTypes.match(/scalar Json/g)).toHaveLength(1);
+    expect(mergedTypes.toString().match(/scalar Json/g)).toHaveLength(1);
   });
 
   it('should merge enums - #179', () => {
