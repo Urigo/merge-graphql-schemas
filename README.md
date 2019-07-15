@@ -1,6 +1,6 @@
 # Merge Graphql Schemas
 
-[![Build Status](https://semaphoreci.com/api/v1/okgrow/merge-graphql-schemas/branches/master/shields_badge.svg)](https://semaphoreci.com/okgrow/merge-graphql-schemas)
+[![CircleCI](https://circleci.com/gh/Urigo/merge-graphql-schemas.svg?style=svg)](https://circleci.com/gh/Urigo/merge-graphql-schemas)
 [![npm version](https://img.shields.io/npm/v/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 [![npm downloads](https://img.shields.io/npm/dm/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 
