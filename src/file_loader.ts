@@ -40,14 +40,15 @@ const DEFAULT_EXTENSIONS = ['.ts', '.js', '.gql', '.graphql', '.graphqls'];
 
 const fileLoader = (
   folderPath: string | string[],
-  { recursive = false, extensions = DEFAULT_EXTENSIONS, globOptions = {} } = {},
+  { recursive = false, extensions = DEFAULT_EXTENSIONS, globOptions = {},
+    ignoreIndex = true, } = {},
 ) => {
   const dir = folderPath;
   const schemafiles = getSchemaFiles(dir, recursive, globOptions);
 
   const files = schemafiles
     .map(f => ({ f, pathObj: path.parse(f) }))
-    .filter(({ pathObj }) => pathObj.name.toLowerCase() !== 'index')
+    .filter(({ pathObj }) => (ignoreIndex ? pathObj.name.toLowerCase() !== 'index' : true))
     .filter(({ pathObj }) => extensions.includes(pathObj.ext))
     .map(({ f, pathObj }) => {
       let returnVal;

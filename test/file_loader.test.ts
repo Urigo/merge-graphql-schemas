@@ -7,6 +7,7 @@ import productType from './graphql/types/product_type';
 import vendorType from './graphql/types/vendor_type';
 import personEntityType from './graphql/types/person_entity_type';
 import personSearchType from './graphql/types/person_search_type';
+import indexOfResolvers from './graphql/resolvers/index';
 import clientResolver from './graphql/resolvers/client_resolver';
 import productResolver from './graphql/resolvers/product_resolver';
 import vendorResolver from './graphql/resolvers/vendor_resolver';
@@ -33,6 +34,13 @@ describe('fileLoader', () => {
   it('ignores index files', () => {
     const resolvers = [clientResolver, productResolver, vendorResolver];
     const loadedResolvers = fileLoader(path.join(__dirname, 'graphql/resolvers'));
+
+    expect(loadedResolvers).toEqual(resolvers);
+  });
+
+  it('without ignores index files', () => {
+    const resolvers = [clientResolver, indexOfResolvers, productResolver, vendorResolver];
+    const loadedResolvers = fileLoader(path.join(__dirname, 'graphql/resolvers'), {ignoreIndex: false});
 
     expect(loadedResolvers).toEqual(resolvers);
   });
