@@ -32,6 +32,24 @@ This tool:
 npm install -S merge-graphql-schemas
 ```
 
+### Note for Non-Node environments, Webpack and Rollup
+
+> `fileLoader` is not compatible with any of these. So, it is not recommended to use `fileLoader` in those environments and bundlers.
+
+> Also if you use `merge-graphql-schemas` with those environments or bundlers, you have define `fs` as an NodeJS external.
+
+For example in webpack;
+
+```js
+  {
+    // ...
+    externals: {
+        fs: 'commonjs fs'
+    }
+    // ...
+  }
+```
+
 ## Usage
 
 ### Merging type definitions
