@@ -1387,10 +1387,10 @@ graphql-import@0.7.1:
     lodash "^4.17.4"
     resolve-from "^4.0.0"
 
-graphql-toolkit@0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/graphql-toolkit/-/graphql-toolkit-0.3.4.tgz#7152205234479352bb871b96a116d6b61d3cc247"
-  integrity sha512-a7pv/1D6RuyvY4BsGyF7FFfUIExzrx9eYIPwtkGDpo+j7PQbBYY7m9mQet07XUMw96wVZ4O1tqXrWOd8HfWziQ==
+graphql-toolkit@0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/graphql-toolkit/-/graphql-toolkit-0.3.5.tgz#1f6df21e5e8dc764dc63d5931e9960adc1799d0c"
+  integrity sha512-sPz2q8J7ko2TjG5j53Ri09rn9wBBcWELxGNVjOhMoPTbL/MwJIm5L5xxCcJpaJfgpJIQ1tp+gtPpP9Tupd9h4Q==
   dependencies:
     "@kamilkisiela/graphql-tools" "4.0.6"
     "@types/glob" "7.1.1"

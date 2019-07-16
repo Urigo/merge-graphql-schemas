@@ -14,6 +14,7 @@ import vendorResolver from './graphql/resolvers/vendor_resolver';
 
 const rawType = fs.readFileSync(`${__dirname}/graphql/types/raw_type.graphqls`).toString();
 const raw2Type = fs.readFileSync(`${__dirname}/graphql/types/client/raw2_type.gql`).toString();
+const raw3Type = fs.readFileSync(`${__dirname}/graphql/type_with_other_scripts/groot/groot.gql`).toString();
 
 describe('fileLoader', () => {
   it('loads all files from specified folder', () => {
@@ -91,7 +92,7 @@ describe('fileLoader', () => {
   });
 
   it('loads all files from glob pattern of ext .graphqls or .gql', () => {
-    const types = [raw2Type, rawType];
+    const types = [raw3Type, raw2Type, rawType];
 
     const loadedTypes = fileLoader(path.join(__dirname, 'graphql/**/*.+(graphqls|gql)'));
 

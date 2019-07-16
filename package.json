@@ -33,7 +33,7 @@
   "dependencies": {
     "deepmerge": "2.2.1",
     "globs": "0.1.4",
-    "graphql-toolkit": "0.3.4",
+    "graphql-toolkit": "0.3.5",
     "is-glob": "4.0.0"
   },
   "peerDependencies": {

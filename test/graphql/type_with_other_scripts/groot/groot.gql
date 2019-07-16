@@ -1,0 +1,8 @@
+type Query {
+  groot: Groot
+}
+
+type Groot {
+  id: ID!
+  status: String
+} 
