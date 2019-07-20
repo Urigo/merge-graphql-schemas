@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.6.0]
+### Fixed
+- Migrate codebase to TypeScript [#195](https://github.com/okgrow/merge-graphql-schemas/issues/195)
+- Merge directives [#182](https://github.com/okgrow/merge-graphql-schemas/issues/182)
+- Merge AST [#180](https://github.com/okgrow/merge-graphql-schemas/issues/180)
+- Merge Enums [#179](https://github.com/okgrow/merge-graphql-schemas/issues/179)
+- Support arrays for glob patterns [#177](https://github.com/okgrow/merge-graphql-schemas/issues/177)
+- Fix duplication issue for interface and scalars [#158](https://github.com/okgrow/merge-graphql-schemas/issues/158)
+- Fix schema definition issue [#155](https://github.com/okgrow/merge-graphql-schemas/issues/155)
+- Fix bundling issues; [#151](https://github.com/okgrow/merge-graphql-schemas/issues/151) , [#145](https://github.com/okgrow/merge-graphql-schemas/issues/145) , [#137](https://github.com/okgrow/merge-graphql-schemas/issues/137)
+- Fix comment issues [#136](https://github.com/okgrow/merge-graphql-schemas/issues/136) , [#84](https://github.com/okgrow/merge-graphql-schemas/issues/84)
+- Fix error when newDef is undefined [#133](https://github.com/Urigo/merge-graphql-schemas/issues/133)
+
 ## [1.5.8]
 ### Fixed
 - Fix exception message when checking NamedType. [PR #178](https://github.com/okgrow/merge-graphql-schemas/pull/178) by [Fi1osof](https://github.com/Fi1osof).
