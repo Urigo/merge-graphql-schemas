@@ -18,6 +18,9 @@ jobs:
           command: yarn test
       - store_test_results:
           path: test-results
+      - run:
+          name: Publish Canary Version
+          command: yarn ci:release:canary
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:

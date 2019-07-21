@@ -27,6 +27,7 @@ describe('fileLoader', () => {
       vendorType,
     ];
 
+
     const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'));
 
     expect(loadedTypes).toEqual(types);
@@ -48,9 +49,9 @@ describe('fileLoader', () => {
 
   it('loads all files recursively from specified folder', () => {
     const types = [
+      clientType,
       contactType,
       raw2Type,
-      clientType,
       personEntityType,
       personSearchType,
       productType,

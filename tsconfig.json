@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "module": "esnext",
         "target": "es2018",
