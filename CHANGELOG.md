@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.7.0]
+### Added
+ - Merges field's arguments [PR #189](https://github.com/ardatan/graphql-toolkit/pull/189)
+ - Prefers NonNullable over Nullable [PR #189](https://github.com/ardatan/graphql-toolkit/pull/189)
+
+### Fixed
+ - Considers extension when ignoring index files [PR #188](https://github.com/ardatan/graphql-toolkit/pull/188)
+ - Signature of fileLoader [`bdaf070`](https://github.com/Urigo/merge-graphql-schemas/commit/bdaf07001f230add6bee189e4d5a7c8282e2511c)
+
 ## [1.6.0]
 ### Fixed
 - Migrate codebase to TypeScript [#195](https://github.com/okgrow/merge-graphql-schemas/issues/195)
