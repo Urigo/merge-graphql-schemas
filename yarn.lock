@@ -1482,10 +1482,10 @@ graphql-import@0.7.1:
     lodash "^4.17.4"
     resolve-from "^4.0.0"
 
-graphql-toolkit@0.5.12:
-  version "0.5.12"
-  resolved "https://registry.yarnpkg.com/graphql-toolkit/-/graphql-toolkit-0.5.12.tgz#2ab4a81ff2e67bd591be5c660f09744024d98617"
-  integrity sha512-sYiY6lBBd09uRPSIzEbbBuMLxzFhMBRg688cbaCbqhjEEzKN5mKZr+Chd5jFYPrDv5yKAzeHnujqvIzjs7bO+A==
+graphql-toolkit@0.5.13:
+  version "0.5.13"
+  resolved "https://registry.yarnpkg.com/graphql-toolkit/-/graphql-toolkit-0.5.13.tgz#5c3a5cc5f9bdf18ac1c8ea209a3d51efbe2b9623"
+  integrity sha512-5L5KEnuvJH1bc49w3lbcGm9YC8M7y0A0gQuNYrXlVWCrefCXMI9DWhx7c7MwyyHEF4Rp9wKP5uiWSyLghKsumg==
   dependencies:
     "@kamilkisiela/graphql-tools" "4.0.6"
     "@types/glob" "7.1.1"
