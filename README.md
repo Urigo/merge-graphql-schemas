@@ -2,6 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/Urigo/merge-graphql-schemas.svg?style=svg)](https://circleci.com/gh/Urigo/merge-graphql-schemas)
 [![npm version](https://img.shields.io/npm/v/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
+[![Discord Chat](https://img.shields.io/discord/625400653321076807)](https://discord.gg/xud7bH9)
 [![npm downloads](https://img.shields.io/npm/dm/merge-graphql-schemas.svg?style=flat-square)](https://www.npmjs.com/package/merge-graphql-schemas)
 
 > A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.
