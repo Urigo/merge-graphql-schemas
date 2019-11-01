@@ -1,5 +1,5 @@
 // ./graphql/types/productType.js
-export default `
+export default /* GraphQL */`
   type Product {
     id: ID!
     description: String

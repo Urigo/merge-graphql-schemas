@@ -2,13 +2,8 @@
     "compilerOptions": {
         "experimentalDecorators": true,
         "module": "esnext",
-        "target": "es2018",
-        "lib": [
-            "es6",
-            "esnext",
-            "es2015",
-            "es2017.object"
-        ],
+        "target": "esnext",
+        "lib": ["esnext"],
         "suppressImplicitAnyIndexErrors": true,
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,

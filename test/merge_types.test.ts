@@ -1,6 +1,6 @@
 import { parse } from 'graphql';
 
-import mergeTypes from '../src/merge_types';
+import { mergeTypes } from '../src/merge_types';
 import clientType from './graphql/types/client_type';
 import productType from './graphql/types/product_type';
 import vendorType from './graphql/types/vendor_type';

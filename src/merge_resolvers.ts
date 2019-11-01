@@ -1,3 +1,2 @@
-import { mergeResolvers } from 'graphql-toolkit';
+export { mergeResolvers } from '@graphql-toolkit/schema-merging';
 
-export default mergeResolvers;

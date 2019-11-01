@@ -1,4 +1,4 @@
-import mergeResolvers from '../src/merge_resolvers';
+import { mergeResolvers } from '../src/merge_resolvers';
 import clientResolvers from './graphql/resolvers/client_resolver';
 import productResolvers from './graphql/resolvers/product_resolver';
 import vendorResolvers from './graphql/resolvers/vendor_resolver';

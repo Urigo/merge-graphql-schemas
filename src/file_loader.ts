@@ -1,8 +1,8 @@
-import { loadSchemaFiles } from 'graphql-toolkit';
+import { loadSchemaFiles } from '@graphql-toolkit/file-loading';
 
 const DEFAULT_EXTENSIONS = ['ts', 'js', 'gql', 'graphql', 'graphqls'];
 
-const fileLoader = (
+export const fileLoader = (
   path: string,
   { recursive = false, extensions = DEFAULT_EXTENSIONS, globOptions = {},
     ignoreIndex = true, } = {},
@@ -15,4 +15,3 @@ const fileLoader = (
     })
 };
 
-export default fileLoader;

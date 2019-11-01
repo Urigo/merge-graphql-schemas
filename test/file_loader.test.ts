@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import fileLoader from '../src/file_loader';
+import { fileLoader } from '../src/file_loader';
 import clientType from './graphql/types/client_type';
 import contactType from './graphql/types/client/contact_type';
 import productType from './graphql/types/product_type';
@@ -42,7 +42,7 @@ describe('fileLoader', () => {
 
   it('without ignores index files', () => {
     const resolvers = [clientResolver, indexOfResolvers, productResolver, vendorResolver];
-    const loadedResolvers = fileLoader(path.join(__dirname, 'graphql/resolvers'), {ignoreIndex: false});
+    const loadedResolvers = fileLoader(path.join(__dirname, 'graphql/resolvers'), { ignoreIndex: false });
 
     expect(loadedResolvers).toEqual(resolvers);
   });

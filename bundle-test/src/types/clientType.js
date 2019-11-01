@@ -1,5 +1,5 @@
 // ./graphql/types/clientType.js
-export default `
+export default /* GraphQL */`
   type Client {
     id: ID!
     name: String

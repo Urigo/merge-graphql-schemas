@@ -32,13 +32,15 @@
     "typings"
   ],
   "dependencies": {
-    "graphql-toolkit": "0.5.18",
+    "@graphql-toolkit/file-loading": "0.6.5",
+    "@graphql-toolkit/schema-merging": "0.6.5",
     "tslib": "1.10.0"
   },
   "peerDependencies": {
     "graphql": "^0.11.7 || ^0.13.0 || ^14.0.2"
   },
   "devDependencies": {
+    "@types/glob": "7.1.1",
     "@types/graphql": "14.2.3",
     "@types/jest": "24.0.21",
     "graphql": "14.5.8",

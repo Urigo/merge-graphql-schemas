@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import fileLoader from '../src/file_loader';
-import mergeTypes from '../src/merge_types';
+import { fileLoader } from '../src/file_loader';
+import { mergeTypes } from '../src/merge_types';
 
 const normalizeWhitespace = str => str.replace(/\s+/g, ' ').trim();
 
