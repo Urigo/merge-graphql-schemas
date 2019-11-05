@@ -83,13 +83,13 @@ describe('fileLoader', () => {
   });
 
   it('unexpected extension should be ignored', () => {
-    const types = [rawType];
+    const types = [rawType, clientType, personEntityType, personSearchType, productType, vendorType];
 
     const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), {
-      extensions: ['.graphqls', '.txt'],
+      extensions: ['.graphqls', '.txt', '.js'],
     });
 
-    expect(loadedTypes).toEqual(types);
+    expect(loadedTypes.sort()).toEqual(types.sort());
   });
 
   it('loads all files from glob pattern of ext .graphqls or .gql', () => {

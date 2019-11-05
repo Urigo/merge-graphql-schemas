@@ -18,9 +18,11 @@ jobs:
           command: yarn test
       - store_test_results:
           path: test-results
-#      - run:
-#          name: Publish Canary Version
-#          command: yarn ci:release:canary
+      - run:
+          name: Publish Canary
+          command: |
+            echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > .npmrc
+            npm run ci:release:canary
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
