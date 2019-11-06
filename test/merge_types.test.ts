@@ -396,8 +396,8 @@ describe('mergeTypes', () => {
     const expectedType = normalizeWhitespace(`
       enum ClientStatus {
         NEW
-        ACTIVE
         INACTIVE
+        ACTIVE
       }
     `);
 
@@ -858,8 +858,8 @@ describe('mergeTypes', () => {
     const mergedTypes = mergeTypes(types);
     const expectedClientType = normalizeWhitespace(/* GraphQL */ `
       enum Food {
-        BURGER
         PIZZA
+        BURGER
       }
     `);
     const separateTypes = normalizeWhitespace(mergedTypes);
