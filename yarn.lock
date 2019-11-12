@@ -148,12 +148,21 @@
     aggregate-error "3.0.1"
     lodash "4.17.15"
 
-"@graphql-toolkit/file-loading@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@graphql-toolkit/file-loading/-/file-loading-0.7.0.tgz#65481aca822b71fadfbd019b6759315e53431104"
-  integrity sha512-OuU++X6LYeMbzSOzLD26Uwa63GnS3K9Rn26P7CbIhNGkGOvT9FeM/bfOQpXe0u1gFw8+IKHBg0X387gMEGJ98Q==
+"@graphql-toolkit/common@0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@graphql-toolkit/common/-/common-0.7.1.tgz#1c938d30e355639b0d67900f63bdeac96e8afc75"
+  integrity sha512-IuHSErK43kKaoA8fPqWqOsWKQImKQf3dIBYJsTdUSV7ch1nz/FpRFKKfv2jCUzrS0g1R+3iSPPX4+iRpOFdz+g==
   dependencies:
-    "@graphql-toolkit/common" "0.7.0"
+    "@kamilkisiela/graphql-tools" "4.0.6"
+    aggregate-error "3.0.1"
+    lodash "4.17.15"
+
+"@graphql-toolkit/file-loading@0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@graphql-toolkit/file-loading/-/file-loading-0.7.1.tgz#f1488d4ccbebf9ada4ec7719b11112c4e4614fde"
+  integrity sha512-6xtx0v640zOQNz7rreP460NFskkk6U8CUIe77XC3+N+LTb5+Qv8bbTzb82WcAhiETx0TgbzVwoeCh3/CzDJVmA==
+  dependencies:
+    "@graphql-toolkit/common" "0.7.1"
     "@kamilkisiela/graphql-tools" "4.0.6"
     glob "7.1.6"
 
