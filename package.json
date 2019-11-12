@@ -33,7 +33,7 @@
   ],
   "dependencies": {
     "@graphql-toolkit/file-loading": "0.7.1",
-    "@graphql-toolkit/schema-merging": "0.7.0",
+    "@graphql-toolkit/schema-merging": "0.7.1",
     "tslib": "1.10.0"
   },
   "peerDependencies": {
