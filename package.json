@@ -32,7 +32,7 @@
     "typings"
   ],
   "dependencies": {
-    "@graphql-toolkit/file-loading": "0.7.1",
+    "@graphql-toolkit/file-loading": "0.7.2",
     "@graphql-toolkit/schema-merging": "0.7.1",
     "tslib": "1.10.0"
   },
