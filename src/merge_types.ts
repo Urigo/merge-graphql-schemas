@@ -1,5 +1,6 @@
 import { mergeTypeDefs } from '@graphql-toolkit/schema-merging';
-import { Config } from '@graphql-toolkit/schema-merging/dist/esnext/typedefs-mergers/merge-typedefs';
+
+type Config = Parameters<typeof mergeTypeDefs>[1];
 
 export const mergeTypes = (types: any[], options?: { schemaDefinition?: boolean, all?: boolean } & Partial<Config>) => {
   const schemaDefinition = options && typeof options.schemaDefinition === 'boolean'

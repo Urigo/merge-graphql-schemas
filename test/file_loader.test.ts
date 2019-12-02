@@ -25,24 +25,24 @@ describe('fileLoader', () => {
       productType,
       rawType,
       vendorType,
-    ];
+    ].sort();
 
 
-    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'));
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types')).sort();
 
     expect(loadedTypes).toEqual(types);
   });
 
   it('ignores index files', () => {
-    const resolvers = [clientResolver, productResolver, vendorResolver];
-    const loadedResolvers = fileLoader(path.join(__dirname, 'graphql/resolvers'));
+    const resolvers = [clientResolver, productResolver, vendorResolver].sort();
+    const loadedResolvers = fileLoader(path.join(__dirname, 'graphql/resolvers')).sort();
 
     expect(loadedResolvers).toEqual(resolvers);
   });
 
   it('without ignores index files', () => {
-    const resolvers = [clientResolver, indexOfResolvers, productResolver, vendorResolver];
-    const loadedResolvers = fileLoader(path.join(__dirname, 'graphql/resolvers'), { ignoreIndex: false });
+    const resolvers = [clientResolver, indexOfResolvers, productResolver, vendorResolver].sort();
+    const loadedResolvers = fileLoader(path.join(__dirname, 'graphql/resolvers'), { ignoreIndex: false }).sort();
 
     expect(loadedResolvers).toEqual(resolvers);
   });
@@ -57,45 +57,45 @@ describe('fileLoader', () => {
       productType,
       rawType,
       vendorType,
-    ];
+    ].sort();
 
-    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { recursive: true });
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { recursive: true }).sort();
 
     expect(loadedTypes).toEqual(types);
   });
 
   it('loads all files from specified folder with ext .js', () => {
-    const types = [clientType, personEntityType, personSearchType, productType, vendorType];
+    const types = [clientType, personEntityType, personSearchType, productType, vendorType].sort();
 
-    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { extensions: ['.js'] });
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), { extensions: ['.js'] }).sort();
 
     expect(loadedTypes).toEqual(types);
   });
 
   it('loads all files from specified folder with ext .graphqls', () => {
-    const types = [rawType];
+    const types = [rawType].sort();
 
     const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), {
       extensions: ['.graphqls'],
-    });
+    }).sort();
 
     expect(loadedTypes).toEqual(types);
   });
 
   it('unexpected extension should be ignored', () => {
-    const types = [rawType, clientType, personEntityType, personSearchType, productType, vendorType];
+    const types = [rawType, clientType, personEntityType, personSearchType, productType, vendorType].sort();
 
     const loadedTypes = fileLoader(path.join(__dirname, 'graphql/types'), {
       extensions: ['.graphqls', '.txt', '.js'],
-    });
+    }).sort();
 
-    expect(loadedTypes.sort()).toEqual(types.sort());
+    expect(loadedTypes).toEqual(types);
   });
 
   it('loads all files from glob pattern of ext .graphqls or .gql', () => {
-    const types = [raw3Type, raw2Type, rawType];
+    const types = [raw3Type, raw2Type, rawType].sort();
 
-    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/**/*.+(graphqls|gql)'));
+    const loadedTypes = fileLoader(path.join(__dirname, 'graphql/**/*.+(graphqls|gql)')).sort();
 
     expect(loadedTypes).toEqual(types);
   });

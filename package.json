@@ -9,17 +9,23 @@
   },
   "license": "MIT",
   "sideEffects": false,
-  "main": "dist/commonjs/index.js",
-  "module": "dist/esnext/index.js",
-  "typings": "dist/esnext/index.d.ts",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
   "typescript": {
-    "definition": "dist/esnext/index.d.ts"
+    "definition": "dist/index.d.ts"
+  },
+  "buildOptions": {
+    "input": "./src/index.ts"
   },
   "scripts": {
-    "build": "tsc -m esnext --outDir dist/esnext && tsc -m commonjs --outDir dist/commonjs",
-    "test": "jest --forceExit && yarn bundlesize",
+    "clean": "rimraf dist",
+    "prebuild": "yarn clean",
+    "build": "bob",
+    "prepack": "bob-update-version",
+    "test": "jest --no-watchman",
     "ci:release:canary": "node bump.js && npm publish --tag alpha",
-    "bundlesize": "yarn build && cd bundle-test/ && yarn && yarn test"
+    "bundlesize": "cd bundle-test/ && yarn && yarn test"
   },
   "bugs": "https://github.com/Urigo/merge-graphql-schemas/issues",
   "homepage": "https://github.com/Urigo/merge-graphql-schemas",
@@ -32,16 +38,16 @@
     "typings"
   ],
   "dependencies": {
-    "@graphql-toolkit/file-loading": "0.7.2",
-    "@graphql-toolkit/schema-merging": "0.7.2",
+    "@graphql-toolkit/file-loading": "0.7.4",
+    "@graphql-toolkit/schema-merging": "0.7.4",
     "tslib": "1.10.0"
   },
   "peerDependencies": {
     "graphql": "^0.11.7 || ^0.13.0 || ^14.0.2"
   },
   "devDependencies": {
+    "@ardatan/bob": "0.1.7",
     "@types/glob": "7.1.1",
-    "@types/graphql": "14.2.3",
     "@types/jest": "24.0.23",
     "graphql": "14.5.8",
     "jest": "24.9.0",

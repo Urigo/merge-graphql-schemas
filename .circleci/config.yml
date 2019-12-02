@@ -16,6 +16,9 @@ jobs:
       - run:
           name: Test
           command: yarn test
+      - run:
+          name: Bundle Size
+          command: yarn bundlesize
       - store_test_results:
           path: test-results
       - run:

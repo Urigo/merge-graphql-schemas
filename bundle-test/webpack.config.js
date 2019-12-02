@@ -7,7 +7,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            'merge-graphql-schemas': path.join(__dirname, '../dist/esnext')
+            'merge-graphql-schemas': path.join(__dirname, '../dist')
         },
         modules: ['node_modules', '../node_modules']
     },
