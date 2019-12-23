@@ -39,15 +39,14 @@
   ],
   "dependencies": {
     "@graphql-toolkit/file-loading": "0.7.5",
-    "@graphql-toolkit/schema-merging": "0.7.4",
+    "@graphql-toolkit/schema-merging": "0.7.5",
     "tslib": "1.10.0"
   },
   "peerDependencies": {
     "graphql": "^0.11.7 || ^0.13.0 || ^14.0.2"
   },
   "devDependencies": {
-    "@ardatan/bob": "0.1.8",
-    "@types/glob": "7.1.1",
+    "bob-the-bundler": "0.2.2",
     "@types/jest": "24.0.24",
     "graphql": "14.5.8",
     "jest": "24.9.0",
