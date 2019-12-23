@@ -1,7 +1,7 @@
 {
   "name": "merge-graphql-schemas",
   "author": "The Guild",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "description": "A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.",
   "repository": {
     "type": "git",
