@@ -149,10 +149,10 @@
     is-glob "4.0.1"
     lodash "4.17.15"
 
-"@graphql-toolkit/file-loading@0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@graphql-toolkit/file-loading/-/file-loading-0.8.0.tgz#1de8adc7657a727c116455b3dab5bf3a7e5d1e78"
-  integrity sha512-9ejcWu1WHNO3TNeVcoHQHhf5KHQVGbh9TbaGrTaMrDVlN6qZ1S+TZbq3tapwlVX948yMjP9kG1eHO12pd71eAQ==
+"@graphql-toolkit/file-loading@0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@graphql-toolkit/file-loading/-/file-loading-0.8.1.tgz#542b51a0b915493f2ee47e1cdeec6f4011905391"
+  integrity sha512-Yx94MNbk6KUfd719pmcEHJd/NPOwo/h0YIQl6Na3U3RNueJQBHANg3whYOZio5hHaJ9q3o2/C2RGNLI5ym+mYQ==
   dependencies:
     globby "10.0.1"
     unixify "1.0.0"
