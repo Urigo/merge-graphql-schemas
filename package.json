@@ -1,7 +1,7 @@
 {
   "name": "merge-graphql-schemas",
   "author": "The Guild",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.",
   "repository": {
     "type": "git",
@@ -38,8 +38,8 @@
     "typings"
   ],
   "dependencies": {
-    "@graphql-toolkit/file-loading": "0.8.1",
-    "@graphql-toolkit/schema-merging": "0.8.1",
+    "@graphql-toolkit/file-loading": "0.9.0",
+    "@graphql-toolkit/schema-merging": "0.9.0",
     "tslib": "1.10.0"
   },
   "peerDependencies": {
