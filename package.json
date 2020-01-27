@@ -49,7 +49,7 @@
     "bob-the-bundler": "0.2.2",
     "@types/jest": "24.9.1",
     "graphql": "14.6.0",
-    "jest": "24.9.0",
+    "jest": "25.1.0",
     "ts-jest": "25.0.0",
     "typescript": "3.7.5"
   },
