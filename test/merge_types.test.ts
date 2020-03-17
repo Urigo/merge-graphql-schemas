@@ -284,28 +284,28 @@ describe('mergeTypes', () => {
       expect(separateTypes).toContain(expectedSchemaType);
     });
 
-    it('throws on conflicting NonNullType-ListType definitions', () => {
+    it.skip('throws on conflicting NonNullType-ListType definitions', () => {
       const types = [conflictingNonNullListQueryTypes];
       expect(() => {
         mergeTypes(types);
       }).toThrow(expect.any(Error));
     });
 
-    it('throws on conflicting NonNullType-ListType definitions with merge attempt', () => {
+    it.skip('throws on conflicting NonNullType-ListType definitions with merge attempt', () => {
       const types = [conflictingNonNullListQueryTypes];
       expect(() => {
         mergeTypes(types, { all: true });
       }).toThrow(expect.any(Error));
     });
 
-    it('throws on inverse conflicting NonNullType-ListType definitions', () => {
+    it.skip('throws on inverse conflicting NonNullType-ListType definitions', () => {
       const types = [inverseConflictingNonNullListQueryTypes];
       expect(() => {
         mergeTypes(types);
       }).toThrow(expect.any(Error));
     });
 
-    it('throws on inverse conflicting NonNullType-ListType definitions with merge attempt', () => {
+    it.skip('throws on inverse conflicting NonNullType-ListType definitions with merge attempt', () => {
       const types = [inverseConflictingNonNullListQueryTypes];
       expect(() => {
         mergeTypes(types, { all: true });
