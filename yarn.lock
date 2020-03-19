@@ -874,10 +874,10 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bob-the-bundler@0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/bob-the-bundler/-/bob-the-bundler-0.3.2.tgz#27a78587078b3a9dade72e1bdcf5e72ec3eb3fe2"
-  integrity sha512-++6Xsba07KMlXKHsPHRxy+2SwofQ5iJ/822Hqk45IuTs6Re+y34v8LPMij+v5sRsHm7ckfTC3cHnUZQLD7cg/A==
+bob-the-bundler@0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/bob-the-bundler/-/bob-the-bundler-0.3.3.tgz#59057317a49898bb22a49b6f5fb45347cd934bc4"
+  integrity sha512-LBsQdBAxRLbXH/flyo0i0US14m68w77DQduVkWQFk1IIdcYd/yPX6Dt5CMOQVaEm69336n+ijpjj36CFB+o24Q==
   dependencies:
     globby "11.0.0"
     mv "2.1.1"
