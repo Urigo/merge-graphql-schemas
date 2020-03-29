@@ -38,8 +38,8 @@
     "typings"
   ],
   "dependencies": {
-    "@graphql-toolkit/file-loading": "0.9.10",
-    "@graphql-toolkit/schema-merging": "0.9.10",
+    "@graphql-toolkit/file-loading": "0.9.11",
+    "@graphql-toolkit/schema-merging": "0.9.11",
     "tslib": "1.11.1"
   },
   "peerDependencies": {
