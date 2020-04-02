@@ -1,7 +1,7 @@
 {
   "name": "merge-graphql-schemas",
   "author": "The Guild",
-  "version": "1.7.6",
+  "version": "1.7.7",
   "description": "A utility library to facilitate merging of modularized GraphQL schemas and resolver objects.",
   "repository": {
     "type": "git",
@@ -22,9 +22,8 @@
     "clean": "rimraf dist",
     "prebuild": "yarn clean",
     "build": "bob",
-    "prepack": "bob-update-version",
     "test": "jest --no-watchman",
-    "ci:release:canary": "node bump.js && npm publish --tag alpha",
+    "ci:release:canary": "node bump.js && bob-update-version && npm publish dist --tag alpha",
     "bundlesize": "cd bundle-test/ && yarn && yarn test"
   },
   "bugs": "https://github.com/Urigo/merge-graphql-schemas/issues",
