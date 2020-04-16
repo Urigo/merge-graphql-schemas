@@ -10,3 +10,5 @@ dist
 test-results
 .env
 .vscode
+yarn.lock
+package-lock.json
