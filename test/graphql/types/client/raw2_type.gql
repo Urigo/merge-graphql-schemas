@@ -1,7 +1,0 @@
-type Raw2 {
-  field: String!
-}
-
-type Query {
-  raw2Query: [Raw2]
-}
